@@ -231,11 +231,10 @@ Expresion Driver::asignacion(std::string id, Expresion e){
     return e1;
 }
 
-Expresion suma(Expresion e1, Expresion e2){
+Expresion Driver::suma(Expresion e1, Expresion e2){
     Cuadrupla c;
     Expresion e;
     e.tipo = maximo(e1.tipo, e2.tipo);
-
 
     if(e.tipo != -1){
         e.dir = nuevaTemporal(),
@@ -254,6 +253,58 @@ Expresion suma(Expresion e1, Expresion e2){
     return e;
 }
 
+Expresion Driver::resta(Expresion e1, Expresion e2){
+    Expresion e;
+    e.tipo = maximo(e1.tipo, e2.tipo);
+    
+    if(e.tipo != -1){
+        string alfa1 = ampliar(e1.dir, e1.tipo, e.tipo);
+        string alfa2 = ampliar(e2.dir, e2.tipo, e.tipo);
+        c.operador = "-";
+        c.arg1 = alfa1;
+        c.arg2 = alfa2;
+        c.resultado = e.dir;
+        codigo_intermedio.push_back(c);
+    }
+    else{
+        error_semantico("Los tipos son incompatibles.");
+    }
+    return e;
+}
+
+Expresion multiplicacion(Expresion e1, Expresion e2){
+    Expresion e;
+    e.tipo = maximo(e1.tipo, e2.tipo);
+    if(e.tipo!=-1){
+        string alfa1 = ampliar(e1.dir, e1.tipo, e.tipo);
+        string alfa2 = ampliar(e2.dir, e2.tipo, e.tipo);
+        c.operador = "*";
+        c.arg1 = alfa1;
+        c.arg2 = alfa2;
+        c.resultado = e.dir;
+        codigo_intermedio.push_back(c);
+    }else{
+        error_semantico("Los tipos son incompatibles.");
+    }
+    return e;
+}
+Expresion division(Expresion e1, Expresion e2){
+    Expresion e;
+    e.tipo = max(e1.tipo, e2.tipo);
+    if(e.tipo!=-1){
+        string alfa1 = ampliar(e1.dir, e1.tipo, e.tipo);
+        string alfa2 = ampliar(e2.dir, e2.tipo, e.tipo);
+        c.operador = "/";
+        c.arg1 = alfa1;
+        c.arg2 = alfa2;
+        c.resultado = e.dir;
+        codigo_intermedio.push_back(c);
+    }else{
+        error_semantico("Los tipos son incompatibles.");
+    }
+    return e;
+}
+
 Expresion igual(Expresion e1, Expresion e2);
 Expresion distinto(Expresion e1, Expresion e2);
 Expresion mayor_que(Expresion e1, Expresion e2);
@@ -261,9 +312,8 @@ Expresion menor_que(Expresion e1, Expresion e2);
 Expresion mayor_o_igual(Expresion e1, Expresion e2);
 Expresion menor_o_igual(Expresion e1, Expresion e2);
 
-Expresion resta(Expresion e1, Expresion e2);
-Expresion multiplicacion(Expresion e1, Expresion e2);    
-Expresion division(Expresion e1, Expresion e2);    
+
+ 
 Expresion negacion(Expresion e1);
 
 
