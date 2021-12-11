@@ -3,6 +3,10 @@
 #include <string>
 #include <map>
 #include <stack>
+#include <vector>
+using namespace std;
+
+#include 
 
 struct Cuadrupla{
     std::string arg1;
@@ -21,8 +25,7 @@ struct Numero{
     std::string val;
     int tipo;
 };
-class Driver
-{
+class Driver{
 private:
     //TypeTab tt;
     //Pila de tablas de símbolos
@@ -54,7 +57,7 @@ public:
     
 
     void asignacion(std::string id, Expresion e);
-    Expresion disyunción(Expresion e1, Expresion e2);
+    Expresion disyuncion(Expresion e1, Expresion e2);
     Expresion conjuncion(Expresion e1, Expresion e2);
     Expresion igual(Expresion e1, Expresion e2);
     Expresion distinto(Expresion e1, Expresion e2);
@@ -83,6 +86,5 @@ public:
     void gen_goto(string label);
     void gen_if(string var, string ltrue);
 };
-
 
 #endif // !__DRIVER_HPP__
