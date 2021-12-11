@@ -5,6 +5,7 @@ Driver::Driver(){
     dir = 0;
     numEtiquetas = 0;
     numTemporales = 0;
+    numTipos = 0;
     cteFloat = 0;
 }
 
@@ -12,10 +13,20 @@ Driver::~Driver(){
 }
 
 // Funciones para tabla de tipos
-int agregar_tipo(string nombre, int tam_bytes, SymTab *tipo_base);
+int agregar_tipo(string nombre, int tam_bytes, SymTab *tipo_base){
+    tt.addTipo(nombre,tam_bytes,tipo_base);
+    return numTipos-1;
+}
 //
-void agregar_simbolo(std::string id, int tipo, std::string categoria);
-void agregar_simbolo(std::string id, int tipo, std::vector<int> args);
+void agregar_simbolo(std::string id, int tipo, std::string categoria){
+    addSim(id, tipo, categoria);
+    dir += tt.getTam(tipo);
+}
+
+//Falta cat en los argumentos
+void agregar_simbolo(std::string id, int tipo, std::vector<int> args){
+    ts.addSim(id, Sim(dir,tipo,args));
+}
 
 string nuevaEtiqueta(){
     stringstream etiqueta;
@@ -177,7 +188,70 @@ void Driver::gen_imprimir(string val){
     cout<<endl;
 }
 
-void Driver::asignacion(std::string id, Expresion e){
+Expresion identificador(std::string id){
+    Expresion e;
+    if(ts.is_in(id)){
+        e.dir = id;
+        e.tipo = ts.getTipo(id);
+    }
+    else{
+        error_semantico("El identificador " + id + " no fue declarado.");
+    }
+}
+
+Expresion Driver::asignacion(std::string id, Expresion e){
+    Expresion e1;
+    string alfa;
+    Cuadrupla c;
+    int tipoId;
+
+    if(!ts.is_in(id))
+        error_semantico("La variable " + id + " no fue declarada.");
+    
+    tipoId = ts.getTipo(id);
+    e1.tipo = tipoId;
+
+    if(tipoId == e.tipo){
+        alfa = e.dir;
+    }
+    else if(tipoId > e.tipo){
+        alfa = ampliar(e.dir, e.tipo, e1.tipo);
+    }
+    else if(minimo(tipoId, e.tipo) != 1){
+        alfa = reducir(e.dir, e.tipo, e1.tipo);
+    }
+    else{
+        error_semantico("Los tipos son incompatibles.");
+    }
+    c.operador = "=";
+    c.arg1 = alfa;
+    c.arg2 = "";
+    c.resultado = id;
+    codigo_intermedio.push_back(c);
+    return e1;
+}
+
+Expresion suma(Expresion e1, Expresion e2){
+    Cuadrupla c;
+    Expresion e;
+    e.tipo = maximo(e1.tipo, e2.tipo);
+
+
+    if(e.tipo != -1){
+        e.dir = nuevaTemporal(),
+        addSim(e.dir,e.tipo,"temporal");
+        string alfa1 = ampliar(e1.dir, e1.tipo, e.tipo);
+        string alfa2 = ampliar(e2.dir, e2.tipo, e.tipo);
+        c.operador = "+";
+        c.arg1 = alfa1;
+        c.arg2 = alfa2;
+        c.resultado = e.dir;
+        codigo_intermedio.push_back(c);
+    }
+    else{
+        error_semantico("Los tipos son incompatibles.");
+    }
+    return e;
 }
 
 Expresion igual(Expresion e1, Expresion e2);
@@ -186,12 +260,12 @@ Expresion mayor_que(Expresion e1, Expresion e2);
 Expresion menor_que(Expresion e1, Expresion e2);
 Expresion mayor_o_igual(Expresion e1, Expresion e2);
 Expresion menor_o_igual(Expresion e1, Expresion e2);
-Expresion suma(Expresion e1, Expresion e2);
+
 Expresion resta(Expresion e1, Expresion e2);
 Expresion multiplicacion(Expresion e1, Expresion e2);    
 Expresion division(Expresion e1, Expresion e2);    
 Expresion negacion(Expresion e1);
-Expresion identificador(std::string id);
+
 
 void Driver::gen_lectura(string dir){
 }

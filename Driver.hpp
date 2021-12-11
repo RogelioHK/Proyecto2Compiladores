@@ -6,7 +6,7 @@
 #include <vector>
 using namespace std;
 
-#include 
+#include "TablaDeSimbolos.hpp"
 
 struct Cuadrupla{
     std::string arg1;
@@ -15,20 +15,32 @@ struct Cuadrupla{
     std::string resultado;
 };
 
-class SymTab;
+//class SymTab;
 struct Expresion{
     std::string dir;
     int tipo;
+    Expresion(string dir, int tipo = 0){
+        this -> tipo = tipo;
+        this -> dir = dir;
+    };
+
+    Expresion(int tipo = 0){
+        this -> tipo = tipo;
+        this -> dir = "";    
+    }
 };
 
 struct Numero{
     std::string val;
     int tipo;
 };
+
 class Driver{
 private:
-    //TypeTab tt;
+    TipoTab tt;
     //Pila de tablas de símbolos
+    std::vector<Cuadrupla> codigo_intermedio;
+    TablaDeSimbolos ts;
     std::stack<std::string> pilaEtiques;
     std::stack<int> pilaDir;
     std::stack<int> pilaTemporal;
@@ -39,15 +51,16 @@ private:
     int dir;
     int numEtiquetas;
     int numTemporales;
+    int numTipos;
     int cteFloat;
-    std::vector<Cuadrupla> codigo_intermedio;
+    
     //Generador de codigo final
 
 public:
     Driver();
     ~Driver();
     // Funciones para tabla de tipos
-    int agregar_tipo(string nombre, int tam_bytes, SymTab *tipo_base);
+    int agregar_tipo(string nombre, int tam_bytes, TablaDeSimbolos *tipo_base);
     //
     void agregar_simbolo(std::string id, int tipo, std::string categoria);
     void agregar_simbolo(std::string id, int tipo, std::vector<int> args);
@@ -56,7 +69,7 @@ public:
     string nuevaTemporal();
     
 
-    void asignacion(std::string id, Expresion e);
+    Expresion asignacion(std::string id, Expresion e);
     Expresion disyuncion(Expresion e1, Expresion e2);
     Expresion conjuncion(Expresion e1, Expresion e2);
     Expresion igual(Expresion e1, Expresion e2);
