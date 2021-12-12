@@ -14,11 +14,17 @@ int main(int argc, char *argv[]){
 }
 
 /*
+g++ -o Cuadrupla Cuadrupla.hpp
+g++ -o Sim Sim.hpp
+g++ -o TablaDeSimbolos TablaDeSimbolos.hpp
+g++ -o Tipo Tipo.hpp
+g++ -o TipoTab TipoTab.hpp
+g++ -o Driver Driver.hpp
 g++ -o Cuadrupla Cuadrupla.cpp
 g++ -o Sim Sim.cpp
-g++ -o TablaDeSimbolos TablaDeSimbolos.cpp --
+g++ -o TablaDeSimbolos TablaDeSimbolos.cpp
 g++ -o Tipo Tipo.cpp
-g++ -o TipoTab TipoTab.cpp --
-g++ -o Driver Driver.cpp -- 
-g++ -o a main.cpp --
+g++ -o TipoTab TipoTab.cpp
+g++ -o Driver Driver.cpp 
+g++ -o a main.cpp
 */

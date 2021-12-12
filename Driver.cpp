@@ -237,6 +237,7 @@ Expresion Driver::identificador(std::string id){
     else{
         error_semantico("El identificador " + id + " no fue declarado.");
     }
+    return e;
 }
 
 Expresion Driver::asignacion(std::string id, Expresion e){
@@ -324,7 +325,10 @@ Expresion Driver::division(Expresion e1, Expresion e2){
 }
  
 Expresion Driver::negacion(Expresion e1){
-
+    Expresion e;
+    e.tipo = e1.tipo;
+    codigo_intermedio.push_back(Cuadrupla("!", e.dir, e1.dir, e.dir));
+    return e;
 }
 
 //exp2.dir = nuevaTemporal()
