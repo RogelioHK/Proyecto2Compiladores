@@ -8,7 +8,7 @@ TipoTab::~TipoTab(){}
  * Función para agregar un tipo nativo en la tabla de tipos
  */
 void TipoTab::addTipo(int id, string nombre, int tam){
-    tipos[id] = Type(nombre, tam);
+    tipos[id] = Tipo(nombre, tam);
 }
 
 /*
@@ -16,7 +16,7 @@ void TipoTab::addTipo(int id, string nombre, int tam){
  */
 void TipoTab::addTipo(int id, string nombre, int items,  int base){
     int tam = tipos[base].getTam()*items;
-    tipos[id] = Type(nombre, items, base, tam);
+    tipos[id] = Tipo(nombre, items, base, tam);
 }
 
 /*
@@ -24,7 +24,7 @@ void TipoTab::addTipo(int id, string nombre, int items,  int base){
  */
 void TipoTab::addTipo(int id, string nombre, TablaDeSimbolos *tab){
     int tam = 100;
-    tipos[id] = Type(nombre, tab, tam);
+    tipos[id] = Tipo(nombre, tab, tam);
 }
 
 /****************************************************************************************/
@@ -48,5 +48,5 @@ int TipoTab::getBase(int id){
 }
 
 string TipoTab::getNombre(int id){
-    return tipos[id].getnombre();
+    return tipos[id].getNombre();
 }

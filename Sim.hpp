@@ -15,7 +15,7 @@ private:
 public:
     Sim();
     Sim(int direccion, int tipo, string cat);
-    Sim(int direccion, int tipo, string cat, vector<int> argumentos);
+    Sim(int direccion, int tipo, vector<int> argumentos);
     ~Sim();
 
     int getDireccion();

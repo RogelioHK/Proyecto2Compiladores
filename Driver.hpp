@@ -7,13 +7,16 @@
 using namespace std;
 
 #include "TablaDeSimbolos.hpp"
+#include "TipoTab.hpp"
+#include "Cuadrupla.hpp"
 
-struct Cuadrupla{
+/*struct Cuadrupla{
+    enum TipoCuadrupla {QIF, QGOTO, QMAS, QMENOS, QMUL, QDIV, QCOPY, QLABEL, QCASTINT, QCASTFLOAT, QSIN};
     std::string arg1;
     std::string arg2;
     std::string operador;
     std::string resultado;
-};
+};*/
 
 //class SymTab;
 struct Expresion{
@@ -63,6 +66,7 @@ public:
     int agregar_tipo(string nombre, int tam_bytes, TablaDeSimbolos *tipo_base);
     //
     void agregar_simbolo(std::string id, int tipo, std::string categoria);
+    void agregar_simbolo(string id, int dir, int tipo, string categoria);
     void agregar_simbolo(std::string id, int tipo, std::vector<int> args);
 
     string nuevaEtiqueta();

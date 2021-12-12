@@ -14,13 +14,13 @@ private:
 public:
     TablaDeSimbolos();
     ~TablaDeSimbolos();
-    void addSim(string id, Sym s);
+    void addSim(string id, Sim s);
     int getDireccion(string id);
     int getTipo(string id);
     string getCat(string id);
     vector<int> getArgumentos(string id);
     bool is_in(string id);
-    map<string,Sym> getSims();
+    map<string,Sim> getSims();
 };
 
 #endif // !__SYMTAB_HPP__

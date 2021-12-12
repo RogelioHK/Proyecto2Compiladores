@@ -34,11 +34,11 @@ vector<int> TablaDeSimbolos::getArgumentos(string id){
 }
 
 bool TablaDeSimbolos::is_in(string id){
-    map<string,Sym>::iterator it;
+    map<string,Sim>::iterator it;
     it = simbolos.find(id);
     return it != simbolos.end();
 }
 
-map<string,Sym> TablaDeSimbolos::getSims(){
+map<string,Sim> TablaDeSimbolos::getSims(){
     return simbolos;
 }

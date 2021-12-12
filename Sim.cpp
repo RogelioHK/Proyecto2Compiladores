@@ -14,10 +14,11 @@ Sim::Sim(int direccion, int tipo, string cat){
 /*
  * Crea un símbolo para una función
  */
-Sim::Sim(int direccion, int tipo, string cat, vector<int> argumentos){
+//Falta cat en los argumentos
+Sim::Sim(int direccion, int tipo, vector<int> argumentos){
     this->direccion = direccion;
     this->tipo = tipo;
-    this->cat = cat;
+    //this->cat = cat;
     this->argumentos = argumentos;
 }
 
