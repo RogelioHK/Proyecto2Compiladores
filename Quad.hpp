@@ -1,5 +1,9 @@
-#ifndef __CUADRUPLA_HPP__
-#define __CUADRUPLA_HPP__
+/**
+ * @author Adrian Ulises Mercado Martínez
+ * @version 1, 3/11/2021
+ */
+#ifndef __QUAD_HPP__
+#define __QUAD_HPP__
 
 #include <string>
 using namespace std;
@@ -15,24 +19,25 @@ using namespace std;
  */
 
 //Tipos de operaciones de tres direcciones en cuadruplas
-enum TipoCuadrupla {QIF, QGOTO, QMAS, QMENOS, QMUL, QDIV, QCOPY, QLABEL, QCASTINT, QCASTFLOAT, QSIN};
+enum QuadType {QIF, QGOTO, QMAS, QMENOS, QMUL, QDIV, QCOPY, QLABEL, QCASTINT, QCASTFLOAT, QSIN};
 
 
-class Cuadrupla{
+class Quad
+{
 private:
-    string operador;
+    string op;
     string arg1;
     string arg2;
-    string resultado;
+    string res;
 public:
-    Cuadrupla();
-    Cuadrupla(string op, string arg1, string arg2, string res);    
-    ~Cuadrupla();
+    Quad();
+    Quad(string op, string arg1, string arg2, string res);    
+    ~Quad();
 
-    void imprimir();
+    void print();
     //Funcion para representar un op de tipo string en un op de tipo enum
-    //TipoCuadrupla resolverCuad(string op);
-    TipoCuadrupla resolverCuad();
+    QuadType resolveQuad(string op);
+    QuadType resolveQuad();
     
     string getRes();
     string getArg1();
