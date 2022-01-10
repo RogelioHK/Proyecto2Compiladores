@@ -76,6 +76,7 @@ public:
     Expresion asig(string id, Expresion e);
     Expresion ident(string id);
     Expresion numero(string val, int type);
+    Expresion caracter(string val, int type);
     void error(string msg);
     void print();
     void translate();

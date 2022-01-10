@@ -19,7 +19,11 @@ using namespace std;
  */
 
 //Tipos de operaciones de tres direcciones en cuadruplas
-enum QuadType {QDIYUN, QCONJUN, QIGUAL, QDIST, QNEG, QMAYQ, QMINQ, QMAYI, QMINI, QIF, QGOTO, QMAS, QMENOS, QMUL, QDIV, QCOPY, QLABEL, QCASTINT, QCASTFLOAT, QSIN};
+enum QuadType {QDIYUN, QCONJUN, QIGUAL, QDIST, QMAYQ, QMINQ, QMAYI, QMINI, 
+            QIF, QGOTO, 
+            QMAS, QMENOS, QMUL, QDIV, 
+            QCOPY, QNEG,
+            QCHAR, QCASTDOUBLE, QLABEL, QCASTINT, QCASTFLOAT, QSIN};
 
 
 class Quad

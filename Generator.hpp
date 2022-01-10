@@ -8,6 +8,8 @@
 #include <vector>
 #include <fstream>
 #include <string>
+#include <cstring>
+#include <iostream>
 using namespace std;
 #include "Quad.hpp"
 #include "SymTab.hpp"

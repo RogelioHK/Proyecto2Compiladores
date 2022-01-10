@@ -28,13 +28,16 @@ void Generator::translate(SymTab *ts)
     map<string,Sym> syms = ts->getSyms();
     for(map<string,Sym>::iterator sym=syms.begin();sym!=syms.end(); sym++ )
     {
-        if(sym->second.getType()==0){
+        if(sym->second.getType() == 0 || sym->second.getType() == 3){
             file<<"\t"<<sym->first<<": .word 0"<<endl;
-        }else{
+        }
+        else if (sym->second.getType()==1){
             file<<"\t"<<sym->first<<": .float 0.0"<<endl;            
         }
+        else{
+            file<<"\t"<<sym->first<<": .double 0.0"<<endl;
+        }
     }
-
 }
 
 /*
@@ -368,6 +371,12 @@ void Generator::translate(Quad q, int type){
             file<<"\tmfc1 $t0,$f0"<<endl;            
             file<<"\tlw $t0, "<<q.getRes()<<endl;
             break;
+        case QCASTDOUBLE:
+            file<<"\tlw $t0,"<<q.getArg1()<<endl;            
+            file<<"\tmtc1 $t0,$f0"<<endl;
+            file<<"\tcvt.s.w $f0,$f0"<<endl;
+            file<<"\tsd $f0, "<<q.getRes()<<endl;
+            break;
         default:
             break;
     }
@@ -379,7 +388,11 @@ void Generator::openFile(string name){
 
 void Generator::translate(map<string, string> cf){
     for(map<string,string>::iterator c = cf.begin(); c != cf.end(); c++){
-        file<<"\t"<<c->first<<": .float "<<c->second<<endl;
+        cout<<c->first<<endl;
+        if(strcmp(c->first.c_str(),"cteFloat") == 0)
+            file<<"\t"<<c->first<<": .float "<<c->second<<endl;
+        else
+            file<<"\t"<<c->first<<": .double "<<c->second<<endl;
     }
 }
 

@@ -1,3 +1,4 @@
+//Añadir double en reducir
 #include "Driver.hpp"
 #include <iostream>
 #include <sstream>
@@ -117,7 +118,20 @@ string Driver::ampliar(string dir, int t1, int t2)
         icode.push_back(Quad("(float)",dir, "", temp));
         addSym(temp, 1, "temporal");
         return temp;
-    }else return "";
+    }
+    else if(t1==0 && t2==2){
+        temp = newTemp();
+        icode.push_back(Quad("(double)",dir, "", temp));
+        addSym(temp, 2, "temporal");
+        return temp;
+    }
+    else if(t1==1 && t2==2){
+        temp = newTemp();
+        icode.push_back(Quad("(double)",dir, "", temp));
+        addSym(temp, 2, "temporal");
+        return temp;
+    }    
+    else return "";
 }
 
 /*
@@ -452,6 +466,7 @@ Expresion Driver::asig(string id, Expresion e){
     {
         error("Los tipos son incompatibles");
     }
+
     genCode(id, alfa, "=", "");
     e.dir = id;        
     return e1;
@@ -509,24 +524,41 @@ Expresion Driver::ident(string id)
  * @param type el tipo retornado por el lexer
  * @return la expresión formada por la tupla<val, type>
  */
-Expresion Driver::numero(string val, int type)
-{
+Expresion Driver::numero(string val, int type){
     Expresion e;
     if(type ==1){
         stringstream nombre;
         nombre<<"cteFloat"<<cteF++; //Genera una nueva constante flotante
         constantes[nombre.str()] = val; //Agrega la constante al mapa de constantes flotantes
         e.dir= nombre.str();
-    }else{
+    } 
+    else if(type == 2){
+        stringstream nombre;
+        nombre<<"cteDouble"<<cteF++; //Genera una nueva constante doble
+        constantes[nombre.str()] = val; //Agrega la constante al mapa de constantes dobles
+        e.dir= nombre.str();    
+    } 
+    else{
         e.dir =val;
     }
     e.type = type;
     return e;
 }
 
-void Driver::error(string msg)
-{
-    cout<<"Error semántico "<<msg<<endl;
+Expresion Driver::caracter(string val, int type){
+    Expresion e;
+    if(val.length() == 3){
+        cout<<val<<endl;
+        e.dir =val;
+        e.type = type;
+    }
+    else
+        error("La entrada no es un CHAR.");
+    return e;
+}
+
+void Driver::error(string msg){
+    cout<<"Error semántico. "<<msg<<endl;
     exit(EXIT_FAILURE);
 }
 

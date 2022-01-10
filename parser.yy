@@ -44,9 +44,9 @@ using namespace std;
 %define parse.assert
 
 %token <std::string>     ID
-%token <std::string>     NUMERO
+%token <std::string>     NUMERO CARACTER
 %token              IF ELSE WHILE DO
-%token              INT FLOAT
+%token              INT FLOAT DOUBLE CHAR 
 %token              LKEY RKEY PYC COMA
 
 %left               ASIG NOT
@@ -81,12 +81,16 @@ declaracion:
     ;
 
 tipo:
-    INT { $$= 0;}
+    INT { $$ = 0; }
     |
-    FLOAT {$$=1;}
+    FLOAT { $$ = 1; }
+    |
+    DOUBLE { $$ = 2; }
+    |
+    CHAR { $$ = 3; }
     ;
 
-lista_var: 
+lista_var:
     lista_var COMA ID{
         driver.addSym($3, driver.getType(), "variable");
     }
@@ -124,22 +128,15 @@ sentencia:
         driver.popLabel();
     }
     |
-    DO
-    {
-        driver.pushLabel(driver.newLab()); // begin
-        driver.pushLabel(driver.newLab()); // true
-        driver.pushLabel(driver.newLab()); // false
-    }
-    |
     WHILE
     {
         driver.pushLabel(driver.newLab()); // begin
         driver.pushLabel(driver.newLab()); // true
         driver.pushLabel(driver.newLab()); // false
-    }
-    LPAR expresion 
-    {
         driver._label(driver.newLabel(driver.element(2)));
+    }
+    LPAR expresion
+    {
         driver._if($4.dir, driver.newLabel(driver.element(1)));
         driver._goto(driver.newLabel(driver.element(0)));
         driver._label(driver.newLabel(driver.element(1)));        
@@ -147,7 +144,26 @@ sentencia:
     RPAR LKEY sentencias RKEY
     {
         driver._goto(driver.newLabel(driver.element(2)));
+        driver._label(driver.newLabel(driver.element(0)));
         driver.popLabel();
+        driver.popLabel();
+        driver.popLabel();
+    }
+    |
+    DO
+    {
+        driver.pushLabel(driver.newLab()); // true
+        driver.pushLabel(driver.newLab()); // false
+        driver._label(driver.newLabel(driver.element(1)));
+    }
+    LKEY sentencias RKEY WHILE LPAR expresion
+    {
+        driver._if($8.dir, driver.newLabel(driver.element(1)));
+        driver._goto(driver.newLabel(driver.element(0)));      
+    }
+    RPAR PYC
+    {
+        driver._label(driver.newLabel(driver.element(0)));
         driver.popLabel();
         driver.popLabel();
     }
@@ -191,7 +207,9 @@ expresion:
     LPAR expresion RPAR{$$=$2;}
     | 
     NUMERO{$$=driver.numero($1, lexer.getType());}
-    | 
+    |
+    CARACTER{$$=driver.caracter($1, lexer.getType());}
+    |
     ID{$$=driver.ident($1);}
     ;
 

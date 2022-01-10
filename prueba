@@ -1,9 +1,29 @@
 int a, _b;
+float c;
+double d, e, f;
+char aba;
+
 a = 2;
 _b = 1;
+aba = "a";
+d = 1e+1;
+c = 9;
+e = 12;
+e = 12.12;
 
 if(a >= _b && (a == 1)){
 	a = 12;
-}else{
+} else{
 	a = 21;
 }
+
+a = 12;
+_b = 1;
+
+while(a == 12){
+	a = 1;
+}
+_b = 123;
+do{
+	a = 11;
+}while(a == 11);

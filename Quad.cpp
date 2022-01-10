@@ -40,6 +40,7 @@ QuadType Quad::resolveQuad(){
     if(op == "if") return QIF;
     if(op == "goto") return QGOTO;
     if(op == "label") return QLABEL;
+    if(op == "(double)") return QCASTDOUBLE;
     if(op=="(float)") return QCASTFLOAT;
     if(op=="(int)") return QCASTINT;
     return QSIN;
@@ -70,11 +71,13 @@ void Quad::print()
             break;
         case QCOPY:
         case QNEG:
+        case QCHAR:
             cout<<res<<op<<arg1<<endl;
             break;
         case QLABEL:
             cout<<res<<":";
             break;
+        case QCASTDOUBLE:
         case QCASTFLOAT:
         case QCASTINT:
             cout<<res<<"="<<op<<arg1<<endl;

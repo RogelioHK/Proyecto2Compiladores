@@ -429,6 +429,7 @@ namespace yy {
 
       // ID
       // NUMERO
+      // CARACTER
       char dummy3[sizeof (std::string)];
     };
 
@@ -484,31 +485,35 @@ namespace yy {
     YYUNDEF = 257,                 // "invalid token"
     ID = 258,                      // ID
     NUMERO = 259,                  // NUMERO
-    IF = 260,                      // IF
-    ELSE = 261,                    // ELSE
-    WHILE = 262,                   // WHILE
-    INT = 263,                     // INT
-    FLOAT = 264,                   // FLOAT
-    LKEY = 265,                    // LKEY
-    RKEY = 266,                    // RKEY
-    PYC = 267,                     // PYC
-    COMA = 268,                    // COMA
-    ASIG = 269,                    // ASIG
-    NOT = 270,                     // NOT
-    MAYORQUE = 271,                // MAYORQUE
-    MENORQUE = 272,                // MENORQUE
-    MAYORIGUAL = 273,              // MAYORIGUAL
-    MENORIGUAL = 274,              // MENORIGUAL
-    IGUAL = 275,                   // IGUAL
-    DIFF = 276,                    // DIFF
-    AND = 277,                     // AND
-    OR = 278,                      // OR
-    MAS = 279,                     // MAS
-    MENOS = 280,                   // MENOS
-    MUL = 281,                     // MUL
-    DIV = 282,                     // DIV
-    LPAR = 283,                    // LPAR
-    RPAR = 284                     // RPAR
+    CARACTER = 260,                // CARACTER
+    IF = 261,                      // IF
+    ELSE = 262,                    // ELSE
+    WHILE = 263,                   // WHILE
+    DO = 264,                      // DO
+    INT = 265,                     // INT
+    FLOAT = 266,                   // FLOAT
+    DOUBLE = 267,                  // DOUBLE
+    CHAR = 268,                    // CHAR
+    LKEY = 269,                    // LKEY
+    RKEY = 270,                    // RKEY
+    PYC = 271,                     // PYC
+    COMA = 272,                    // COMA
+    ASIG = 273,                    // ASIG
+    NOT = 274,                     // NOT
+    MAYORQUE = 275,                // MAYORQUE
+    MENORQUE = 276,                // MENORQUE
+    MAYORIGUAL = 277,              // MAYORIGUAL
+    MENORIGUAL = 278,              // MENORIGUAL
+    IGUAL = 279,                   // IGUAL
+    DIFF = 280,                    // DIFF
+    AND = 281,                     // AND
+    OR = 282,                      // OR
+    MAS = 283,                     // MAS
+    MENOS = 284,                   // MENOS
+    MUL = 285,                     // MUL
+    DIV = 286,                     // DIV
+    LPAR = 287,                    // LPAR
+    RPAR = 288                     // RPAR
       };
       /// Backward compatibility alias (Bison 3.6).
       typedef token_kind_type yytokentype;
@@ -525,52 +530,58 @@ namespace yy {
     {
       enum symbol_kind_type
       {
-        YYNTOKENS = 30, ///< Number of tokens.
+        YYNTOKENS = 34, ///< Number of tokens.
         S_YYEMPTY = -2,
         S_YYEOF = 0,                             // "end of file"
         S_YYerror = 1,                           // error
         S_YYUNDEF = 2,                           // "invalid token"
         S_ID = 3,                                // ID
         S_NUMERO = 4,                            // NUMERO
-        S_IF = 5,                                // IF
-        S_ELSE = 6,                              // ELSE
-        S_WHILE = 7,                             // WHILE
-        S_INT = 8,                               // INT
-        S_FLOAT = 9,                             // FLOAT
-        S_LKEY = 10,                             // LKEY
-        S_RKEY = 11,                             // RKEY
-        S_PYC = 12,                              // PYC
-        S_COMA = 13,                             // COMA
-        S_ASIG = 14,                             // ASIG
-        S_NOT = 15,                              // NOT
-        S_MAYORQUE = 16,                         // MAYORQUE
-        S_MENORQUE = 17,                         // MENORQUE
-        S_MAYORIGUAL = 18,                       // MAYORIGUAL
-        S_MENORIGUAL = 19,                       // MENORIGUAL
-        S_IGUAL = 20,                            // IGUAL
-        S_DIFF = 21,                             // DIFF
-        S_AND = 22,                              // AND
-        S_OR = 23,                               // OR
-        S_MAS = 24,                              // MAS
-        S_MENOS = 25,                            // MENOS
-        S_MUL = 26,                              // MUL
-        S_DIV = 27,                              // DIV
-        S_LPAR = 28,                             // LPAR
-        S_RPAR = 29,                             // RPAR
-        S_YYACCEPT = 30,                         // $accept
-        S_programa = 31,                         // programa
-        S_declaraciones = 32,                    // declaraciones
-        S_declaracion = 33,                      // declaracion
-        S_34_1 = 34,                             // $@1
-        S_tipo = 35,                             // tipo
-        S_lista_var = 36,                        // lista_var
-        S_sentencias = 37,                       // sentencias
-        S_sentencia = 38,                        // sentencia
-        S_39_2 = 39,                             // $@2
-        S_40_3 = 40,                             // $@3
-        S_41_4 = 41,                             // $@4
-        S_42_5 = 42,                             // $@5
-        S_expresion = 43                         // expresion
+        S_CARACTER = 5,                          // CARACTER
+        S_IF = 6,                                // IF
+        S_ELSE = 7,                              // ELSE
+        S_WHILE = 8,                             // WHILE
+        S_DO = 9,                                // DO
+        S_INT = 10,                              // INT
+        S_FLOAT = 11,                            // FLOAT
+        S_DOUBLE = 12,                           // DOUBLE
+        S_CHAR = 13,                             // CHAR
+        S_LKEY = 14,                             // LKEY
+        S_RKEY = 15,                             // RKEY
+        S_PYC = 16,                              // PYC
+        S_COMA = 17,                             // COMA
+        S_ASIG = 18,                             // ASIG
+        S_NOT = 19,                              // NOT
+        S_MAYORQUE = 20,                         // MAYORQUE
+        S_MENORQUE = 21,                         // MENORQUE
+        S_MAYORIGUAL = 22,                       // MAYORIGUAL
+        S_MENORIGUAL = 23,                       // MENORIGUAL
+        S_IGUAL = 24,                            // IGUAL
+        S_DIFF = 25,                             // DIFF
+        S_AND = 26,                              // AND
+        S_OR = 27,                               // OR
+        S_MAS = 28,                              // MAS
+        S_MENOS = 29,                            // MENOS
+        S_MUL = 30,                              // MUL
+        S_DIV = 31,                              // DIV
+        S_LPAR = 32,                             // LPAR
+        S_RPAR = 33,                             // RPAR
+        S_YYACCEPT = 34,                         // $accept
+        S_programa = 35,                         // programa
+        S_declaraciones = 36,                    // declaraciones
+        S_declaracion = 37,                      // declaracion
+        S_38_1 = 38,                             // $@1
+        S_tipo = 39,                             // tipo
+        S_lista_var = 40,                        // lista_var
+        S_sentencias = 41,                       // sentencias
+        S_sentencia = 42,                        // sentencia
+        S_43_2 = 43,                             // $@2
+        S_44_3 = 44,                             // $@3
+        S_45_4 = 45,                             // $@4
+        S_46_5 = 46,                             // $@5
+        S_47_6 = 47,                             // $@6
+        S_48_7 = 48,                             // $@7
+        S_expresion = 49                         // expresion
       };
     };
 
@@ -617,6 +628,7 @@ namespace yy {
 
       case symbol_kind::S_ID: // ID
       case symbol_kind::S_NUMERO: // NUMERO
+      case symbol_kind::S_CARACTER: // CARACTER
         value.move< std::string > (std::move (that.value));
         break;
 
@@ -719,6 +731,7 @@ switch (yykind)
 
       case symbol_kind::S_ID: // ID
       case symbol_kind::S_NUMERO: // NUMERO
+      case symbol_kind::S_CARACTER: // CARACTER
         value.template destroy< std::string > ();
         break;
 
@@ -836,7 +849,7 @@ switch (yykind)
 #endif
       {
 #if !defined _MSC_VER || defined __clang__
-        YY_ASSERT ((token::ID <= tok && tok <= token::NUMERO));
+        YY_ASSERT ((token::ID <= tok && tok <= token::CARACTER));
 #endif
       }
     };
@@ -968,6 +981,21 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
+      make_CARACTER (std::string v, location_type l)
+      {
+        return symbol_type (token::CARACTER, std::move (v), std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_CARACTER (const std::string& v, const location_type& l)
+      {
+        return symbol_type (token::CARACTER, v, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
       make_IF (location_type l)
       {
         return symbol_type (token::IF, std::move (l));
@@ -1013,6 +1041,21 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
+      make_DO (location_type l)
+      {
+        return symbol_type (token::DO, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_DO (const location_type& l)
+      {
+        return symbol_type (token::DO, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
       make_INT (location_type l)
       {
         return symbol_type (token::INT, std::move (l));
@@ -1038,6 +1081,36 @@ switch (yykind)
       make_FLOAT (const location_type& l)
       {
         return symbol_type (token::FLOAT, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_DOUBLE (location_type l)
+      {
+        return symbol_type (token::DOUBLE, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_DOUBLE (const location_type& l)
+      {
+        return symbol_type (token::DOUBLE, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_CHAR (location_type l)
+      {
+        return symbol_type (token::CHAR, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_CHAR (const location_type& l)
+      {
+        return symbol_type (token::CHAR, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1644,9 +1717,9 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 117,     ///< Last index in yytable_.
-      yynnts_ = 14,  ///< Number of nonterminal symbols.
-      yyfinal_ = 7 ///< Termination state number.
+      yylast_ = 142,     ///< Last index in yytable_.
+      yynnts_ = 16,  ///< Number of nonterminal symbols.
+      yyfinal_ = 9 ///< Termination state number.
     };
 
 
@@ -1658,7 +1731,7 @@ switch (yykind)
 
 
 } // yy
-#line 1662 "parser.tab.hh"
+#line 1735 "parser.tab.hh"
 
 
 
