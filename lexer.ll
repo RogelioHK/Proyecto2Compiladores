@@ -40,9 +40,21 @@ real ([0-9]+"."[0-9]*|"."[0-9]+){notacion}?|[0-9]+{notacion}
 "}" { return token::RKEY; }
 "," { return token::COMA; }
 ";" { return token::PYC; }
+">" { return token::MAYORQUE; }
+"<" { return token::MENORQUE; }
+">=" { return token::MAYORIGUAL; }
+"<=" { return token::MENORIGUAL; }
+"==" { return token::IGUAL; }
+"!=" { return token::DIFF; }
+"&&" { return token::AND; }
+"||" { return token::OR; }
+"!" { return token::NOT; }
 
 "if"    { return token::IF; }
 "else"    { return token::ELSE; }
+"while"  { return token::WHILE; }
+"do"     { return token::DO; }
+
 "int"    { return token::INT; }
 "float"    { return token::FLOAT; }
 {id}    { 

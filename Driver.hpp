@@ -80,6 +80,16 @@ public:
     void print();
     void translate();
 
+    Expresion mayor_que(Expresion e1, Expresion e2);
+    Expresion menor_que(Expresion e1, Expresion e2);
+    Expresion mayor_o_igual(Expresion e1, Expresion e2);
+    Expresion menor_o_igual(Expresion e1, Expresion e2);
+    Expresion disyuncion(Expresion e1, Expresion e2);
+    Expresion conjuncion(Expresion e1, Expresion e2);
+    Expresion igual(Expresion e1, Expresion e2);
+    Expresion distinto(Expresion e1, Expresion e2);
+    Expresion negacion(string id, Expresion e);
+
     void parse(const string& file);
     void parse_helper(std::istream &stream);
 };

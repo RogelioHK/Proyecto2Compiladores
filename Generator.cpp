@@ -1,7 +1,3 @@
-/**
- * @author Adrian Ulises Mercado Martínez
- * @version 1, 3/11/2021
- */
 #include "Generator.hpp"
 
 Generator::Generator()
@@ -68,6 +64,174 @@ void Generator::translate(vector<Quad> icode, SymTab *ts)
 void Generator::translate(Quad q, int type){
     switch (q.resolveQuad())
     {
+        case QDIYUN:
+            if(type ==0){
+                isNumber(q.getArg1())?
+                file<<"\tli $t0,"<<q.getArg1()<<endl //Aqui ademas se debe comparar si es un entero o una variable
+                :file<<"\tlw $t0,"<<q.getArg1()<<endl;
+                //file<<"\tli $t0,"<<q.getArg1()<<endl; //En caso de ser un número
+                isNumber(q.getArg2())?
+                file<<"\tli $t0,"<<q.getArg2()<<endl //Aqui ademas se debe comparar si es un entero o una variable
+                :file<<"\tlw $t0,"<<q.getArg2()<<endl;
+                file<<"\tor $t2, $t0, $t1"<<endl;
+                file<<"\tsw $t2, "<<q.getRes()<<endl;
+            }else{
+                file<<"\tla $t0,"<<q.getArg1()<<endl;
+                file<<"\tl.s $f0, ($t0)"<<endl;
+                file<<"\tla $t1,"<<q.getArg2()<<endl;
+                file<<"\tl.s $f1, ($t1)"<<endl;
+                file<<"\tor.s $f2, $f0, $f1"<<endl;
+                file<<"\ts.s $f2, "<<q.getRes()<<endl;
+            }
+            break;
+
+        case QCONJUN:
+            if(type ==0){
+                isNumber(q.getArg1())?
+                file<<"\tli $t0,"<<q.getArg1()<<endl //Aqui ademas se debe comparar si es un entero o una variable
+                :file<<"\tlw $t0,"<<q.getArg1()<<endl;
+                //file<<"\tli $t0,"<<q.getArg1()<<endl; //En caso de ser un número
+                isNumber(q.getArg2())?
+                file<<"\tli $t0,"<<q.getArg2()<<endl //Aqui ademas se debe comparar si es un entero o una variable
+                :file<<"\tlw $t0,"<<q.getArg2()<<endl;
+                file<<"\tand $t2, $t0, $t1"<<endl;
+                file<<"\tsw $t2, "<<q.getRes()<<endl;
+            }else{
+                file<<"\tla $t0,"<<q.getArg1()<<endl;
+                file<<"\tl.s $f0, ($t0)"<<endl;
+                file<<"\tla $t1,"<<q.getArg2()<<endl;
+                file<<"\tl.s $f1, ($t1)"<<endl;
+                file<<"\tand.s $f2, $f0, $f1"<<endl;
+                file<<"\ts.s $f2, "<<q.getRes()<<endl;
+            }
+            break; 
+
+        case QIGUAL:
+            if(type ==0){
+                isNumber(q.getArg1())?
+                file<<"\tli $t0,"<<q.getArg1()<<endl //Aqui ademas se debe comparar si es un entero o una variable
+                :file<<"\tlw $t0,"<<q.getArg1()<<endl;
+                //file<<"\tli $t0,"<<q.getArg1()<<endl; //En caso de ser un número
+                isNumber(q.getArg2())?
+                file<<"\tli $t0,"<<q.getArg2()<<endl //Aqui ademas se debe comparar si es un entero o una variable
+                :file<<"\tlw $t0,"<<q.getArg2()<<endl;
+                file<<"\tseq $t2, $t0, $t1"<<endl;
+                file<<"\tsw $t2, "<<q.getRes()<<endl;
+            }else{
+                file<<"\tla $t0,"<<q.getArg1()<<endl;
+                file<<"\tl.s $f0, ($t0)"<<endl;
+                file<<"\tla $t1,"<<q.getArg2()<<endl;
+                file<<"\tl.s $f1, ($t1)"<<endl;
+                file<<"\tseq.s $f2, $f0, $f1"<<endl;
+                file<<"\ts.s $f2, "<<q.getRes()<<endl;
+            }
+            break; 
+
+        case QDIST:
+            if(type ==0){
+                isNumber(q.getArg1())?
+                file<<"\tli $t0,"<<q.getArg1()<<endl //Aqui ademas se debe comparar si es un entero o una variable
+                :file<<"\tlw $t0,"<<q.getArg1()<<endl;
+                //file<<"\tli $t0,"<<q.getArg1()<<endl; //En caso de ser un número
+                isNumber(q.getArg2())?
+                file<<"\tli $t0,"<<q.getArg2()<<endl //Aqui ademas se debe comparar si es un entero o una variable
+                :file<<"\tlw $t0,"<<q.getArg2()<<endl;
+                file<<"\tsne $t2, $t0, $t1"<<endl;
+                file<<"\tsw $t2, "<<q.getRes()<<endl;
+            }else{
+                file<<"\tla $t0,"<<q.getArg1()<<endl;
+                file<<"\tl.s $f0, ($t0)"<<endl;
+                file<<"\tla $t1,"<<q.getArg2()<<endl;
+                file<<"\tl.s $f1, ($t1)"<<endl;
+                file<<"\tsne.s $f2, $f0, $f1"<<endl;
+                file<<"\ts.s $f2, "<<q.getRes()<<endl;
+            }
+            break;
+
+        case QMAYQ:
+            if(type ==0){
+                isNumber(q.getArg1())?
+                file<<"\tli $t0,"<<q.getArg1()<<endl //Aqui ademas se debe comparar si es un entero o una variable
+                :file<<"\tlw $t0,"<<q.getArg1()<<endl;
+                //file<<"\tli $t0,"<<q.getArg1()<<endl; //En caso de ser un número
+                isNumber(q.getArg2())?
+                file<<"\tli $t0,"<<q.getArg2()<<endl //Aqui ademas se debe comparar si es un entero o una variable
+                :file<<"\tlw $t0,"<<q.getArg2()<<endl;
+                file<<"\tsgt $t2, $t0, $t1"<<endl;
+                file<<"\tsw $t2, "<<q.getRes()<<endl;
+            }else{
+                file<<"\tla $t0,"<<q.getArg1()<<endl;
+                file<<"\tl.s $f0, ($t0)"<<endl;
+                file<<"\tla $t1,"<<q.getArg2()<<endl;
+                file<<"\tl.s $f1, ($t1)"<<endl;
+                file<<"\tsgt.s $f2, $f0, $f1"<<endl;
+                file<<"\ts.s $f2, "<<q.getRes()<<endl;
+            }
+            break;
+
+        case QMAYI:
+            if(type ==0){
+                isNumber(q.getArg1())?
+                file<<"\tli $t0,"<<q.getArg1()<<endl //Aqui ademas se debe comparar si es un entero o una variable
+                :file<<"\tlw $t0,"<<q.getArg1()<<endl;
+                //file<<"\tli $t0,"<<q.getArg1()<<endl; //En caso de ser un número
+                isNumber(q.getArg2())?
+                file<<"\tli $t0,"<<q.getArg2()<<endl //Aqui ademas se debe comparar si es un entero o una variable
+                :file<<"\tlw $t0,"<<q.getArg2()<<endl;
+                file<<"\tsge $t2, $t0, $t1"<<endl;
+                file<<"\tsw $t2, "<<q.getRes()<<endl;
+            }else{
+                file<<"\tla $t0,"<<q.getArg1()<<endl;
+                file<<"\tl.s $f0, ($t0)"<<endl;
+                file<<"\tla $t1,"<<q.getArg2()<<endl;
+                file<<"\tl.s $f1, ($t1)"<<endl;
+                file<<"\tsge.s $f2, $f0, $f1"<<endl;
+                file<<"\ts.s $f2, "<<q.getRes()<<endl;
+            }
+            break;
+
+        case QMINQ:
+            if(type ==0){
+                isNumber(q.getArg1())?
+                file<<"\tli $t0,"<<q.getArg1()<<endl //Aqui ademas se debe comparar si es un entero o una variable
+                :file<<"\tlw $t0,"<<q.getArg1()<<endl;
+                //file<<"\tli $t0,"<<q.getArg1()<<endl; //En caso de ser un número
+                isNumber(q.getArg2())?
+                file<<"\tli $t0,"<<q.getArg2()<<endl //Aqui ademas se debe comparar si es un entero o una variable
+                :file<<"\tlw $t0,"<<q.getArg2()<<endl;
+                file<<"\tslt $t2, $t0, $t1"<<endl;
+                file<<"\tsw $t2, "<<q.getRes()<<endl;
+            }else{
+                file<<"\tla $t0,"<<q.getArg1()<<endl;
+                file<<"\tl.s $f0, ($t0)"<<endl;
+                file<<"\tla $t1,"<<q.getArg2()<<endl;
+                file<<"\tl.s $f1, ($t1)"<<endl;
+                file<<"\tslt.s $f2, $f0, $f1"<<endl;
+                file<<"\ts.s $f2, "<<q.getRes()<<endl;
+            }
+            break;
+
+        case QMINI:
+            if(type ==0){
+                isNumber(q.getArg1())?
+                file<<"\tli $t0,"<<q.getArg1()<<endl //Aqui ademas se debe comparar si es un entero o una variable
+                :file<<"\tlw $t0,"<<q.getArg1()<<endl;
+                //file<<"\tli $t0,"<<q.getArg1()<<endl; //En caso de ser un número
+                isNumber(q.getArg2())?
+                file<<"\tli $t0,"<<q.getArg2()<<endl //Aqui ademas se debe comparar si es un entero o una variable
+                :file<<"\tlw $t0,"<<q.getArg2()<<endl;
+                file<<"\tsle $t2, $t0, $t1"<<endl;
+                file<<"\tsw $t2, "<<q.getRes()<<endl;
+            }else{
+                file<<"\tla $t0,"<<q.getArg1()<<endl;
+                file<<"\tl.s $f0, ($t0)"<<endl;
+                file<<"\tla $t1,"<<q.getArg2()<<endl;
+                file<<"\tl.s $f1, ($t1)"<<endl;
+                file<<"\tsle.s $f2, $f0, $f1"<<endl;
+                file<<"\ts.s $f2, "<<q.getRes()<<endl;
+            }
+            break;
+
         case QMAS: 
             if(type ==0){
                 isNumber(q.getArg1())?
@@ -88,6 +252,7 @@ void Generator::translate(Quad q, int type){
                 file<<"\ts.s $f2, "<<q.getRes()<<endl;
             }
             break;
+
         case QMENOS:
             if(type ==0){ //Hacer la mismas comprobaciones que para la suma
                 if(isNumber(q.getArg1()))
@@ -109,6 +274,7 @@ void Generator::translate(Quad q, int type){
                 file<<"\ts.s $f2, "<<q.getRes()<<endl;
             }
             break;
+
         case QMUL:
             if(type ==0){//Hacer la mismas comprobaciones que para la suma
                 if(isNumber(q.getArg1()))
@@ -130,6 +296,7 @@ void Generator::translate(Quad q, int type){
                 file<<"\ts.s $f2, "<<q.getRes()<<endl;
             }
             break;
+
         case QDIV:
             if(type ==0){//Hacer la mismas comprobaciones que para la suma
                 file<<"\tli $t0,"<<q.getArg1()<<endl;
@@ -154,6 +321,7 @@ void Generator::translate(Quad q, int type){
         case QGOTO:
             file<<"\tb "<<q.getRes()<<endl;
             break;
+
         case QCOPY:
             if(type == 0){
                 if(isNumber(q.getArg1()))
@@ -167,6 +335,22 @@ void Generator::translate(Quad q, int type){
                 file<<"\ts.s $f0,  "<<q.getRes()<<endl;
             }
             break;
+
+        case QNEG:
+            if(type == 0){
+                if(isNumber(q.getArg1()))
+                    file<<"\tli $t0,"<<q.getArg1()<<endl;
+                else
+                    file<<"\tlw $t0,"<<q.getArg1()<<endl;
+                file<<"\tnot $t0, "<<q.getRes()<<endl;
+                file<<"\tsw $t0,  "<<q.getRes()<<endl;
+            }else{
+                file<<"\tla $t0,"<<q.getArg1()<<endl;
+                file<<"\tl.s $f0, ($t0)"<<endl;
+                file<<"\ts.s $f0,  "<<q.getRes()<<endl;
+            }
+            break;
+
         case QLABEL:
             file<<q.getRes()<<":";
             break;

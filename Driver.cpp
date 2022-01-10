@@ -1,8 +1,3 @@
-/**
- * @author Adrian Ulises Mercado Martínez
- * @version 1, 3/11/2021
- */
-
 #include "Driver.hpp"
 #include <iostream>
 #include <sstream>
@@ -239,8 +234,7 @@ int Driver::addType(string name, SymTab *tab)
  * @param e2 expresión para el segundo operando
  * @return expresión que representa la variable temporal de resultado
  */
-Expresion Driver::mas(Expresion e1, Expresion e2)
-{
+Expresion Driver::mas(Expresion e1, Expresion e2){
     Expresion e;
     //Obtiene el máximo de los dos tipos
     e.type = max(e1.type, e2.type);
@@ -257,15 +251,15 @@ Expresion Driver::mas(Expresion e1, Expresion e2)
     }
     return e;
 }
-
 /*
  * Acciones semánticas para la resta similares  a la suma
  */
-Expresion Driver::menos(Expresion e1, Expresion e2)
-{
+Expresion Driver::menos(Expresion e1, Expresion e2){
     Expresion e;
     e.type = max(e1.type, e2.type);
-    if(e.type!=-1){
+    if(e.type != -1){
+        e.dir = newTemp();
+        addSym(e.dir, e.type, "temporal");
         string alfa1 = ampliar(e1.dir, e1.type, e.type);
         string alfa2 = ampliar(e2.dir, e2.type, e.type);
         genCode(e.dir, alfa1, "-", alfa2);
@@ -278,11 +272,12 @@ Expresion Driver::menos(Expresion e1, Expresion e2)
 /*
  * Acciones semánticas para la multiplicación similares  a la suma
  */
-Expresion Driver::mul(Expresion e1, Expresion e2)
-{
+Expresion Driver::mul(Expresion e1, Expresion e2){
     Expresion e;
     e.type = max(e1.type, e2.type);
-    if(e.type!=-1){
+    if(e.type != -1){
+        e.dir = newTemp();
+        addSym(e.dir, e.type, "temporal");
         string alfa1 = ampliar(e1.dir, e1.type, e.type);
         string alfa2 = ampliar(e2.dir, e2.type, e.type);
         genCode(e.dir, alfa1, "*", alfa2);
@@ -295,14 +290,133 @@ Expresion Driver::mul(Expresion e1, Expresion e2)
 /*
  * Acciones semánticas para la división similares  a la suma
  */
-Expresion Driver::div(Expresion e1, Expresion e2)
-{
+Expresion Driver::div(Expresion e1, Expresion e2){
     Expresion e;
     e.type = max(e1.type, e2.type);
-    if(e.type!=-1){
+    if(e.type != -1){
+        e.dir = newTemp();
+        addSym(e.dir, e.type, "temporal");
         string alfa1 = ampliar(e1.dir, e1.type, e.type);
         string alfa2 = ampliar(e2.dir, e2.type, e.type);
         genCode(e.dir, alfa1, "/", alfa2);
+    }else{
+        error("Los tipos son incompatibles");
+    }
+    return e;
+}
+Expresion Driver::mayor_que(Expresion e1, Expresion e2){
+    Expresion e;
+    e.type = max(e1.type, e2.type);
+    if(e.type != -1){
+        e.dir = newTemp();
+        addSym(e.dir, e.type, "temporal");
+        string alfa1 = ampliar(e1.dir, e1.type, e.type);
+        string alfa2 = ampliar(e2.dir, e2.type, e.type);
+        genCode(e.dir, alfa1, ">", alfa2);
+    }else{
+        error("Los tipos son incompatibles");
+    }
+    return e;
+}
+
+Expresion Driver::menor_que(Expresion e1, Expresion e2){
+    Expresion e;
+    e.type = max(e1.type, e2.type);
+    if(e.type != -1){
+        e.dir = newTemp();
+        addSym(e.dir, e.type, "temporal");
+        string alfa1 = ampliar(e1.dir, e1.type, e.type);
+        string alfa2 = ampliar(e2.dir, e2.type, e.type);
+        genCode(e.dir, alfa1, "<", alfa2);
+    }else{
+        error("Los tipos son incompatibles");
+    }
+    return e;
+}
+
+Expresion Driver::mayor_o_igual(Expresion e1, Expresion e2){
+    Expresion e;
+    e.type = max(e1.type, e2.type);
+    if(e.type != -1){
+        e.dir = newTemp();
+        addSym(e.dir, e.type, "temporal");
+        string alfa1 = ampliar(e1.dir, e1.type, e.type);
+        string alfa2 = ampliar(e2.dir, e2.type, e.type);
+        genCode(e.dir, alfa1, ">=", alfa2);
+    }else{
+        error("Los tipos son incompatibles");
+    }
+    return e;
+}
+
+Expresion Driver::menor_o_igual(Expresion e1, Expresion e2){
+    Expresion e;
+    e.type = max(e1.type, e2.type);
+    if(e.type != -1){
+        e.dir = newTemp();
+        addSym(e.dir, e.type, "temporal");
+        string alfa1 = ampliar(e1.dir, e1.type, e.type);
+        string alfa2 = ampliar(e2.dir, e2.type, e.type);
+        genCode(e.dir, alfa1, "<=", alfa2);
+    }else{
+        error("Los tipos son incompatibles");
+    }
+    return e;
+}
+Expresion Driver::disyuncion(Expresion e1, Expresion e2){
+    Expresion e;
+    e.type = max(e1.type, e2.type);
+    if(e.type != -1){
+        e.dir = newTemp();
+        addSym(e.dir, e.type, "temporal");
+        string alfa1 = ampliar(e1.dir, e1.type, e.type);
+        string alfa2 = ampliar(e2.dir, e2.type, e.type);
+        genCode(e.dir, alfa1, "||", alfa2);
+    }else{
+        error("Los tipos son incompatibles");
+    }
+    return e;
+}
+
+Expresion Driver::conjuncion(Expresion e1, Expresion e2){
+    Expresion e;
+    e.type = max(e1.type, e2.type);
+    if(e.type != -1){
+        e.dir = newTemp();
+        addSym(e.dir, e.type, "temporal");
+        string alfa1 = ampliar(e1.dir, e1.type, e.type);
+        string alfa2 = ampliar(e2.dir, e2.type, e.type);
+        genCode(e.dir, alfa1, "&&", alfa2);
+    }else{
+        error("Los tipos son incompatibles");
+    }
+    return e;
+}
+
+Expresion Driver::igual(Expresion e1, Expresion e2){
+    Expresion e;
+    e.type = max(e1.type, e2.type);
+    if(e.type != -1){
+        e.dir = newTemp();
+        addSym(e.dir, e.type, "temporal");
+        string alfa1 = ampliar(e1.dir, e1.type, e.type);
+        string alfa2 = ampliar(e2.dir, e2.type, e.type);
+        genCode(e.dir, alfa1, "==", alfa2);
+    }else{
+        error("Los tipos son incompatibles");
+    }
+    return e;
+}
+
+Expresion Driver::distinto(Expresion e1, Expresion e2){
+    Expresion e;
+    e.type = max(e1.type, e2.type);
+    if(e.type != -1){
+        e.dir = newTemp();
+        addSym(e.dir, e.type, "temporal");
+        string alfa1 = ampliar(e1.dir, e1.type, e.type);
+        string alfa2 = ampliar(e2.dir, e2.type, e.type);
+        genCode(e.dir, alfa1, "!=", alfa2);
     }else{
         error("Los tipos son incompatibles");
     }
@@ -316,8 +430,7 @@ Expresion Driver::div(Expresion e1, Expresion e2)
  * @param expresión la expresión de donde se obtiene el valor para el id
  * @return la expresión resultado
  */
-Expresion Driver::asig(string id, Expresion e)
-{
+Expresion Driver::asig(string id, Expresion e){
     Expresion e1;
     string alfa;
     //Validar que el id fue declarado
@@ -340,6 +453,33 @@ Expresion Driver::asig(string id, Expresion e)
         error("Los tipos son incompatibles");
     }
     genCode(id, alfa, "=", "");
+    e.dir = id;        
+    return e1;
+}
+
+Expresion Driver::negacion(string id, Expresion e){
+    Expresion e1;
+    string alfa;
+    //Validar que el id fue declarado
+    if(!ts.is_in(id)) error("La variable "+id+" no fue declarada");
+    int typeId = ts.getType(id);
+    e1.type = typeId; //La expresión de salida siempre tendrá el tipo del id
+    if(typeId == e.type){
+        alfa = e.dir;
+    }
+    else if(typeId>e.type)
+    {
+        alfa = ampliar(e.dir, e.type, e1.type);
+    }
+    else if(min(typeId, e.type)!=1)
+    {    
+        alfa = reducir(e.dir, e.type, e1.type);        
+    }
+    else
+    {
+        error("Los tipos son incompatibles");
+    }
+    genCode(id, alfa, "!", "");
     e.dir = id;        
     return e1;
 }

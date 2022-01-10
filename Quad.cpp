@@ -21,6 +21,17 @@ Quad::~Quad()
 }
 
 QuadType Quad::resolveQuad(){
+    if(op == "||") return QDIYUN;
+    if(op == "&&") return QCONJUN;
+    if(op == "==") return QIGUAL;
+    if(op == "!=") return QDIST;
+    if(op == "!") return QNEG;
+
+    if(op == ">") return QMAYQ;
+    if(op == "<") return QMINQ;
+    if(op == ">=") return QMAYI;
+    if(op == "<=") return QMINI;
+
     if(op == "+") return QMAS;
     if(op == "-") return QMENOS;
     if(op == "*") return QMUL;
@@ -41,6 +52,14 @@ void Quad::print()
         case QMENOS:
         case QMUL:
         case QDIV:
+        case QMAYQ:
+        case QMAYI:
+        case QMINQ:
+        case QMINI:
+        case QDIYUN: 
+        case QCONJUN: 
+        case QIGUAL: 
+        case QDIST:
             cout<<res<<"="<<arg1<<op<<arg2<<endl;
             break;
         case QIF:
@@ -50,6 +69,7 @@ void Quad::print()
             cout<<op<<" "<<res<<endl;
             break;
         case QCOPY:
+        case QNEG:
             cout<<res<<op<<arg1<<endl;
             break;
         case QLABEL:

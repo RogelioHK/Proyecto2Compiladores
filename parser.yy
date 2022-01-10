@@ -45,11 +45,12 @@ using namespace std;
 
 %token <std::string>     ID
 %token <std::string>     NUMERO
-%token              IF ELSE WHILE 
+%token              IF ELSE WHILE DO
 %token              INT FLOAT
 %token              LKEY RKEY PYC COMA
 
-%left               ASIG
+%left               ASIG NOT
+%left               MAYORQUE MENORQUE MAYORIGUAL MENORIGUAL IGUAL DIFF AND OR
 %left               MAS MENOS
 %left               MUL DIV
 %nonassoc           LPAR RPAR
@@ -123,6 +124,13 @@ sentencia:
         driver.popLabel();
     }
     |
+    DO
+    {
+        driver.pushLabel(driver.newLab()); // begin
+        driver.pushLabel(driver.newLab()); // true
+        driver.pushLabel(driver.newLab()); // false
+    }
+    |
     WHILE
     {
         driver.pushLabel(driver.newLab()); // begin
@@ -148,11 +156,32 @@ sentencia:
     {
         driver.asig($1, $3);
     }
+    |
+    ID NOT expresion PYC
+    {
+        driver.negacion($1, $3);
+    }
     ;
 
 expresion:
+    expresion IGUAL expresion {$$=driver.igual($1, $3);}
+    |
+    expresion DIFF expresion {$$=driver.distinto($1, $3);}
+    |
+    expresion AND expresion {$$=driver.conjuncion($1, $3);}
+    |
+    expresion OR expresion {$$=driver.disyuncion($1, $3);}
+    |
+    expresion MAYORQUE expresion {$$=driver.mayor_que($1, $3);}
+    |
+    expresion MENORQUE expresion {$$=driver.menor_que($1, $3);}
+    |
+    expresion MAYORIGUAL expresion {$$=driver.mayor_o_igual($1, $3);}
+    |
+    expresion MENORIGUAL expresion {$$=driver.menor_o_igual($1, $3);}
+    |
     expresion MAS expresion {$$=driver.mas($1, $3);}
-    | 
+    |
     expresion MENOS expresion{$$=driver.menos($1, $3);}
     | 
     expresion MUL expresion{$$=driver.mul($1, $3);}
