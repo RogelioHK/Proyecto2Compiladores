@@ -46,8 +46,9 @@ using namespace std;
 %token <std::string>     ID
 %token <std::string>     NUMERO CARACTER
 %token              IF ELSE WHILE DO
-%token              INT FLOAT DOUBLE CHAR 
+%token              INT FLOAT DOUBLE CHAR
 %token              LKEY RKEY PYC COMA
+%token              PRINT SCAN
 
 %left               ASIG NOT
 %left               MAYORQUE MENORQUE MAYORIGUAL MENORIGUAL IGUAL DIFF AND OR
@@ -63,7 +64,7 @@ using namespace std;
 %start programa
 
 %%
-programa : 
+programa :
     declaraciones sentencias
     {
         driver.print();
@@ -79,6 +80,31 @@ declaraciones:
 declaracion:
     tipo {driver.setType($1);} lista_var PYC
     ;
+    
+/*  |
+    VOID ID LPAR
+    {
+        driver._label($2);
+    }
+    lista_arg
+    {
+
+    } 
+    RPAR LKEY declaraciones sentencias RKEY{
+        driver.addSym($2, 4, "fun", driver.lp);
+    }
+
+    P.push(nuevaTs())
+    genLabel(id)
+
+    Ps.pop();
+    Si !Ps.top().find(id) Entonces
+        Ps.top().add.(id, dir, void, “fun”, lista-args.listas))
+        dir = dir + Tt.getSize()
+    Sino
+       error(“La función ya existente”)
+    Fin si
+*/
 
 tipo:
     INT { $$ = 0; }
@@ -99,6 +125,16 @@ lista_var:
         driver.addSym($1, driver.getType(), "variable");
     }
     ;
+
+/*lista_arg:
+    lista_arg COMA ID{
+        driver.addSym($3, driver.getType(), "parametro");
+    }
+    |
+    ID{
+        driver.addSym($1, driver.getType(), "parametro");
+    }
+    ;*/
 
 sentencias:
     sentencias sentencia
@@ -176,6 +212,16 @@ sentencia:
     ID NOT expresion PYC
     {
         driver.negacion($1, $3);
+    }
+    |
+    PRINT LPAR expresion RPAR PYC
+    {
+        driver.imprimir($3);
+    }
+    |
+    SCAN LPAR expresion RPAR PYC
+    {
+        driver.ler();
     }
     ;
 

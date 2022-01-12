@@ -498,22 +498,23 @@ namespace yy {
     RKEY = 270,                    // RKEY
     PYC = 271,                     // PYC
     COMA = 272,                    // COMA
-    ASIG = 273,                    // ASIG
-    NOT = 274,                     // NOT
-    MAYORQUE = 275,                // MAYORQUE
-    MENORQUE = 276,                // MENORQUE
-    MAYORIGUAL = 277,              // MAYORIGUAL
-    MENORIGUAL = 278,              // MENORIGUAL
-    IGUAL = 279,                   // IGUAL
-    DIFF = 280,                    // DIFF
-    AND = 281,                     // AND
-    OR = 282,                      // OR
-    MAS = 283,                     // MAS
-    MENOS = 284,                   // MENOS
-    MUL = 285,                     // MUL
-    DIV = 286,                     // DIV
-    LPAR = 287,                    // LPAR
-    RPAR = 288                     // RPAR
+    PRINT = 273,                   // PRINT
+    ASIG = 274,                    // ASIG
+    NOT = 275,                     // NOT
+    MAYORQUE = 276,                // MAYORQUE
+    MENORQUE = 277,                // MENORQUE
+    MAYORIGUAL = 278,              // MAYORIGUAL
+    MENORIGUAL = 279,              // MENORIGUAL
+    IGUAL = 280,                   // IGUAL
+    DIFF = 281,                    // DIFF
+    AND = 282,                     // AND
+    OR = 283,                      // OR
+    MAS = 284,                     // MAS
+    MENOS = 285,                   // MENOS
+    MUL = 286,                     // MUL
+    DIV = 287,                     // DIV
+    LPAR = 288,                    // LPAR
+    RPAR = 289                     // RPAR
       };
       /// Backward compatibility alias (Bison 3.6).
       typedef token_kind_type yytokentype;
@@ -530,7 +531,7 @@ namespace yy {
     {
       enum symbol_kind_type
       {
-        YYNTOKENS = 34, ///< Number of tokens.
+        YYNTOKENS = 35, ///< Number of tokens.
         S_YYEMPTY = -2,
         S_YYEOF = 0,                             // "end of file"
         S_YYerror = 1,                           // error
@@ -550,38 +551,39 @@ namespace yy {
         S_RKEY = 15,                             // RKEY
         S_PYC = 16,                              // PYC
         S_COMA = 17,                             // COMA
-        S_ASIG = 18,                             // ASIG
-        S_NOT = 19,                              // NOT
-        S_MAYORQUE = 20,                         // MAYORQUE
-        S_MENORQUE = 21,                         // MENORQUE
-        S_MAYORIGUAL = 22,                       // MAYORIGUAL
-        S_MENORIGUAL = 23,                       // MENORIGUAL
-        S_IGUAL = 24,                            // IGUAL
-        S_DIFF = 25,                             // DIFF
-        S_AND = 26,                              // AND
-        S_OR = 27,                               // OR
-        S_MAS = 28,                              // MAS
-        S_MENOS = 29,                            // MENOS
-        S_MUL = 30,                              // MUL
-        S_DIV = 31,                              // DIV
-        S_LPAR = 32,                             // LPAR
-        S_RPAR = 33,                             // RPAR
-        S_YYACCEPT = 34,                         // $accept
-        S_programa = 35,                         // programa
-        S_declaraciones = 36,                    // declaraciones
-        S_declaracion = 37,                      // declaracion
-        S_38_1 = 38,                             // $@1
-        S_tipo = 39,                             // tipo
-        S_lista_var = 40,                        // lista_var
-        S_sentencias = 41,                       // sentencias
-        S_sentencia = 42,                        // sentencia
-        S_43_2 = 43,                             // $@2
-        S_44_3 = 44,                             // $@3
-        S_45_4 = 45,                             // $@4
-        S_46_5 = 46,                             // $@5
-        S_47_6 = 47,                             // $@6
-        S_48_7 = 48,                             // $@7
-        S_expresion = 49                         // expresion
+        S_PRINT = 18,                            // PRINT
+        S_ASIG = 19,                             // ASIG
+        S_NOT = 20,                              // NOT
+        S_MAYORQUE = 21,                         // MAYORQUE
+        S_MENORQUE = 22,                         // MENORQUE
+        S_MAYORIGUAL = 23,                       // MAYORIGUAL
+        S_MENORIGUAL = 24,                       // MENORIGUAL
+        S_IGUAL = 25,                            // IGUAL
+        S_DIFF = 26,                             // DIFF
+        S_AND = 27,                              // AND
+        S_OR = 28,                               // OR
+        S_MAS = 29,                              // MAS
+        S_MENOS = 30,                            // MENOS
+        S_MUL = 31,                              // MUL
+        S_DIV = 32,                              // DIV
+        S_LPAR = 33,                             // LPAR
+        S_RPAR = 34,                             // RPAR
+        S_YYACCEPT = 35,                         // $accept
+        S_programa = 36,                         // programa
+        S_declaraciones = 37,                    // declaraciones
+        S_declaracion = 38,                      // declaracion
+        S_39_1 = 39,                             // $@1
+        S_tipo = 40,                             // tipo
+        S_lista_var = 41,                        // lista_var
+        S_sentencias = 42,                       // sentencias
+        S_sentencia = 43,                        // sentencia
+        S_44_2 = 44,                             // $@2
+        S_45_3 = 45,                             // $@3
+        S_46_4 = 46,                             // $@4
+        S_47_5 = 47,                             // $@5
+        S_48_6 = 48,                             // $@6
+        S_49_7 = 49,                             // $@7
+        S_expresion = 50                         // expresion
       };
     };
 
@@ -1176,6 +1178,21 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
+      make_PRINT (location_type l)
+      {
+        return symbol_type (token::PRINT, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_PRINT (const location_type& l)
+      {
+        return symbol_type (token::PRINT, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
       make_ASIG (location_type l)
       {
         return symbol_type (token::ASIG, std::move (l));
@@ -1457,7 +1474,7 @@ switch (yykind)
     // Tables.
     // YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
     // STATE-NUM.
-    static const signed char yypact_[];
+    static const short yypact_[];
 
     // YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
     // Performed when YYTABLE does not specify something else to do.  Zero
@@ -1717,7 +1734,7 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 142,     ///< Last index in yytable_.
+      yylast_ = 183,     ///< Last index in yytable_.
       yynnts_ = 16,  ///< Number of nonterminal symbols.
       yyfinal_ = 9 ///< Termination state number.
     };
@@ -1731,7 +1748,7 @@ switch (yykind)
 
 
 } // yy
-#line 1735 "parser.tab.hh"
+#line 1752 "parser.tab.hh"
 
 
 

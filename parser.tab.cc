@@ -732,7 +732,7 @@ namespace yy {
           switch (yyn)
             {
   case 2: // programa: declaraciones sentencias
-#line 68 "parser.yy"
+#line 69 "parser.yy"
     {
         driver.print();
         driver.translate();
@@ -741,37 +741,37 @@ namespace yy {
     break;
 
   case 5: // $@1: %empty
-#line 80 "parser.yy"
+#line 81 "parser.yy"
          {driver.setType(yystack_[0].value.as < int > ());}
 #line 747 "parser.tab.cc"
     break;
 
   case 7: // tipo: INT
-#line 84 "parser.yy"
+#line 110 "parser.yy"
         { yylhs.value.as < int > () = 0; }
 #line 753 "parser.tab.cc"
     break;
 
   case 8: // tipo: FLOAT
-#line 86 "parser.yy"
+#line 112 "parser.yy"
           { yylhs.value.as < int > () = 1; }
 #line 759 "parser.tab.cc"
     break;
 
   case 9: // tipo: DOUBLE
-#line 88 "parser.yy"
+#line 114 "parser.yy"
            { yylhs.value.as < int > () = 2; }
 #line 765 "parser.tab.cc"
     break;
 
   case 10: // tipo: CHAR
-#line 90 "parser.yy"
+#line 116 "parser.yy"
          { yylhs.value.as < int > () = 3; }
 #line 771 "parser.tab.cc"
     break;
 
   case 11: // lista_var: lista_var COMA ID
-#line 94 "parser.yy"
+#line 120 "parser.yy"
                      {
         driver.addSym(yystack_[0].value.as < std::string > (), driver.getType(), "variable");
     }
@@ -779,7 +779,7 @@ namespace yy {
     break;
 
   case 12: // lista_var: ID
-#line 98 "parser.yy"
+#line 124 "parser.yy"
       {
         driver.addSym(yystack_[0].value.as < std::string > (), driver.getType(), "variable");
     }
@@ -787,7 +787,7 @@ namespace yy {
     break;
 
   case 15: // $@2: %empty
-#line 110 "parser.yy"
+#line 146 "parser.yy"
     {
         driver.pushLabel(driver.newLab());// next
         driver.pushLabel(driver.newLab());// label true
@@ -800,7 +800,7 @@ namespace yy {
     break;
 
   case 16: // $@3: %empty
-#line 119 "parser.yy"
+#line 155 "parser.yy"
     {
         driver._goto(driver.newLabel(driver.element(2)));
         driver._label(driver.newLabel(driver.element(0)));
@@ -809,7 +809,7 @@ namespace yy {
     break;
 
   case 17: // sentencia: IF LPAR expresion $@2 RPAR LKEY sentencias $@3 RKEY ELSE LKEY sentencias RKEY
-#line 124 "parser.yy"
+#line 160 "parser.yy"
     {
         driver._label(driver.newLabel(driver.element(2)));
         driver.popLabel();
@@ -820,7 +820,7 @@ namespace yy {
     break;
 
   case 18: // $@4: %empty
-#line 132 "parser.yy"
+#line 168 "parser.yy"
     {
         driver.pushLabel(driver.newLab()); // begin
         driver.pushLabel(driver.newLab()); // true
@@ -831,7 +831,7 @@ namespace yy {
     break;
 
   case 19: // $@5: %empty
-#line 139 "parser.yy"
+#line 175 "parser.yy"
     {
         driver._if(yystack_[0].value.as < Expresion > ().dir, driver.newLabel(driver.element(1)));
         driver._goto(driver.newLabel(driver.element(0)));
@@ -841,7 +841,7 @@ namespace yy {
     break;
 
   case 20: // sentencia: WHILE $@4 LPAR expresion $@5 RPAR LKEY sentencias RKEY
-#line 145 "parser.yy"
+#line 181 "parser.yy"
     {
         driver._goto(driver.newLabel(driver.element(2)));
         driver._label(driver.newLabel(driver.element(0)));
@@ -853,7 +853,7 @@ namespace yy {
     break;
 
   case 21: // $@6: %empty
-#line 154 "parser.yy"
+#line 190 "parser.yy"
     {
         driver.pushLabel(driver.newLab()); // true
         driver.pushLabel(driver.newLab()); // false
@@ -863,7 +863,7 @@ namespace yy {
     break;
 
   case 22: // $@7: %empty
-#line 160 "parser.yy"
+#line 196 "parser.yy"
     {
         driver._if(yystack_[0].value.as < Expresion > ().dir, driver.newLabel(driver.element(1)));
         driver._goto(driver.newLabel(driver.element(0)));      
@@ -872,7 +872,7 @@ namespace yy {
     break;
 
   case 23: // sentencia: DO $@6 LKEY sentencias RKEY WHILE LPAR expresion $@7 RPAR PYC
-#line 165 "parser.yy"
+#line 201 "parser.yy"
     {
         driver._label(driver.newLabel(driver.element(0)));
         driver.popLabel();
@@ -882,7 +882,7 @@ namespace yy {
     break;
 
   case 24: // sentencia: ID ASIG expresion PYC
-#line 172 "parser.yy"
+#line 208 "parser.yy"
     {
         driver.asig(yystack_[3].value.as < std::string > (), yystack_[1].value.as < Expresion > ());
     }
@@ -890,111 +890,119 @@ namespace yy {
     break;
 
   case 25: // sentencia: ID NOT expresion PYC
-#line 177 "parser.yy"
+#line 213 "parser.yy"
     {
         driver.negacion(yystack_[3].value.as < std::string > (), yystack_[1].value.as < Expresion > ());
     }
 #line 898 "parser.tab.cc"
     break;
 
-  case 26: // expresion: expresion IGUAL expresion
-#line 183 "parser.yy"
+  case 26: // sentencia: PRINT LPAR expresion RPAR PYC
+#line 218 "parser.yy"
+    {
+        driver.imprimir(yystack_[2].value.as < Expresion > ());
+    }
+#line 906 "parser.tab.cc"
+    break;
+
+  case 27: // expresion: expresion IGUAL expresion
+#line 224 "parser.yy"
                               {yylhs.value.as < Expresion > ()=driver.igual(yystack_[2].value.as < Expresion > (), yystack_[0].value.as < Expresion > ());}
-#line 904 "parser.tab.cc"
+#line 912 "parser.tab.cc"
     break;
 
-  case 27: // expresion: expresion DIFF expresion
-#line 185 "parser.yy"
+  case 28: // expresion: expresion DIFF expresion
+#line 226 "parser.yy"
                              {yylhs.value.as < Expresion > ()=driver.distinto(yystack_[2].value.as < Expresion > (), yystack_[0].value.as < Expresion > ());}
-#line 910 "parser.tab.cc"
+#line 918 "parser.tab.cc"
     break;
 
-  case 28: // expresion: expresion AND expresion
-#line 187 "parser.yy"
+  case 29: // expresion: expresion AND expresion
+#line 228 "parser.yy"
                             {yylhs.value.as < Expresion > ()=driver.conjuncion(yystack_[2].value.as < Expresion > (), yystack_[0].value.as < Expresion > ());}
-#line 916 "parser.tab.cc"
+#line 924 "parser.tab.cc"
     break;
 
-  case 29: // expresion: expresion OR expresion
-#line 189 "parser.yy"
+  case 30: // expresion: expresion OR expresion
+#line 230 "parser.yy"
                            {yylhs.value.as < Expresion > ()=driver.disyuncion(yystack_[2].value.as < Expresion > (), yystack_[0].value.as < Expresion > ());}
-#line 922 "parser.tab.cc"
+#line 930 "parser.tab.cc"
     break;
 
-  case 30: // expresion: expresion MAYORQUE expresion
-#line 191 "parser.yy"
+  case 31: // expresion: expresion MAYORQUE expresion
+#line 232 "parser.yy"
                                  {yylhs.value.as < Expresion > ()=driver.mayor_que(yystack_[2].value.as < Expresion > (), yystack_[0].value.as < Expresion > ());}
-#line 928 "parser.tab.cc"
+#line 936 "parser.tab.cc"
     break;
 
-  case 31: // expresion: expresion MENORQUE expresion
-#line 193 "parser.yy"
+  case 32: // expresion: expresion MENORQUE expresion
+#line 234 "parser.yy"
                                  {yylhs.value.as < Expresion > ()=driver.menor_que(yystack_[2].value.as < Expresion > (), yystack_[0].value.as < Expresion > ());}
-#line 934 "parser.tab.cc"
+#line 942 "parser.tab.cc"
     break;
 
-  case 32: // expresion: expresion MAYORIGUAL expresion
-#line 195 "parser.yy"
+  case 33: // expresion: expresion MAYORIGUAL expresion
+#line 236 "parser.yy"
                                    {yylhs.value.as < Expresion > ()=driver.mayor_o_igual(yystack_[2].value.as < Expresion > (), yystack_[0].value.as < Expresion > ());}
-#line 940 "parser.tab.cc"
+#line 948 "parser.tab.cc"
     break;
 
-  case 33: // expresion: expresion MENORIGUAL expresion
-#line 197 "parser.yy"
+  case 34: // expresion: expresion MENORIGUAL expresion
+#line 238 "parser.yy"
                                    {yylhs.value.as < Expresion > ()=driver.menor_o_igual(yystack_[2].value.as < Expresion > (), yystack_[0].value.as < Expresion > ());}
-#line 946 "parser.tab.cc"
+#line 954 "parser.tab.cc"
     break;
 
-  case 34: // expresion: expresion MAS expresion
-#line 199 "parser.yy"
+  case 35: // expresion: expresion MAS expresion
+#line 240 "parser.yy"
                             {yylhs.value.as < Expresion > ()=driver.mas(yystack_[2].value.as < Expresion > (), yystack_[0].value.as < Expresion > ());}
-#line 952 "parser.tab.cc"
+#line 960 "parser.tab.cc"
     break;
 
-  case 35: // expresion: expresion MENOS expresion
-#line 201 "parser.yy"
+  case 36: // expresion: expresion MENOS expresion
+#line 242 "parser.yy"
                              {yylhs.value.as < Expresion > ()=driver.menos(yystack_[2].value.as < Expresion > (), yystack_[0].value.as < Expresion > ());}
-#line 958 "parser.tab.cc"
+#line 966 "parser.tab.cc"
     break;
 
-  case 36: // expresion: expresion MUL expresion
-#line 203 "parser.yy"
+  case 37: // expresion: expresion MUL expresion
+#line 244 "parser.yy"
                            {yylhs.value.as < Expresion > ()=driver.mul(yystack_[2].value.as < Expresion > (), yystack_[0].value.as < Expresion > ());}
-#line 964 "parser.tab.cc"
+#line 972 "parser.tab.cc"
     break;
 
-  case 37: // expresion: expresion DIV expresion
-#line 205 "parser.yy"
+  case 38: // expresion: expresion DIV expresion
+#line 246 "parser.yy"
                            {yylhs.value.as < Expresion > ()=driver.div(yystack_[2].value.as < Expresion > (), yystack_[0].value.as < Expresion > ());}
-#line 970 "parser.tab.cc"
+#line 978 "parser.tab.cc"
     break;
 
-  case 38: // expresion: LPAR expresion RPAR
-#line 207 "parser.yy"
+  case 39: // expresion: LPAR expresion RPAR
+#line 248 "parser.yy"
                        {yylhs.value.as < Expresion > ()=yystack_[1].value.as < Expresion > ();}
-#line 976 "parser.tab.cc"
+#line 984 "parser.tab.cc"
     break;
 
-  case 39: // expresion: NUMERO
-#line 209 "parser.yy"
+  case 40: // expresion: NUMERO
+#line 250 "parser.yy"
           {yylhs.value.as < Expresion > ()=driver.numero(yystack_[0].value.as < std::string > (), lexer.getType());}
-#line 982 "parser.tab.cc"
+#line 990 "parser.tab.cc"
     break;
 
-  case 40: // expresion: CARACTER
-#line 211 "parser.yy"
+  case 41: // expresion: CARACTER
+#line 252 "parser.yy"
             {yylhs.value.as < Expresion > ()=driver.caracter(yystack_[0].value.as < std::string > (), lexer.getType());}
-#line 988 "parser.tab.cc"
+#line 996 "parser.tab.cc"
     break;
 
-  case 41: // expresion: ID
-#line 213 "parser.yy"
+  case 42: // expresion: ID
+#line 254 "parser.yy"
       {yylhs.value.as < Expresion > ()=driver.ident(yystack_[0].value.as < std::string > ());}
-#line 994 "parser.tab.cc"
+#line 1002 "parser.tab.cc"
     break;
 
 
-#line 998 "parser.tab.cc"
+#line 1006 "parser.tab.cc"
 
             default:
               break;
@@ -1187,114 +1195,125 @@ namespace yy {
 
 
 
-  const signed char Parser::yypact_ninf_ = -32;
+  const signed char Parser::yypact_ninf_ = -34;
 
   const signed char Parser::yytable_ninf_ = -1;
 
-  const signed char
+  const short
   Parser::yypact_[] =
   {
-      55,   -32,   -32,   -32,   -32,    14,   125,   -32,   -32,   -32,
-     -10,   -14,   -32,   -32,   -32,    44,   -32,    17,     1,     1,
-       1,     2,    24,   -32,   -32,     0,   -32,   -32,   -32,     1,
-      54,    70,    96,     1,    44,   -32,    41,    82,   -32,     1,
-       1,     1,     1,     1,     1,     1,     1,     1,     1,     1,
-       1,   -32,    13,    96,     4,   -32,   -32,   111,   111,   111,
-     111,   111,   111,   111,   111,     5,     5,   -32,   -32,    47,
-      15,    50,    44,    57,    30,    44,    44,     1,    72,    34,
-      96,    62,   -32,    39,    74,    73,    44,   -32,    48,   -32
+       7,   -34,   -34,   -34,   -34,     4,    43,   -34,   -34,   -34,
+     -10,   -22,   -34,   -34,   -18,   -34,   125,   -34,    18,     3,
+       3,     3,   -11,    21,     3,   -34,   -34,    -3,   -34,   -34,
+     -34,     3,    57,    74,   151,     3,   125,   123,   -34,    42,
+     137,   -34,     3,     3,     3,     3,     3,     3,     3,     3,
+       3,     3,     3,     3,   -34,    13,   151,   104,    34,   -34,
+     -34,     8,     8,     8,     8,     8,     8,     8,     8,    11,
+      11,   -34,   -34,    45,    23,    52,   -34,   125,    48,    32,
+     125,   125,     3,    51,   108,   151,    60,   -34,    35,    56,
+      55,   125,   -34,   112,   -34
   };
 
   const signed char
   Parser::yydefact_[] =
   {
        0,     7,     8,     9,    10,     0,     0,     4,     5,     1,
-       0,     0,    18,    21,     3,     2,    14,     0,     0,     0,
-       0,     0,     0,    13,    12,     0,    41,    39,    40,     0,
-       0,     0,    15,     0,     0,     6,     0,     0,    24,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     0,     0,
-       0,    25,     0,    19,     0,    11,    38,    30,    31,    32,
-      33,    26,    27,    28,    29,    34,    35,    36,    37,     0,
-       0,     0,     0,     0,     0,    16,     0,     0,     0,     0,
-      22,     0,    20,     0,     0,     0,     0,    23,     0,    17
+       0,     0,    18,    21,     0,     3,     2,    14,     0,     0,
+       0,     0,     0,     0,     0,    13,    12,     0,    42,    40,
+      41,     0,     0,     0,    15,     0,     0,     0,     6,     0,
+       0,    24,     0,     0,     0,     0,     0,     0,     0,     0,
+       0,     0,     0,     0,    25,     0,    19,     0,     0,    11,
+      39,    31,    32,    33,    34,    27,    28,    29,    30,    35,
+      36,    37,    38,     0,     0,     0,    26,     0,     0,     0,
+      16,     0,     0,     0,     0,    22,     0,    20,     0,     0,
+       0,     0,    23,     0,    17
   };
 
   const signed char
   Parser::yypgoto_[] =
   {
-     -32,   -32,   -32,   108,   -32,   -32,   -32,   -31,   -15,   -32,
-     -32,   -32,   -32,   -32,   -32,   -18
+     -34,   -34,   -34,    66,   -34,   -34,   -34,   -33,   -16,   -34,
+     -34,   -34,   -34,   -34,   -34,   -19
   };
 
   const signed char
   Parser::yydefgoto_[] =
   {
-       0,     5,     6,     7,    17,     8,    25,    15,    16,    52,
-      78,    21,    70,    22,    83,    30
+       0,     5,     6,     7,    18,     8,    27,    16,    17,    55,
+      83,    22,    74,    23,    88,    32
   };
 
   const signed char
   Parser::yytable_[] =
   {
-      23,    31,    32,    54,    26,    27,    28,    10,    18,    19,
-      11,    37,    12,    13,     9,    53,    35,    36,    20,    71,
-      24,    57,    58,    59,    60,    61,    62,    63,    64,    65,
-      66,    67,    68,    29,    33,    49,    50,    10,    34,    23,
-      11,    75,    12,    13,    55,    79,    69,    10,    73,    82,
-      11,    10,    12,    13,    11,    88,    12,    13,    74,    80,
-      23,    72,    77,    89,    23,     1,     2,     3,     4,    84,
-      38,    76,    85,    23,    39,    40,    41,    42,    43,    44,
-      45,    46,    47,    48,    49,    50,    51,    81,    86,    87,
-      39,    40,    41,    42,    43,    44,    45,    46,    47,    48,
-      49,    50,    39,    40,    41,    42,    43,    44,    45,    46,
-      47,    48,    49,    50,    14,    56,    39,    40,    41,    42,
-      43,    44,    45,    46,    47,    48,    49,    50,    10,     0,
-       0,    11,     0,    12,    13,     1,     2,     3,     4,    47,
-      48,    49,    50
+      25,    33,    34,    57,     9,    37,    28,    29,    30,    19,
+      20,    21,    40,    38,    39,    24,    56,     1,     2,     3,
+       4,    26,    35,    61,    62,    63,    64,    65,    66,    67,
+      68,    69,    70,    71,    72,    36,    31,    50,    51,    52,
+      53,    25,    52,    53,    80,    59,    10,    73,    84,    11,
+      76,    12,    13,     1,     2,     3,     4,    78,    93,    77,
+      79,    14,    81,    85,    25,    82,    86,    89,    25,    90,
+      91,    92,    15,    41,     0,     0,     0,    25,    42,    43,
+      44,    45,    46,    47,    48,    49,    50,    51,    52,    53,
+      54,     0,     0,     0,     0,    42,    43,    44,    45,    46,
+      47,    48,    49,    50,    51,    52,    53,    10,     0,     0,
+      11,    10,    12,    13,    11,    10,    12,    13,    11,    75,
+      12,    13,    14,    87,     0,     0,    14,    94,    10,     0,
+      14,    11,     0,    12,    13,     0,     0,     0,     0,     0,
+       0,     0,     0,    14,    42,    43,    44,    45,    46,    47,
+      48,    49,    50,    51,    52,    53,     0,    58,    42,    43,
+      44,    45,    46,    47,    48,    49,    50,    51,    52,    53,
+       0,    60,    42,    43,    44,    45,    46,    47,    48,    49,
+      50,    51,    52,    53
   };
 
   const signed char
   Parser::yycheck_[] =
   {
-      15,    19,    20,    34,     3,     4,     5,     3,    18,    19,
-       6,    29,     8,     9,     0,    33,    16,    17,    32,    15,
-       3,    39,    40,    41,    42,    43,    44,    45,    46,    47,
-      48,    49,    50,    32,    32,    30,    31,     3,    14,    54,
-       6,    72,     8,     9,     3,    76,    33,     3,    33,    15,
-       6,     3,     8,     9,     6,    86,     8,     9,     8,    77,
-      75,    14,    32,    15,    79,    10,    11,    12,    13,     7,
-      16,    14,    33,    88,    20,    21,    22,    23,    24,    25,
-      26,    27,    28,    29,    30,    31,    16,    15,    14,    16,
-      20,    21,    22,    23,    24,    25,    26,    27,    28,    29,
-      30,    31,    20,    21,    22,    23,    24,    25,    26,    27,
-      28,    29,    30,    31,     6,    33,    20,    21,    22,    23,
-      24,    25,    26,    27,    28,    29,    30,    31,     3,    -1,
-      -1,     6,    -1,     8,     9,    10,    11,    12,    13,    28,
-      29,    30,    31
+      16,    20,    21,    36,     0,    24,     3,     4,     5,    19,
+      20,    33,    31,    16,    17,    33,    35,    10,    11,    12,
+      13,     3,    33,    42,    43,    44,    45,    46,    47,    48,
+      49,    50,    51,    52,    53,    14,    33,    29,    30,    31,
+      32,    57,    31,    32,    77,     3,     3,    34,    81,     6,
+      16,     8,     9,    10,    11,    12,    13,    34,    91,    14,
+       8,    18,    14,    82,    80,    33,    15,     7,    84,    34,
+      14,    16,     6,    16,    -1,    -1,    -1,    93,    21,    22,
+      23,    24,    25,    26,    27,    28,    29,    30,    31,    32,
+      16,    -1,    -1,    -1,    -1,    21,    22,    23,    24,    25,
+      26,    27,    28,    29,    30,    31,    32,     3,    -1,    -1,
+       6,     3,     8,     9,     6,     3,     8,     9,     6,    15,
+       8,     9,    18,    15,    -1,    -1,    18,    15,     3,    -1,
+      18,     6,    -1,     8,     9,    -1,    -1,    -1,    -1,    -1,
+      -1,    -1,    -1,    18,    21,    22,    23,    24,    25,    26,
+      27,    28,    29,    30,    31,    32,    -1,    34,    21,    22,
+      23,    24,    25,    26,    27,    28,    29,    30,    31,    32,
+      -1,    34,    21,    22,    23,    24,    25,    26,    27,    28,
+      29,    30,    31,    32
   };
 
   const signed char
   Parser::yystos_[] =
   {
-       0,    10,    11,    12,    13,    35,    36,    37,    39,     0,
-       3,     6,     8,     9,    37,    41,    42,    38,    18,    19,
-      32,    45,    47,    42,     3,    40,     3,     4,     5,    32,
-      49,    49,    49,    32,    14,    16,    17,    49,    16,    20,
-      21,    22,    23,    24,    25,    26,    27,    28,    29,    30,
-      31,    16,    43,    49,    41,     3,    33,    49,    49,    49,
-      49,    49,    49,    49,    49,    49,    49,    49,    49,    33,
-      46,    15,    14,    33,     8,    41,    14,    32,    44,    41,
-      49,    15,    15,    48,     7,    33,    14,    16,    41,    15
+       0,    10,    11,    12,    13,    36,    37,    38,    40,     0,
+       3,     6,     8,     9,    18,    38,    42,    43,    39,    19,
+      20,    33,    46,    48,    33,    43,     3,    41,     3,     4,
+       5,    33,    50,    50,    50,    33,    14,    50,    16,    17,
+      50,    16,    21,    22,    23,    24,    25,    26,    27,    28,
+      29,    30,    31,    32,    16,    44,    50,    42,    34,     3,
+      34,    50,    50,    50,    50,    50,    50,    50,    50,    50,
+      50,    50,    50,    34,    47,    15,    16,    14,    34,     8,
+      42,    14,    33,    45,    42,    50,    15,    15,    49,     7,
+      34,    14,    16,    42,    15
   };
 
   const signed char
   Parser::yyr1_[] =
   {
-       0,    34,    35,    36,    36,    38,    37,    39,    39,    39,
-      39,    40,    40,    41,    41,    43,    44,    42,    45,    46,
-      42,    47,    48,    42,    42,    42,    49,    49,    49,    49,
-      49,    49,    49,    49,    49,    49,    49,    49,    49,    49,
-      49,    49
+       0,    35,    36,    37,    37,    39,    38,    40,    40,    40,
+      40,    41,    41,    42,    42,    44,    45,    43,    46,    47,
+      43,    48,    49,    43,    43,    43,    43,    50,    50,    50,
+      50,    50,    50,    50,    50,    50,    50,    50,    50,    50,
+      50,    50,    50
   };
 
   const signed char
@@ -1302,9 +1321,9 @@ namespace yy {
   {
        0,     2,     2,     2,     1,     0,     4,     1,     1,     1,
        1,     3,     1,     2,     1,     0,     0,    13,     0,     0,
-       9,     0,     0,    11,     4,     4,     3,     3,     3,     3,
-       3,     3,     3,     3,     3,     3,     3,     3,     3,     1,
-       1,     1
+       9,     0,     0,    11,     4,     4,     5,     3,     3,     3,
+       3,     3,     3,     3,     3,     3,     3,     3,     3,     3,
+       1,     1,     1
   };
 
 
@@ -1316,11 +1335,12 @@ namespace yy {
   {
   "\"end of file\"", "error", "\"invalid token\"", "ID", "NUMERO",
   "CARACTER", "IF", "ELSE", "WHILE", "DO", "INT", "FLOAT", "DOUBLE",
-  "CHAR", "LKEY", "RKEY", "PYC", "COMA", "ASIG", "NOT", "MAYORQUE",
-  "MENORQUE", "MAYORIGUAL", "MENORIGUAL", "IGUAL", "DIFF", "AND", "OR",
-  "MAS", "MENOS", "MUL", "DIV", "LPAR", "RPAR", "$accept", "programa",
-  "declaraciones", "declaracion", "$@1", "tipo", "lista_var", "sentencias",
-  "sentencia", "$@2", "$@3", "$@4", "$@5", "$@6", "$@7", "expresion", YY_NULLPTR
+  "CHAR", "LKEY", "RKEY", "PYC", "COMA", "PRINT", "ASIG", "NOT",
+  "MAYORQUE", "MENORQUE", "MAYORIGUAL", "MENORIGUAL", "IGUAL", "DIFF",
+  "AND", "OR", "MAS", "MENOS", "MUL", "DIV", "LPAR", "RPAR", "$accept",
+  "programa", "declaraciones", "declaracion", "$@1", "tipo", "lista_var",
+  "sentencias", "sentencia", "$@2", "$@3", "$@4", "$@5", "$@6", "$@7",
+  "expresion", YY_NULLPTR
   };
 #endif
 
@@ -1329,11 +1349,11 @@ namespace yy {
   const unsigned char
   Parser::yyrline_[] =
   {
-       0,    67,    67,    75,    76,    80,    80,    84,    86,    88,
-      90,    94,    98,   104,   105,   110,   119,   109,   132,   139,
-     131,   154,   160,   153,   171,   176,   183,   185,   187,   189,
-     191,   193,   195,   197,   199,   201,   203,   205,   207,   209,
-     211,   213
+       0,    68,    68,    76,    77,    81,    81,   110,   112,   114,
+     116,   120,   124,   140,   141,   146,   155,   145,   168,   175,
+     167,   190,   196,   189,   207,   212,   217,   224,   226,   228,
+     230,   232,   234,   236,   238,   240,   242,   244,   246,   248,
+     250,   252,   254
   };
 
   void
@@ -1400,10 +1420,10 @@ namespace yy {
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26,    27,    28,    29,    30,    31,    32,    33
+      25,    26,    27,    28,    29,    30,    31,    32,    33,    34
     };
     // Last valid token kind.
-    const int code_max = 288;
+    const int code_max = 289;
 
     if (t <= 0)
       return symbol_kind::S_YYEOF;
@@ -1414,9 +1434,9 @@ namespace yy {
   }
 
 } // yy
-#line 1418 "parser.tab.cc"
+#line 1438 "parser.tab.cc"
 
-#line 218 "parser.yy"
+#line 259 "parser.yy"
 
 
 

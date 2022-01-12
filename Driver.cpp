@@ -209,9 +209,14 @@ void Driver::addSym(string id, int dir, int type, string cat)
  * validando que el id no se encuentra en la tabla en caso de que sí 
  * marca un error (No se usa para este lenguaje)
  */
-void Driver::addSym(string id, int dir, int type, string cat, vector<int> args)
+void Driver::addSym(string id, int type, string cat, vector<int> args)
 {
-    ts.addSym(id, Sym(dir,gType, cat, args));
+    if(!ts.is_in(id)){
+        ts.addSym(id, Sym(dir, gType, cat, args));
+        dir += tt.getTam(type);
+    }
+    else
+        error("La funcion "+id+" ya fue declarada");
 }
 
 
@@ -548,7 +553,6 @@ Expresion Driver::numero(string val, int type){
 Expresion Driver::caracter(string val, int type){
     Expresion e;
     if(val.length() == 3){
-        cout<<val<<endl;
         e.dir =val;
         e.type = type;
     }
@@ -562,6 +566,21 @@ void Driver::error(string msg){
     exit(EXIT_FAILURE);
 }
 
+Expresion Driver::imprimir(Expresion e){
+    if(e.type == 0)
+        genCode(e.dir, "", "printInt", "");
+    else if(e.type == 1)
+        genCode(e.dir, "", "printFloat", "");
+    else if(e.type == 2)
+        genCode(e.dir, "", "printDouble", "");
+    else if(e.type == 3)
+        genCode(e.dir, "", "printChar", "");
+    return e;
+}
+
+Expresion Driver::imprimir(string id){
+    return id;
+}
 
 /*
  * Función para imprimir el código intermedio al finalizar el análisis semántico

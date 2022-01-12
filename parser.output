@@ -41,32 +41,33 @@ Grammar
    22 sentencia: DO $@6 LKEY sentencias RKEY WHILE LPAR expresion $@7 RPAR PYC
    23          | ID ASIG expresion PYC
    24          | ID NOT expresion PYC
+   25          | PRINT LPAR expresion RPAR PYC
 
-   25 expresion: expresion IGUAL expresion
-   26          | expresion DIFF expresion
-   27          | expresion AND expresion
-   28          | expresion OR expresion
-   29          | expresion MAYORQUE expresion
-   30          | expresion MENORQUE expresion
-   31          | expresion MAYORIGUAL expresion
-   32          | expresion MENORIGUAL expresion
-   33          | expresion MAS expresion
-   34          | expresion MENOS expresion
-   35          | expresion MUL expresion
-   36          | expresion DIV expresion
-   37          | LPAR expresion RPAR
-   38          | NUMERO
-   39          | CARACTER
-   40          | ID
+   26 expresion: expresion IGUAL expresion
+   27          | expresion DIFF expresion
+   28          | expresion AND expresion
+   29          | expresion OR expresion
+   30          | expresion MAYORQUE expresion
+   31          | expresion MENORQUE expresion
+   32          | expresion MAYORIGUAL expresion
+   33          | expresion MENORIGUAL expresion
+   34          | expresion MAS expresion
+   35          | expresion MENOS expresion
+   36          | expresion MUL expresion
+   37          | expresion DIV expresion
+   38          | LPAR expresion RPAR
+   39          | NUMERO
+   40          | CARACTER
+   41          | ID
 
 
 Terminals, with rules where they appear
 
     $end (0) 0
     error (256)
-    ID <std::string> (258) 10 11 23 24 40
-    NUMERO <std::string> (259) 38
-    CARACTER <std::string> (260) 39
+    ID <std::string> (258) 10 11 23 24 41
+    NUMERO <std::string> (259) 39
+    CARACTER <std::string> (260) 40
     IF (261) 16
     ELSE (262) 16
     WHILE (263) 19 22
@@ -77,75 +78,76 @@ Terminals, with rules where they appear
     CHAR (268) 9
     LKEY (269) 16 19 22
     RKEY (270) 16 19 22
-    PYC (271) 5 22 23 24
+    PYC (271) 5 22 23 24 25
     COMA (272) 10
-    ASIG (273) 23
-    NOT (274) 24
-    MAYORQUE (275) 29
-    MENORQUE (276) 30
-    MAYORIGUAL (277) 31
-    MENORIGUAL (278) 32
-    IGUAL (279) 25
-    DIFF (280) 26
-    AND (281) 27
-    OR (282) 28
-    MAS (283) 33
-    MENOS (284) 34
-    MUL (285) 35
-    DIV (286) 36
-    LPAR (287) 16 19 22 37
-    RPAR (288) 16 19 22 37
+    PRINT (273) 25
+    ASIG (274) 23
+    NOT (275) 24
+    MAYORQUE (276) 30
+    MENORQUE (277) 31
+    MAYORIGUAL (278) 32
+    MENORIGUAL (279) 33
+    IGUAL (280) 26
+    DIFF (281) 27
+    AND (282) 28
+    OR (283) 29
+    MAS (284) 34
+    MENOS (285) 35
+    MUL (286) 36
+    DIV (287) 37
+    LPAR (288) 16 19 22 25 38
+    RPAR (289) 16 19 22 25 38
 
 
 Nonterminals, with rules where they appear
 
-    $accept (34)
+    $accept (35)
         on left: 0
-    programa (35)
+    programa (36)
         on left: 1
         on right: 0
-    declaraciones (36)
+    declaraciones (37)
         on left: 2 3
         on right: 1 2
-    declaracion (37)
+    declaracion (38)
         on left: 5
         on right: 2 3
-    $@1 (38)
+    $@1 (39)
         on left: 4
         on right: 5
-    tipo <int> (39)
+    tipo <int> (40)
         on left: 6 7 8 9
         on right: 5
-    lista_var (40)
+    lista_var (41)
         on left: 10 11
         on right: 5 10
-    sentencias (41)
+    sentencias (42)
         on left: 12 13
         on right: 1 12 16 19 22
-    sentencia (42)
-        on left: 16 19 22 23 24
+    sentencia (43)
+        on left: 16 19 22 23 24 25
         on right: 12 13
-    $@2 (43)
+    $@2 (44)
         on left: 14
         on right: 16
-    $@3 (44)
+    $@3 (45)
         on left: 15
         on right: 16
-    $@4 (45)
+    $@4 (46)
         on left: 17
         on right: 19
-    $@5 (46)
+    $@5 (47)
         on left: 18
         on right: 19
-    $@6 (47)
+    $@6 (48)
         on left: 20
         on right: 22
-    $@7 (48)
+    $@7 (49)
         on left: 21
         on right: 22
-    expresion <Expresion> (49)
-        on left: 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40
-        on right: 16 19 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37
+    expresion <Expresion> (50)
+        on left: 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41
+        on right: 16 19 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38
 
 
 State 0
@@ -211,11 +213,12 @@ State 6
     FLOAT   shift, and go to state 2
     DOUBLE  shift, and go to state 3
     CHAR    shift, and go to state 4
+    PRINT   shift, and go to state 14
 
-    declaracion  go to state 14
+    declaracion  go to state 15
     tipo         go to state 8
-    sentencias   go to state 15
-    sentencia    go to state 16
+    sentencias   go to state 16
+    sentencia    go to state 17
 
 
 State 7
@@ -231,7 +234,7 @@ State 8
 
     $default  reduce using rule 4 ($@1)
 
-    $@1  go to state 17
+    $@1  go to state 18
 
 
 State 9
@@ -246,15 +249,15 @@ State 10
    23 sentencia: ID • ASIG expresion PYC
    24          | ID • NOT expresion PYC
 
-    ASIG  shift, and go to state 18
-    NOT   shift, and go to state 19
+    ASIG  shift, and go to state 19
+    NOT   shift, and go to state 20
 
 
 State 11
 
    16 sentencia: IF • LPAR expresion $@2 RPAR LKEY sentencias $@3 RKEY ELSE LKEY sentencias RKEY
 
-    LPAR  shift, and go to state 20
+    LPAR  shift, and go to state 21
 
 
 State 12
@@ -263,7 +266,7 @@ State 12
 
     $default  reduce using rule 17 ($@4)
 
-    $@4  go to state 21
+    $@4  go to state 22
 
 
 State 13
@@ -272,17 +275,24 @@ State 13
 
     $default  reduce using rule 20 ($@6)
 
-    $@6  go to state 22
+    $@6  go to state 23
 
 
 State 14
+
+   25 sentencia: PRINT • LPAR expresion RPAR PYC
+
+    LPAR  shift, and go to state 24
+
+
+State 15
 
     2 declaraciones: declaraciones declaracion •
 
     $default  reduce using rule 2 (declaraciones)
 
 
-State 15
+State 16
 
     1 programa: declaraciones sentencias •
    12 sentencias: sentencias • sentencia
@@ -291,243 +301,256 @@ State 15
     IF     shift, and go to state 11
     WHILE  shift, and go to state 12
     DO     shift, and go to state 13
+    PRINT  shift, and go to state 14
 
     $default  reduce using rule 1 (programa)
 
-    sentencia  go to state 23
+    sentencia  go to state 25
 
 
-State 16
+State 17
 
    13 sentencias: sentencia •
 
     $default  reduce using rule 13 (sentencias)
 
 
-State 17
+State 18
 
     5 declaracion: tipo $@1 • lista_var PYC
 
-    ID  shift, and go to state 24
+    ID  shift, and go to state 26
 
-    lista_var  go to state 25
-
-
-State 18
-
-   23 sentencia: ID ASIG • expresion PYC
-
-    ID        shift, and go to state 26
-    NUMERO    shift, and go to state 27
-    CARACTER  shift, and go to state 28
-    LPAR      shift, and go to state 29
-
-    expresion  go to state 30
+    lista_var  go to state 27
 
 
 State 19
 
-   24 sentencia: ID NOT • expresion PYC
+   23 sentencia: ID ASIG • expresion PYC
 
-    ID        shift, and go to state 26
-    NUMERO    shift, and go to state 27
-    CARACTER  shift, and go to state 28
-    LPAR      shift, and go to state 29
-
-    expresion  go to state 31
-
-
-State 20
-
-   16 sentencia: IF LPAR • expresion $@2 RPAR LKEY sentencias $@3 RKEY ELSE LKEY sentencias RKEY
-
-    ID        shift, and go to state 26
-    NUMERO    shift, and go to state 27
-    CARACTER  shift, and go to state 28
-    LPAR      shift, and go to state 29
+    ID        shift, and go to state 28
+    NUMERO    shift, and go to state 29
+    CARACTER  shift, and go to state 30
+    LPAR      shift, and go to state 31
 
     expresion  go to state 32
 
 
+State 20
+
+   24 sentencia: ID NOT • expresion PYC
+
+    ID        shift, and go to state 28
+    NUMERO    shift, and go to state 29
+    CARACTER  shift, and go to state 30
+    LPAR      shift, and go to state 31
+
+    expresion  go to state 33
+
+
 State 21
 
-   19 sentencia: WHILE $@4 • LPAR expresion $@5 RPAR LKEY sentencias RKEY
+   16 sentencia: IF LPAR • expresion $@2 RPAR LKEY sentencias $@3 RKEY ELSE LKEY sentencias RKEY
 
-    LPAR  shift, and go to state 33
+    ID        shift, and go to state 28
+    NUMERO    shift, and go to state 29
+    CARACTER  shift, and go to state 30
+    LPAR      shift, and go to state 31
+
+    expresion  go to state 34
 
 
 State 22
 
-   22 sentencia: DO $@6 • LKEY sentencias RKEY WHILE LPAR expresion $@7 RPAR PYC
+   19 sentencia: WHILE $@4 • LPAR expresion $@5 RPAR LKEY sentencias RKEY
 
-    LKEY  shift, and go to state 34
+    LPAR  shift, and go to state 35
 
 
 State 23
+
+   22 sentencia: DO $@6 • LKEY sentencias RKEY WHILE LPAR expresion $@7 RPAR PYC
+
+    LKEY  shift, and go to state 36
+
+
+State 24
+
+   25 sentencia: PRINT LPAR • expresion RPAR PYC
+
+    ID        shift, and go to state 28
+    NUMERO    shift, and go to state 29
+    CARACTER  shift, and go to state 30
+    LPAR      shift, and go to state 31
+
+    expresion  go to state 37
+
+
+State 25
 
    12 sentencias: sentencias sentencia •
 
     $default  reduce using rule 12 (sentencias)
 
 
-State 24
+State 26
 
    11 lista_var: ID •
 
     $default  reduce using rule 11 (lista_var)
 
 
-State 25
+State 27
 
     5 declaracion: tipo $@1 lista_var • PYC
    10 lista_var: lista_var • COMA ID
 
-    PYC   shift, and go to state 35
-    COMA  shift, and go to state 36
-
-
-State 26
-
-   40 expresion: ID •
-
-    $default  reduce using rule 40 (expresion)
-
-
-State 27
-
-   38 expresion: NUMERO •
-
-    $default  reduce using rule 38 (expresion)
+    PYC   shift, and go to state 38
+    COMA  shift, and go to state 39
 
 
 State 28
 
-   39 expresion: CARACTER •
+   41 expresion: ID •
 
-    $default  reduce using rule 39 (expresion)
+    $default  reduce using rule 41 (expresion)
 
 
 State 29
 
-   37 expresion: LPAR • expresion RPAR
+   39 expresion: NUMERO •
 
-    ID        shift, and go to state 26
-    NUMERO    shift, and go to state 27
-    CARACTER  shift, and go to state 28
-    LPAR      shift, and go to state 29
-
-    expresion  go to state 37
+    $default  reduce using rule 39 (expresion)
 
 
 State 30
 
-   23 sentencia: ID ASIG expresion • PYC
-   25 expresion: expresion • IGUAL expresion
-   26          | expresion • DIFF expresion
-   27          | expresion • AND expresion
-   28          | expresion • OR expresion
-   29          | expresion • MAYORQUE expresion
-   30          | expresion • MENORQUE expresion
-   31          | expresion • MAYORIGUAL expresion
-   32          | expresion • MENORIGUAL expresion
-   33          | expresion • MAS expresion
-   34          | expresion • MENOS expresion
-   35          | expresion • MUL expresion
-   36          | expresion • DIV expresion
+   40 expresion: CARACTER •
 
-    PYC         shift, and go to state 38
-    MAYORQUE    shift, and go to state 39
-    MENORQUE    shift, and go to state 40
-    MAYORIGUAL  shift, and go to state 41
-    MENORIGUAL  shift, and go to state 42
-    IGUAL       shift, and go to state 43
-    DIFF        shift, and go to state 44
-    AND         shift, and go to state 45
-    OR          shift, and go to state 46
-    MAS         shift, and go to state 47
-    MENOS       shift, and go to state 48
-    MUL         shift, and go to state 49
-    DIV         shift, and go to state 50
+    $default  reduce using rule 40 (expresion)
 
 
 State 31
 
-   24 sentencia: ID NOT expresion • PYC
-   25 expresion: expresion • IGUAL expresion
-   26          | expresion • DIFF expresion
-   27          | expresion • AND expresion
-   28          | expresion • OR expresion
-   29          | expresion • MAYORQUE expresion
-   30          | expresion • MENORQUE expresion
-   31          | expresion • MAYORIGUAL expresion
-   32          | expresion • MENORIGUAL expresion
-   33          | expresion • MAS expresion
-   34          | expresion • MENOS expresion
-   35          | expresion • MUL expresion
-   36          | expresion • DIV expresion
+   38 expresion: LPAR • expresion RPAR
 
-    PYC         shift, and go to state 51
-    MAYORQUE    shift, and go to state 39
-    MENORQUE    shift, and go to state 40
-    MAYORIGUAL  shift, and go to state 41
-    MENORIGUAL  shift, and go to state 42
-    IGUAL       shift, and go to state 43
-    DIFF        shift, and go to state 44
-    AND         shift, and go to state 45
-    OR          shift, and go to state 46
-    MAS         shift, and go to state 47
-    MENOS       shift, and go to state 48
-    MUL         shift, and go to state 49
-    DIV         shift, and go to state 50
+    ID        shift, and go to state 28
+    NUMERO    shift, and go to state 29
+    CARACTER  shift, and go to state 30
+    LPAR      shift, and go to state 31
+
+    expresion  go to state 40
 
 
 State 32
 
-   16 sentencia: IF LPAR expresion • $@2 RPAR LKEY sentencias $@3 RKEY ELSE LKEY sentencias RKEY
-   25 expresion: expresion • IGUAL expresion
-   26          | expresion • DIFF expresion
-   27          | expresion • AND expresion
-   28          | expresion • OR expresion
-   29          | expresion • MAYORQUE expresion
-   30          | expresion • MENORQUE expresion
-   31          | expresion • MAYORIGUAL expresion
-   32          | expresion • MENORIGUAL expresion
-   33          | expresion • MAS expresion
-   34          | expresion • MENOS expresion
-   35          | expresion • MUL expresion
-   36          | expresion • DIV expresion
+   23 sentencia: ID ASIG expresion • PYC
+   26 expresion: expresion • IGUAL expresion
+   27          | expresion • DIFF expresion
+   28          | expresion • AND expresion
+   29          | expresion • OR expresion
+   30          | expresion • MAYORQUE expresion
+   31          | expresion • MENORQUE expresion
+   32          | expresion • MAYORIGUAL expresion
+   33          | expresion • MENORIGUAL expresion
+   34          | expresion • MAS expresion
+   35          | expresion • MENOS expresion
+   36          | expresion • MUL expresion
+   37          | expresion • DIV expresion
 
-    MAYORQUE    shift, and go to state 39
-    MENORQUE    shift, and go to state 40
-    MAYORIGUAL  shift, and go to state 41
-    MENORIGUAL  shift, and go to state 42
-    IGUAL       shift, and go to state 43
-    DIFF        shift, and go to state 44
-    AND         shift, and go to state 45
-    OR          shift, and go to state 46
-    MAS         shift, and go to state 47
-    MENOS       shift, and go to state 48
-    MUL         shift, and go to state 49
-    DIV         shift, and go to state 50
-
-    $default  reduce using rule 14 ($@2)
-
-    $@2  go to state 52
+    PYC         shift, and go to state 41
+    MAYORQUE    shift, and go to state 42
+    MENORQUE    shift, and go to state 43
+    MAYORIGUAL  shift, and go to state 44
+    MENORIGUAL  shift, and go to state 45
+    IGUAL       shift, and go to state 46
+    DIFF        shift, and go to state 47
+    AND         shift, and go to state 48
+    OR          shift, and go to state 49
+    MAS         shift, and go to state 50
+    MENOS       shift, and go to state 51
+    MUL         shift, and go to state 52
+    DIV         shift, and go to state 53
 
 
 State 33
 
-   19 sentencia: WHILE $@4 LPAR • expresion $@5 RPAR LKEY sentencias RKEY
+   24 sentencia: ID NOT expresion • PYC
+   26 expresion: expresion • IGUAL expresion
+   27          | expresion • DIFF expresion
+   28          | expresion • AND expresion
+   29          | expresion • OR expresion
+   30          | expresion • MAYORQUE expresion
+   31          | expresion • MENORQUE expresion
+   32          | expresion • MAYORIGUAL expresion
+   33          | expresion • MENORIGUAL expresion
+   34          | expresion • MAS expresion
+   35          | expresion • MENOS expresion
+   36          | expresion • MUL expresion
+   37          | expresion • DIV expresion
 
-    ID        shift, and go to state 26
-    NUMERO    shift, and go to state 27
-    CARACTER  shift, and go to state 28
-    LPAR      shift, and go to state 29
-
-    expresion  go to state 53
+    PYC         shift, and go to state 54
+    MAYORQUE    shift, and go to state 42
+    MENORQUE    shift, and go to state 43
+    MAYORIGUAL  shift, and go to state 44
+    MENORIGUAL  shift, and go to state 45
+    IGUAL       shift, and go to state 46
+    DIFF        shift, and go to state 47
+    AND         shift, and go to state 48
+    OR          shift, and go to state 49
+    MAS         shift, and go to state 50
+    MENOS       shift, and go to state 51
+    MUL         shift, and go to state 52
+    DIV         shift, and go to state 53
 
 
 State 34
+
+   16 sentencia: IF LPAR expresion • $@2 RPAR LKEY sentencias $@3 RKEY ELSE LKEY sentencias RKEY
+   26 expresion: expresion • IGUAL expresion
+   27          | expresion • DIFF expresion
+   28          | expresion • AND expresion
+   29          | expresion • OR expresion
+   30          | expresion • MAYORQUE expresion
+   31          | expresion • MENORQUE expresion
+   32          | expresion • MAYORIGUAL expresion
+   33          | expresion • MENORIGUAL expresion
+   34          | expresion • MAS expresion
+   35          | expresion • MENOS expresion
+   36          | expresion • MUL expresion
+   37          | expresion • DIV expresion
+
+    MAYORQUE    shift, and go to state 42
+    MENORQUE    shift, and go to state 43
+    MAYORIGUAL  shift, and go to state 44
+    MENORIGUAL  shift, and go to state 45
+    IGUAL       shift, and go to state 46
+    DIFF        shift, and go to state 47
+    AND         shift, and go to state 48
+    OR          shift, and go to state 49
+    MAS         shift, and go to state 50
+    MENOS       shift, and go to state 51
+    MUL         shift, and go to state 52
+    DIV         shift, and go to state 53
+
+    $default  reduce using rule 14 ($@2)
+
+    $@2  go to state 55
+
+
+State 35
+
+   19 sentencia: WHILE $@4 LPAR • expresion $@5 RPAR LKEY sentencias RKEY
+
+    ID        shift, and go to state 28
+    NUMERO    shift, and go to state 29
+    CARACTER  shift, and go to state 30
+    LPAR      shift, and go to state 31
+
+    expresion  go to state 56
+
+
+State 36
 
    22 sentencia: DO $@6 LKEY • sentencias RKEY WHILE LPAR expresion $@7 RPAR PYC
 
@@ -535,256 +558,288 @@ State 34
     IF     shift, and go to state 11
     WHILE  shift, and go to state 12
     DO     shift, and go to state 13
+    PRINT  shift, and go to state 14
 
-    sentencias  go to state 54
-    sentencia   go to state 16
+    sentencias  go to state 57
+    sentencia   go to state 17
 
 
-State 35
+State 37
+
+   25 sentencia: PRINT LPAR expresion • RPAR PYC
+   26 expresion: expresion • IGUAL expresion
+   27          | expresion • DIFF expresion
+   28          | expresion • AND expresion
+   29          | expresion • OR expresion
+   30          | expresion • MAYORQUE expresion
+   31          | expresion • MENORQUE expresion
+   32          | expresion • MAYORIGUAL expresion
+   33          | expresion • MENORIGUAL expresion
+   34          | expresion • MAS expresion
+   35          | expresion • MENOS expresion
+   36          | expresion • MUL expresion
+   37          | expresion • DIV expresion
+
+    MAYORQUE    shift, and go to state 42
+    MENORQUE    shift, and go to state 43
+    MAYORIGUAL  shift, and go to state 44
+    MENORIGUAL  shift, and go to state 45
+    IGUAL       shift, and go to state 46
+    DIFF        shift, and go to state 47
+    AND         shift, and go to state 48
+    OR          shift, and go to state 49
+    MAS         shift, and go to state 50
+    MENOS       shift, and go to state 51
+    MUL         shift, and go to state 52
+    DIV         shift, and go to state 53
+    RPAR        shift, and go to state 58
+
+
+State 38
 
     5 declaracion: tipo $@1 lista_var PYC •
 
     $default  reduce using rule 5 (declaracion)
 
 
-State 36
+State 39
 
    10 lista_var: lista_var COMA • ID
 
-    ID  shift, and go to state 55
+    ID  shift, and go to state 59
 
 
-State 37
+State 40
 
-   25 expresion: expresion • IGUAL expresion
-   26          | expresion • DIFF expresion
-   27          | expresion • AND expresion
-   28          | expresion • OR expresion
-   29          | expresion • MAYORQUE expresion
-   30          | expresion • MENORQUE expresion
-   31          | expresion • MAYORIGUAL expresion
-   32          | expresion • MENORIGUAL expresion
-   33          | expresion • MAS expresion
-   34          | expresion • MENOS expresion
-   35          | expresion • MUL expresion
-   36          | expresion • DIV expresion
-   37          | LPAR expresion • RPAR
+   26 expresion: expresion • IGUAL expresion
+   27          | expresion • DIFF expresion
+   28          | expresion • AND expresion
+   29          | expresion • OR expresion
+   30          | expresion • MAYORQUE expresion
+   31          | expresion • MENORQUE expresion
+   32          | expresion • MAYORIGUAL expresion
+   33          | expresion • MENORIGUAL expresion
+   34          | expresion • MAS expresion
+   35          | expresion • MENOS expresion
+   36          | expresion • MUL expresion
+   37          | expresion • DIV expresion
+   38          | LPAR expresion • RPAR
 
-    MAYORQUE    shift, and go to state 39
-    MENORQUE    shift, and go to state 40
-    MAYORIGUAL  shift, and go to state 41
-    MENORIGUAL  shift, and go to state 42
-    IGUAL       shift, and go to state 43
-    DIFF        shift, and go to state 44
-    AND         shift, and go to state 45
-    OR          shift, and go to state 46
-    MAS         shift, and go to state 47
-    MENOS       shift, and go to state 48
-    MUL         shift, and go to state 49
-    DIV         shift, and go to state 50
-    RPAR        shift, and go to state 56
+    MAYORQUE    shift, and go to state 42
+    MENORQUE    shift, and go to state 43
+    MAYORIGUAL  shift, and go to state 44
+    MENORIGUAL  shift, and go to state 45
+    IGUAL       shift, and go to state 46
+    DIFF        shift, and go to state 47
+    AND         shift, and go to state 48
+    OR          shift, and go to state 49
+    MAS         shift, and go to state 50
+    MENOS       shift, and go to state 51
+    MUL         shift, and go to state 52
+    DIV         shift, and go to state 53
+    RPAR        shift, and go to state 60
 
 
-State 38
+State 41
 
    23 sentencia: ID ASIG expresion PYC •
 
     $default  reduce using rule 23 (sentencia)
 
 
-State 39
-
-   29 expresion: expresion MAYORQUE • expresion
-
-    ID        shift, and go to state 26
-    NUMERO    shift, and go to state 27
-    CARACTER  shift, and go to state 28
-    LPAR      shift, and go to state 29
-
-    expresion  go to state 57
-
-
-State 40
-
-   30 expresion: expresion MENORQUE • expresion
-
-    ID        shift, and go to state 26
-    NUMERO    shift, and go to state 27
-    CARACTER  shift, and go to state 28
-    LPAR      shift, and go to state 29
-
-    expresion  go to state 58
-
-
-State 41
-
-   31 expresion: expresion MAYORIGUAL • expresion
-
-    ID        shift, and go to state 26
-    NUMERO    shift, and go to state 27
-    CARACTER  shift, and go to state 28
-    LPAR      shift, and go to state 29
-
-    expresion  go to state 59
-
-
 State 42
 
-   32 expresion: expresion MENORIGUAL • expresion
+   30 expresion: expresion MAYORQUE • expresion
 
-    ID        shift, and go to state 26
-    NUMERO    shift, and go to state 27
-    CARACTER  shift, and go to state 28
-    LPAR      shift, and go to state 29
-
-    expresion  go to state 60
-
-
-State 43
-
-   25 expresion: expresion IGUAL • expresion
-
-    ID        shift, and go to state 26
-    NUMERO    shift, and go to state 27
-    CARACTER  shift, and go to state 28
-    LPAR      shift, and go to state 29
+    ID        shift, and go to state 28
+    NUMERO    shift, and go to state 29
+    CARACTER  shift, and go to state 30
+    LPAR      shift, and go to state 31
 
     expresion  go to state 61
 
 
-State 44
+State 43
 
-   26 expresion: expresion DIFF • expresion
+   31 expresion: expresion MENORQUE • expresion
 
-    ID        shift, and go to state 26
-    NUMERO    shift, and go to state 27
-    CARACTER  shift, and go to state 28
-    LPAR      shift, and go to state 29
+    ID        shift, and go to state 28
+    NUMERO    shift, and go to state 29
+    CARACTER  shift, and go to state 30
+    LPAR      shift, and go to state 31
 
     expresion  go to state 62
 
 
-State 45
+State 44
 
-   27 expresion: expresion AND • expresion
+   32 expresion: expresion MAYORIGUAL • expresion
 
-    ID        shift, and go to state 26
-    NUMERO    shift, and go to state 27
-    CARACTER  shift, and go to state 28
-    LPAR      shift, and go to state 29
+    ID        shift, and go to state 28
+    NUMERO    shift, and go to state 29
+    CARACTER  shift, and go to state 30
+    LPAR      shift, and go to state 31
 
     expresion  go to state 63
 
 
-State 46
+State 45
 
-   28 expresion: expresion OR • expresion
+   33 expresion: expresion MENORIGUAL • expresion
 
-    ID        shift, and go to state 26
-    NUMERO    shift, and go to state 27
-    CARACTER  shift, and go to state 28
-    LPAR      shift, and go to state 29
+    ID        shift, and go to state 28
+    NUMERO    shift, and go to state 29
+    CARACTER  shift, and go to state 30
+    LPAR      shift, and go to state 31
 
     expresion  go to state 64
 
 
-State 47
+State 46
 
-   33 expresion: expresion MAS • expresion
+   26 expresion: expresion IGUAL • expresion
 
-    ID        shift, and go to state 26
-    NUMERO    shift, and go to state 27
-    CARACTER  shift, and go to state 28
-    LPAR      shift, and go to state 29
+    ID        shift, and go to state 28
+    NUMERO    shift, and go to state 29
+    CARACTER  shift, and go to state 30
+    LPAR      shift, and go to state 31
 
     expresion  go to state 65
 
 
-State 48
+State 47
 
-   34 expresion: expresion MENOS • expresion
+   27 expresion: expresion DIFF • expresion
 
-    ID        shift, and go to state 26
-    NUMERO    shift, and go to state 27
-    CARACTER  shift, and go to state 28
-    LPAR      shift, and go to state 29
+    ID        shift, and go to state 28
+    NUMERO    shift, and go to state 29
+    CARACTER  shift, and go to state 30
+    LPAR      shift, and go to state 31
 
     expresion  go to state 66
 
 
-State 49
+State 48
 
-   35 expresion: expresion MUL • expresion
+   28 expresion: expresion AND • expresion
 
-    ID        shift, and go to state 26
-    NUMERO    shift, and go to state 27
-    CARACTER  shift, and go to state 28
-    LPAR      shift, and go to state 29
+    ID        shift, and go to state 28
+    NUMERO    shift, and go to state 29
+    CARACTER  shift, and go to state 30
+    LPAR      shift, and go to state 31
 
     expresion  go to state 67
 
 
-State 50
+State 49
 
-   36 expresion: expresion DIV • expresion
+   29 expresion: expresion OR • expresion
 
-    ID        shift, and go to state 26
-    NUMERO    shift, and go to state 27
-    CARACTER  shift, and go to state 28
-    LPAR      shift, and go to state 29
+    ID        shift, and go to state 28
+    NUMERO    shift, and go to state 29
+    CARACTER  shift, and go to state 30
+    LPAR      shift, and go to state 31
 
     expresion  go to state 68
 
 
+State 50
+
+   34 expresion: expresion MAS • expresion
+
+    ID        shift, and go to state 28
+    NUMERO    shift, and go to state 29
+    CARACTER  shift, and go to state 30
+    LPAR      shift, and go to state 31
+
+    expresion  go to state 69
+
+
 State 51
+
+   35 expresion: expresion MENOS • expresion
+
+    ID        shift, and go to state 28
+    NUMERO    shift, and go to state 29
+    CARACTER  shift, and go to state 30
+    LPAR      shift, and go to state 31
+
+    expresion  go to state 70
+
+
+State 52
+
+   36 expresion: expresion MUL • expresion
+
+    ID        shift, and go to state 28
+    NUMERO    shift, and go to state 29
+    CARACTER  shift, and go to state 30
+    LPAR      shift, and go to state 31
+
+    expresion  go to state 71
+
+
+State 53
+
+   37 expresion: expresion DIV • expresion
+
+    ID        shift, and go to state 28
+    NUMERO    shift, and go to state 29
+    CARACTER  shift, and go to state 30
+    LPAR      shift, and go to state 31
+
+    expresion  go to state 72
+
+
+State 54
 
    24 sentencia: ID NOT expresion PYC •
 
     $default  reduce using rule 24 (sentencia)
 
 
-State 52
+State 55
 
    16 sentencia: IF LPAR expresion $@2 • RPAR LKEY sentencias $@3 RKEY ELSE LKEY sentencias RKEY
 
-    RPAR  shift, and go to state 69
+    RPAR  shift, and go to state 73
 
 
-State 53
+State 56
 
    19 sentencia: WHILE $@4 LPAR expresion • $@5 RPAR LKEY sentencias RKEY
-   25 expresion: expresion • IGUAL expresion
-   26          | expresion • DIFF expresion
-   27          | expresion • AND expresion
-   28          | expresion • OR expresion
-   29          | expresion • MAYORQUE expresion
-   30          | expresion • MENORQUE expresion
-   31          | expresion • MAYORIGUAL expresion
-   32          | expresion • MENORIGUAL expresion
-   33          | expresion • MAS expresion
-   34          | expresion • MENOS expresion
-   35          | expresion • MUL expresion
-   36          | expresion • DIV expresion
+   26 expresion: expresion • IGUAL expresion
+   27          | expresion • DIFF expresion
+   28          | expresion • AND expresion
+   29          | expresion • OR expresion
+   30          | expresion • MAYORQUE expresion
+   31          | expresion • MENORQUE expresion
+   32          | expresion • MAYORIGUAL expresion
+   33          | expresion • MENORIGUAL expresion
+   34          | expresion • MAS expresion
+   35          | expresion • MENOS expresion
+   36          | expresion • MUL expresion
+   37          | expresion • DIV expresion
 
-    MAYORQUE    shift, and go to state 39
-    MENORQUE    shift, and go to state 40
-    MAYORIGUAL  shift, and go to state 41
-    MENORIGUAL  shift, and go to state 42
-    IGUAL       shift, and go to state 43
-    DIFF        shift, and go to state 44
-    AND         shift, and go to state 45
-    OR          shift, and go to state 46
-    MAS         shift, and go to state 47
-    MENOS       shift, and go to state 48
-    MUL         shift, and go to state 49
-    DIV         shift, and go to state 50
+    MAYORQUE    shift, and go to state 42
+    MENORQUE    shift, and go to state 43
+    MAYORIGUAL  shift, and go to state 44
+    MENORIGUAL  shift, and go to state 45
+    IGUAL       shift, and go to state 46
+    DIFF        shift, and go to state 47
+    AND         shift, and go to state 48
+    OR          shift, and go to state 49
+    MAS         shift, and go to state 50
+    MENOS       shift, and go to state 51
+    MUL         shift, and go to state 52
+    DIV         shift, and go to state 53
 
     $default  reduce using rule 18 ($@5)
 
-    $@5  go to state 70
+    $@5  go to state 74
 
 
-State 54
+State 57
 
    12 sentencias: sentencias • sentencia
    22 sentencia: DO $@6 LKEY sentencias • RKEY WHILE LPAR expresion $@7 RPAR PYC
@@ -793,321 +848,336 @@ State 54
     IF     shift, and go to state 11
     WHILE  shift, and go to state 12
     DO     shift, and go to state 13
-    RKEY   shift, and go to state 71
+    RKEY   shift, and go to state 75
+    PRINT  shift, and go to state 14
 
-    sentencia  go to state 23
+    sentencia  go to state 25
 
 
-State 55
+State 58
+
+   25 sentencia: PRINT LPAR expresion RPAR • PYC
+
+    PYC  shift, and go to state 76
+
+
+State 59
 
    10 lista_var: lista_var COMA ID •
 
     $default  reduce using rule 10 (lista_var)
 
 
-State 56
-
-   37 expresion: LPAR expresion RPAR •
-
-    $default  reduce using rule 37 (expresion)
-
-
-State 57
-
-   25 expresion: expresion • IGUAL expresion
-   26          | expresion • DIFF expresion
-   27          | expresion • AND expresion
-   28          | expresion • OR expresion
-   29          | expresion • MAYORQUE expresion
-   29          | expresion MAYORQUE expresion •
-   30          | expresion • MENORQUE expresion
-   31          | expresion • MAYORIGUAL expresion
-   32          | expresion • MENORIGUAL expresion
-   33          | expresion • MAS expresion
-   34          | expresion • MENOS expresion
-   35          | expresion • MUL expresion
-   36          | expresion • DIV expresion
-
-    MAS    shift, and go to state 47
-    MENOS  shift, and go to state 48
-    MUL    shift, and go to state 49
-    DIV    shift, and go to state 50
-
-    $default  reduce using rule 29 (expresion)
-
-
-State 58
-
-   25 expresion: expresion • IGUAL expresion
-   26          | expresion • DIFF expresion
-   27          | expresion • AND expresion
-   28          | expresion • OR expresion
-   29          | expresion • MAYORQUE expresion
-   30          | expresion • MENORQUE expresion
-   30          | expresion MENORQUE expresion •
-   31          | expresion • MAYORIGUAL expresion
-   32          | expresion • MENORIGUAL expresion
-   33          | expresion • MAS expresion
-   34          | expresion • MENOS expresion
-   35          | expresion • MUL expresion
-   36          | expresion • DIV expresion
-
-    MAS    shift, and go to state 47
-    MENOS  shift, and go to state 48
-    MUL    shift, and go to state 49
-    DIV    shift, and go to state 50
-
-    $default  reduce using rule 30 (expresion)
-
-
-State 59
-
-   25 expresion: expresion • IGUAL expresion
-   26          | expresion • DIFF expresion
-   27          | expresion • AND expresion
-   28          | expresion • OR expresion
-   29          | expresion • MAYORQUE expresion
-   30          | expresion • MENORQUE expresion
-   31          | expresion • MAYORIGUAL expresion
-   31          | expresion MAYORIGUAL expresion •
-   32          | expresion • MENORIGUAL expresion
-   33          | expresion • MAS expresion
-   34          | expresion • MENOS expresion
-   35          | expresion • MUL expresion
-   36          | expresion • DIV expresion
-
-    MAS    shift, and go to state 47
-    MENOS  shift, and go to state 48
-    MUL    shift, and go to state 49
-    DIV    shift, and go to state 50
-
-    $default  reduce using rule 31 (expresion)
-
-
 State 60
 
-   25 expresion: expresion • IGUAL expresion
-   26          | expresion • DIFF expresion
-   27          | expresion • AND expresion
-   28          | expresion • OR expresion
-   29          | expresion • MAYORQUE expresion
-   30          | expresion • MENORQUE expresion
-   31          | expresion • MAYORIGUAL expresion
-   32          | expresion • MENORIGUAL expresion
-   32          | expresion MENORIGUAL expresion •
-   33          | expresion • MAS expresion
-   34          | expresion • MENOS expresion
-   35          | expresion • MUL expresion
-   36          | expresion • DIV expresion
+   38 expresion: LPAR expresion RPAR •
 
-    MAS    shift, and go to state 47
-    MENOS  shift, and go to state 48
-    MUL    shift, and go to state 49
-    DIV    shift, and go to state 50
-
-    $default  reduce using rule 32 (expresion)
+    $default  reduce using rule 38 (expresion)
 
 
 State 61
 
-   25 expresion: expresion • IGUAL expresion
-   25          | expresion IGUAL expresion •
-   26          | expresion • DIFF expresion
-   27          | expresion • AND expresion
-   28          | expresion • OR expresion
-   29          | expresion • MAYORQUE expresion
-   30          | expresion • MENORQUE expresion
-   31          | expresion • MAYORIGUAL expresion
-   32          | expresion • MENORIGUAL expresion
-   33          | expresion • MAS expresion
-   34          | expresion • MENOS expresion
-   35          | expresion • MUL expresion
-   36          | expresion • DIV expresion
+   26 expresion: expresion • IGUAL expresion
+   27          | expresion • DIFF expresion
+   28          | expresion • AND expresion
+   29          | expresion • OR expresion
+   30          | expresion • MAYORQUE expresion
+   30          | expresion MAYORQUE expresion •
+   31          | expresion • MENORQUE expresion
+   32          | expresion • MAYORIGUAL expresion
+   33          | expresion • MENORIGUAL expresion
+   34          | expresion • MAS expresion
+   35          | expresion • MENOS expresion
+   36          | expresion • MUL expresion
+   37          | expresion • DIV expresion
 
-    MAS    shift, and go to state 47
-    MENOS  shift, and go to state 48
-    MUL    shift, and go to state 49
-    DIV    shift, and go to state 50
+    MAS    shift, and go to state 50
+    MENOS  shift, and go to state 51
+    MUL    shift, and go to state 52
+    DIV    shift, and go to state 53
 
-    $default  reduce using rule 25 (expresion)
+    $default  reduce using rule 30 (expresion)
 
 
 State 62
 
-   25 expresion: expresion • IGUAL expresion
-   26          | expresion • DIFF expresion
-   26          | expresion DIFF expresion •
-   27          | expresion • AND expresion
-   28          | expresion • OR expresion
-   29          | expresion • MAYORQUE expresion
-   30          | expresion • MENORQUE expresion
-   31          | expresion • MAYORIGUAL expresion
-   32          | expresion • MENORIGUAL expresion
-   33          | expresion • MAS expresion
-   34          | expresion • MENOS expresion
-   35          | expresion • MUL expresion
-   36          | expresion • DIV expresion
+   26 expresion: expresion • IGUAL expresion
+   27          | expresion • DIFF expresion
+   28          | expresion • AND expresion
+   29          | expresion • OR expresion
+   30          | expresion • MAYORQUE expresion
+   31          | expresion • MENORQUE expresion
+   31          | expresion MENORQUE expresion •
+   32          | expresion • MAYORIGUAL expresion
+   33          | expresion • MENORIGUAL expresion
+   34          | expresion • MAS expresion
+   35          | expresion • MENOS expresion
+   36          | expresion • MUL expresion
+   37          | expresion • DIV expresion
 
-    MAS    shift, and go to state 47
-    MENOS  shift, and go to state 48
-    MUL    shift, and go to state 49
-    DIV    shift, and go to state 50
+    MAS    shift, and go to state 50
+    MENOS  shift, and go to state 51
+    MUL    shift, and go to state 52
+    DIV    shift, and go to state 53
 
-    $default  reduce using rule 26 (expresion)
+    $default  reduce using rule 31 (expresion)
 
 
 State 63
 
-   25 expresion: expresion • IGUAL expresion
-   26          | expresion • DIFF expresion
-   27          | expresion • AND expresion
-   27          | expresion AND expresion •
-   28          | expresion • OR expresion
-   29          | expresion • MAYORQUE expresion
-   30          | expresion • MENORQUE expresion
-   31          | expresion • MAYORIGUAL expresion
-   32          | expresion • MENORIGUAL expresion
-   33          | expresion • MAS expresion
-   34          | expresion • MENOS expresion
-   35          | expresion • MUL expresion
-   36          | expresion • DIV expresion
+   26 expresion: expresion • IGUAL expresion
+   27          | expresion • DIFF expresion
+   28          | expresion • AND expresion
+   29          | expresion • OR expresion
+   30          | expresion • MAYORQUE expresion
+   31          | expresion • MENORQUE expresion
+   32          | expresion • MAYORIGUAL expresion
+   32          | expresion MAYORIGUAL expresion •
+   33          | expresion • MENORIGUAL expresion
+   34          | expresion • MAS expresion
+   35          | expresion • MENOS expresion
+   36          | expresion • MUL expresion
+   37          | expresion • DIV expresion
 
-    MAS    shift, and go to state 47
-    MENOS  shift, and go to state 48
-    MUL    shift, and go to state 49
-    DIV    shift, and go to state 50
+    MAS    shift, and go to state 50
+    MENOS  shift, and go to state 51
+    MUL    shift, and go to state 52
+    DIV    shift, and go to state 53
 
-    $default  reduce using rule 27 (expresion)
+    $default  reduce using rule 32 (expresion)
 
 
 State 64
 
-   25 expresion: expresion • IGUAL expresion
-   26          | expresion • DIFF expresion
-   27          | expresion • AND expresion
-   28          | expresion • OR expresion
-   28          | expresion OR expresion •
-   29          | expresion • MAYORQUE expresion
-   30          | expresion • MENORQUE expresion
-   31          | expresion • MAYORIGUAL expresion
-   32          | expresion • MENORIGUAL expresion
-   33          | expresion • MAS expresion
-   34          | expresion • MENOS expresion
-   35          | expresion • MUL expresion
-   36          | expresion • DIV expresion
+   26 expresion: expresion • IGUAL expresion
+   27          | expresion • DIFF expresion
+   28          | expresion • AND expresion
+   29          | expresion • OR expresion
+   30          | expresion • MAYORQUE expresion
+   31          | expresion • MENORQUE expresion
+   32          | expresion • MAYORIGUAL expresion
+   33          | expresion • MENORIGUAL expresion
+   33          | expresion MENORIGUAL expresion •
+   34          | expresion • MAS expresion
+   35          | expresion • MENOS expresion
+   36          | expresion • MUL expresion
+   37          | expresion • DIV expresion
 
-    MAS    shift, and go to state 47
-    MENOS  shift, and go to state 48
-    MUL    shift, and go to state 49
-    DIV    shift, and go to state 50
-
-    $default  reduce using rule 28 (expresion)
-
-
-State 65
-
-   25 expresion: expresion • IGUAL expresion
-   26          | expresion • DIFF expresion
-   27          | expresion • AND expresion
-   28          | expresion • OR expresion
-   29          | expresion • MAYORQUE expresion
-   30          | expresion • MENORQUE expresion
-   31          | expresion • MAYORIGUAL expresion
-   32          | expresion • MENORIGUAL expresion
-   33          | expresion • MAS expresion
-   33          | expresion MAS expresion •
-   34          | expresion • MENOS expresion
-   35          | expresion • MUL expresion
-   36          | expresion • DIV expresion
-
-    MUL  shift, and go to state 49
-    DIV  shift, and go to state 50
+    MAS    shift, and go to state 50
+    MENOS  shift, and go to state 51
+    MUL    shift, and go to state 52
+    DIV    shift, and go to state 53
 
     $default  reduce using rule 33 (expresion)
 
 
+State 65
+
+   26 expresion: expresion • IGUAL expresion
+   26          | expresion IGUAL expresion •
+   27          | expresion • DIFF expresion
+   28          | expresion • AND expresion
+   29          | expresion • OR expresion
+   30          | expresion • MAYORQUE expresion
+   31          | expresion • MENORQUE expresion
+   32          | expresion • MAYORIGUAL expresion
+   33          | expresion • MENORIGUAL expresion
+   34          | expresion • MAS expresion
+   35          | expresion • MENOS expresion
+   36          | expresion • MUL expresion
+   37          | expresion • DIV expresion
+
+    MAS    shift, and go to state 50
+    MENOS  shift, and go to state 51
+    MUL    shift, and go to state 52
+    DIV    shift, and go to state 53
+
+    $default  reduce using rule 26 (expresion)
+
+
 State 66
 
-   25 expresion: expresion • IGUAL expresion
-   26          | expresion • DIFF expresion
-   27          | expresion • AND expresion
-   28          | expresion • OR expresion
-   29          | expresion • MAYORQUE expresion
-   30          | expresion • MENORQUE expresion
-   31          | expresion • MAYORIGUAL expresion
-   32          | expresion • MENORIGUAL expresion
-   33          | expresion • MAS expresion
-   34          | expresion • MENOS expresion
-   34          | expresion MENOS expresion •
-   35          | expresion • MUL expresion
-   36          | expresion • DIV expresion
+   26 expresion: expresion • IGUAL expresion
+   27          | expresion • DIFF expresion
+   27          | expresion DIFF expresion •
+   28          | expresion • AND expresion
+   29          | expresion • OR expresion
+   30          | expresion • MAYORQUE expresion
+   31          | expresion • MENORQUE expresion
+   32          | expresion • MAYORIGUAL expresion
+   33          | expresion • MENORIGUAL expresion
+   34          | expresion • MAS expresion
+   35          | expresion • MENOS expresion
+   36          | expresion • MUL expresion
+   37          | expresion • DIV expresion
 
-    MUL  shift, and go to state 49
-    DIV  shift, and go to state 50
+    MAS    shift, and go to state 50
+    MENOS  shift, and go to state 51
+    MUL    shift, and go to state 52
+    DIV    shift, and go to state 53
 
-    $default  reduce using rule 34 (expresion)
+    $default  reduce using rule 27 (expresion)
 
 
 State 67
 
-   25 expresion: expresion • IGUAL expresion
-   26          | expresion • DIFF expresion
-   27          | expresion • AND expresion
-   28          | expresion • OR expresion
-   29          | expresion • MAYORQUE expresion
-   30          | expresion • MENORQUE expresion
-   31          | expresion • MAYORIGUAL expresion
-   32          | expresion • MENORIGUAL expresion
-   33          | expresion • MAS expresion
-   34          | expresion • MENOS expresion
-   35          | expresion • MUL expresion
-   35          | expresion MUL expresion •
-   36          | expresion • DIV expresion
+   26 expresion: expresion • IGUAL expresion
+   27          | expresion • DIFF expresion
+   28          | expresion • AND expresion
+   28          | expresion AND expresion •
+   29          | expresion • OR expresion
+   30          | expresion • MAYORQUE expresion
+   31          | expresion • MENORQUE expresion
+   32          | expresion • MAYORIGUAL expresion
+   33          | expresion • MENORIGUAL expresion
+   34          | expresion • MAS expresion
+   35          | expresion • MENOS expresion
+   36          | expresion • MUL expresion
+   37          | expresion • DIV expresion
 
-    $default  reduce using rule 35 (expresion)
+    MAS    shift, and go to state 50
+    MENOS  shift, and go to state 51
+    MUL    shift, and go to state 52
+    DIV    shift, and go to state 53
+
+    $default  reduce using rule 28 (expresion)
 
 
 State 68
 
-   25 expresion: expresion • IGUAL expresion
-   26          | expresion • DIFF expresion
-   27          | expresion • AND expresion
-   28          | expresion • OR expresion
-   29          | expresion • MAYORQUE expresion
-   30          | expresion • MENORQUE expresion
-   31          | expresion • MAYORIGUAL expresion
-   32          | expresion • MENORIGUAL expresion
-   33          | expresion • MAS expresion
-   34          | expresion • MENOS expresion
-   35          | expresion • MUL expresion
-   36          | expresion • DIV expresion
-   36          | expresion DIV expresion •
+   26 expresion: expresion • IGUAL expresion
+   27          | expresion • DIFF expresion
+   28          | expresion • AND expresion
+   29          | expresion • OR expresion
+   29          | expresion OR expresion •
+   30          | expresion • MAYORQUE expresion
+   31          | expresion • MENORQUE expresion
+   32          | expresion • MAYORIGUAL expresion
+   33          | expresion • MENORIGUAL expresion
+   34          | expresion • MAS expresion
+   35          | expresion • MENOS expresion
+   36          | expresion • MUL expresion
+   37          | expresion • DIV expresion
 
-    $default  reduce using rule 36 (expresion)
+    MAS    shift, and go to state 50
+    MENOS  shift, and go to state 51
+    MUL    shift, and go to state 52
+    DIV    shift, and go to state 53
+
+    $default  reduce using rule 29 (expresion)
 
 
 State 69
 
-   16 sentencia: IF LPAR expresion $@2 RPAR • LKEY sentencias $@3 RKEY ELSE LKEY sentencias RKEY
+   26 expresion: expresion • IGUAL expresion
+   27          | expresion • DIFF expresion
+   28          | expresion • AND expresion
+   29          | expresion • OR expresion
+   30          | expresion • MAYORQUE expresion
+   31          | expresion • MENORQUE expresion
+   32          | expresion • MAYORIGUAL expresion
+   33          | expresion • MENORIGUAL expresion
+   34          | expresion • MAS expresion
+   34          | expresion MAS expresion •
+   35          | expresion • MENOS expresion
+   36          | expresion • MUL expresion
+   37          | expresion • DIV expresion
 
-    LKEY  shift, and go to state 72
+    MUL  shift, and go to state 52
+    DIV  shift, and go to state 53
+
+    $default  reduce using rule 34 (expresion)
 
 
 State 70
 
-   19 sentencia: WHILE $@4 LPAR expresion $@5 • RPAR LKEY sentencias RKEY
+   26 expresion: expresion • IGUAL expresion
+   27          | expresion • DIFF expresion
+   28          | expresion • AND expresion
+   29          | expresion • OR expresion
+   30          | expresion • MAYORQUE expresion
+   31          | expresion • MENORQUE expresion
+   32          | expresion • MAYORIGUAL expresion
+   33          | expresion • MENORIGUAL expresion
+   34          | expresion • MAS expresion
+   35          | expresion • MENOS expresion
+   35          | expresion MENOS expresion •
+   36          | expresion • MUL expresion
+   37          | expresion • DIV expresion
 
-    RPAR  shift, and go to state 73
+    MUL  shift, and go to state 52
+    DIV  shift, and go to state 53
+
+    $default  reduce using rule 35 (expresion)
 
 
 State 71
 
-   22 sentencia: DO $@6 LKEY sentencias RKEY • WHILE LPAR expresion $@7 RPAR PYC
+   26 expresion: expresion • IGUAL expresion
+   27          | expresion • DIFF expresion
+   28          | expresion • AND expresion
+   29          | expresion • OR expresion
+   30          | expresion • MAYORQUE expresion
+   31          | expresion • MENORQUE expresion
+   32          | expresion • MAYORIGUAL expresion
+   33          | expresion • MENORIGUAL expresion
+   34          | expresion • MAS expresion
+   35          | expresion • MENOS expresion
+   36          | expresion • MUL expresion
+   36          | expresion MUL expresion •
+   37          | expresion • DIV expresion
 
-    WHILE  shift, and go to state 74
+    $default  reduce using rule 36 (expresion)
 
 
 State 72
+
+   26 expresion: expresion • IGUAL expresion
+   27          | expresion • DIFF expresion
+   28          | expresion • AND expresion
+   29          | expresion • OR expresion
+   30          | expresion • MAYORQUE expresion
+   31          | expresion • MENORQUE expresion
+   32          | expresion • MAYORIGUAL expresion
+   33          | expresion • MENORIGUAL expresion
+   34          | expresion • MAS expresion
+   35          | expresion • MENOS expresion
+   36          | expresion • MUL expresion
+   37          | expresion • DIV expresion
+   37          | expresion DIV expresion •
+
+    $default  reduce using rule 37 (expresion)
+
+
+State 73
+
+   16 sentencia: IF LPAR expresion $@2 RPAR • LKEY sentencias $@3 RKEY ELSE LKEY sentencias RKEY
+
+    LKEY  shift, and go to state 77
+
+
+State 74
+
+   19 sentencia: WHILE $@4 LPAR expresion $@5 • RPAR LKEY sentencias RKEY
+
+    RPAR  shift, and go to state 78
+
+
+State 75
+
+   22 sentencia: DO $@6 LKEY sentencias RKEY • WHILE LPAR expresion $@7 RPAR PYC
+
+    WHILE  shift, and go to state 79
+
+
+State 76
+
+   25 sentencia: PRINT LPAR expresion RPAR PYC •
+
+    $default  reduce using rule 25 (sentencia)
+
+
+State 77
 
    16 sentencia: IF LPAR expresion $@2 RPAR LKEY • sentencias $@3 RKEY ELSE LKEY sentencias RKEY
 
@@ -1115,26 +1185,27 @@ State 72
     IF     shift, and go to state 11
     WHILE  shift, and go to state 12
     DO     shift, and go to state 13
+    PRINT  shift, and go to state 14
 
-    sentencias  go to state 75
-    sentencia   go to state 16
+    sentencias  go to state 80
+    sentencia   go to state 17
 
 
-State 73
+State 78
 
    19 sentencia: WHILE $@4 LPAR expresion $@5 RPAR • LKEY sentencias RKEY
 
-    LKEY  shift, and go to state 76
+    LKEY  shift, and go to state 81
 
 
-State 74
+State 79
 
    22 sentencia: DO $@6 LKEY sentencias RKEY WHILE • LPAR expresion $@7 RPAR PYC
 
-    LPAR  shift, and go to state 77
+    LPAR  shift, and go to state 82
 
 
-State 75
+State 80
 
    12 sentencias: sentencias • sentencia
    16 sentencia: IF LPAR expresion $@2 RPAR LKEY sentencias • $@3 RKEY ELSE LKEY sentencias RKEY
@@ -1143,14 +1214,15 @@ State 75
     IF     shift, and go to state 11
     WHILE  shift, and go to state 12
     DO     shift, and go to state 13
+    PRINT  shift, and go to state 14
 
     $default  reduce using rule 15 ($@3)
 
-    sentencia  go to state 23
-    $@3        go to state 78
+    sentencia  go to state 25
+    $@3        go to state 83
 
 
-State 76
+State 81
 
    19 sentencia: WHILE $@4 LPAR expresion $@5 RPAR LKEY • sentencias RKEY
 
@@ -1158,31 +1230,32 @@ State 76
     IF     shift, and go to state 11
     WHILE  shift, and go to state 12
     DO     shift, and go to state 13
+    PRINT  shift, and go to state 14
 
-    sentencias  go to state 79
-    sentencia   go to state 16
+    sentencias  go to state 84
+    sentencia   go to state 17
 
 
-State 77
+State 82
 
    22 sentencia: DO $@6 LKEY sentencias RKEY WHILE LPAR • expresion $@7 RPAR PYC
 
-    ID        shift, and go to state 26
-    NUMERO    shift, and go to state 27
-    CARACTER  shift, and go to state 28
-    LPAR      shift, and go to state 29
+    ID        shift, and go to state 28
+    NUMERO    shift, and go to state 29
+    CARACTER  shift, and go to state 30
+    LPAR      shift, and go to state 31
 
-    expresion  go to state 80
+    expresion  go to state 85
 
 
-State 78
+State 83
 
    16 sentencia: IF LPAR expresion $@2 RPAR LKEY sentencias $@3 • RKEY ELSE LKEY sentencias RKEY
 
-    RKEY  shift, and go to state 81
+    RKEY  shift, and go to state 86
 
 
-State 79
+State 84
 
    12 sentencias: sentencias • sentencia
    19 sentencia: WHILE $@4 LPAR expresion $@5 RPAR LKEY sentencias • RKEY
@@ -1191,81 +1264,82 @@ State 79
     IF     shift, and go to state 11
     WHILE  shift, and go to state 12
     DO     shift, and go to state 13
-    RKEY   shift, and go to state 82
+    RKEY   shift, and go to state 87
+    PRINT  shift, and go to state 14
 
-    sentencia  go to state 23
+    sentencia  go to state 25
 
 
-State 80
+State 85
 
    22 sentencia: DO $@6 LKEY sentencias RKEY WHILE LPAR expresion • $@7 RPAR PYC
-   25 expresion: expresion • IGUAL expresion
-   26          | expresion • DIFF expresion
-   27          | expresion • AND expresion
-   28          | expresion • OR expresion
-   29          | expresion • MAYORQUE expresion
-   30          | expresion • MENORQUE expresion
-   31          | expresion • MAYORIGUAL expresion
-   32          | expresion • MENORIGUAL expresion
-   33          | expresion • MAS expresion
-   34          | expresion • MENOS expresion
-   35          | expresion • MUL expresion
-   36          | expresion • DIV expresion
+   26 expresion: expresion • IGUAL expresion
+   27          | expresion • DIFF expresion
+   28          | expresion • AND expresion
+   29          | expresion • OR expresion
+   30          | expresion • MAYORQUE expresion
+   31          | expresion • MENORQUE expresion
+   32          | expresion • MAYORIGUAL expresion
+   33          | expresion • MENORIGUAL expresion
+   34          | expresion • MAS expresion
+   35          | expresion • MENOS expresion
+   36          | expresion • MUL expresion
+   37          | expresion • DIV expresion
 
-    MAYORQUE    shift, and go to state 39
-    MENORQUE    shift, and go to state 40
-    MAYORIGUAL  shift, and go to state 41
-    MENORIGUAL  shift, and go to state 42
-    IGUAL       shift, and go to state 43
-    DIFF        shift, and go to state 44
-    AND         shift, and go to state 45
-    OR          shift, and go to state 46
-    MAS         shift, and go to state 47
-    MENOS       shift, and go to state 48
-    MUL         shift, and go to state 49
-    DIV         shift, and go to state 50
+    MAYORQUE    shift, and go to state 42
+    MENORQUE    shift, and go to state 43
+    MAYORIGUAL  shift, and go to state 44
+    MENORIGUAL  shift, and go to state 45
+    IGUAL       shift, and go to state 46
+    DIFF        shift, and go to state 47
+    AND         shift, and go to state 48
+    OR          shift, and go to state 49
+    MAS         shift, and go to state 50
+    MENOS       shift, and go to state 51
+    MUL         shift, and go to state 52
+    DIV         shift, and go to state 53
 
     $default  reduce using rule 21 ($@7)
 
-    $@7  go to state 83
+    $@7  go to state 88
 
 
-State 81
+State 86
 
    16 sentencia: IF LPAR expresion $@2 RPAR LKEY sentencias $@3 RKEY • ELSE LKEY sentencias RKEY
 
-    ELSE  shift, and go to state 84
+    ELSE  shift, and go to state 89
 
 
-State 82
+State 87
 
    19 sentencia: WHILE $@4 LPAR expresion $@5 RPAR LKEY sentencias RKEY •
 
     $default  reduce using rule 19 (sentencia)
 
 
-State 83
+State 88
 
    22 sentencia: DO $@6 LKEY sentencias RKEY WHILE LPAR expresion $@7 • RPAR PYC
 
-    RPAR  shift, and go to state 85
+    RPAR  shift, and go to state 90
 
 
-State 84
+State 89
 
    16 sentencia: IF LPAR expresion $@2 RPAR LKEY sentencias $@3 RKEY ELSE • LKEY sentencias RKEY
 
-    LKEY  shift, and go to state 86
+    LKEY  shift, and go to state 91
 
 
-State 85
+State 90
 
    22 sentencia: DO $@6 LKEY sentencias RKEY WHILE LPAR expresion $@7 RPAR • PYC
 
-    PYC  shift, and go to state 87
+    PYC  shift, and go to state 92
 
 
-State 86
+State 91
 
    16 sentencia: IF LPAR expresion $@2 RPAR LKEY sentencias $@3 RKEY ELSE LKEY • sentencias RKEY
 
@@ -1273,19 +1347,20 @@ State 86
     IF     shift, and go to state 11
     WHILE  shift, and go to state 12
     DO     shift, and go to state 13
+    PRINT  shift, and go to state 14
 
-    sentencias  go to state 88
-    sentencia   go to state 16
+    sentencias  go to state 93
+    sentencia   go to state 17
 
 
-State 87
+State 92
 
    22 sentencia: DO $@6 LKEY sentencias RKEY WHILE LPAR expresion $@7 RPAR PYC •
 
     $default  reduce using rule 22 (sentencia)
 
 
-State 88
+State 93
 
    12 sentencias: sentencias • sentencia
    16 sentencia: IF LPAR expresion $@2 RPAR LKEY sentencias $@3 RKEY ELSE LKEY sentencias • RKEY
@@ -1294,12 +1369,13 @@ State 88
     IF     shift, and go to state 11
     WHILE  shift, and go to state 12
     DO     shift, and go to state 13
-    RKEY   shift, and go to state 89
+    RKEY   shift, and go to state 94
+    PRINT  shift, and go to state 14
 
-    sentencia  go to state 23
+    sentencia  go to state 25
 
 
-State 89
+State 94
 
    16 sentencia: IF LPAR expresion $@2 RPAR LKEY sentencias $@3 RKEY ELSE LKEY sentencias RKEY •
 

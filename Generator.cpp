@@ -28,11 +28,14 @@ void Generator::translate(SymTab *ts)
     map<string,Sym> syms = ts->getSyms();
     for(map<string,Sym>::iterator sym=syms.begin();sym!=syms.end(); sym++ )
     {
-        if(sym->second.getType() == 0 || sym->second.getType() == 3){
+        if(sym->second.getType() == 0){
             file<<"\t"<<sym->first<<": .word 0"<<endl;
         }
         else if (sym->second.getType()==1){
             file<<"\t"<<sym->first<<": .float 0.0"<<endl;            
+        }
+        else if(sym->second.getType() == 3){
+            file<<"\t"<<sym->first<<": .ascii \"\""<<endl;   
         }
         else{
             file<<"\t"<<sym->first<<": .double 0.0"<<endl;
@@ -67,6 +70,22 @@ void Generator::translate(vector<Quad> icode, SymTab *ts)
 void Generator::translate(Quad q, int type){
     switch (q.resolveQuad())
     {
+        case QPINT:
+//    # Printing out a integer
+            file<<"\tli $v0, 1\n\tlw $a0, "<<q.getRes()<<"\n\tsyscall"<<endl;
+            break;
+        case QPFLOAT:
+//    #printing out a float
+            file<<"\tli $v0, 2\n\tlwc1 $f12, "<<q.getRes()<<"\n\tsyscall"<<endl;
+            break;
+        case QPDOUBLE:
+//    #printing out a double
+            file<<"\tli $v0, 3\n\tldc1 $f12, "<<q.getRes()<<"\n\tsyscall"<<endl;
+            break;
+        case QPCHAR:
+//    #printing out a char
+            file<<"\tli $v0, 4\n\tla $a0, "<<q.getRes()<<"\n\tsyscall"<<endl;
+            break;
         case QDIYUN:
             if(type ==0){
                 isNumber(q.getArg1())?
@@ -388,7 +407,6 @@ void Generator::openFile(string name){
 
 void Generator::translate(map<string, string> cf){
     for(map<string,string>::iterator c = cf.begin(); c != cf.end(); c++){
-        cout<<c->first<<endl;
         if(strcmp(c->first.c_str(),"cteFloat") == 0)
             file<<"\t"<<c->first<<": .float "<<c->second<<endl;
         else

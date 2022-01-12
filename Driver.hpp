@@ -35,6 +35,7 @@ private:
     Lexer *lexer = nullptr;
     yy::Parser *parser = nullptr;
 public:
+    vector<int> lp;
     Driver(/* args */);
     Driver(string file);
     ~Driver();
@@ -64,8 +65,9 @@ public:
     //Funciones de análisis semántico
     void addSym(string id, int type, string cat);
     void addSym(string id, int dir, int type, string cat);
-    void addSym(string id, int dir, int type, string cat, vector<int> args);
+    void addSym(string id, int type, string cat, vector<int> args);
     int addType(string name, int items, int base);
+    int addType(int type, string name, SymTab *tab);
     int addType(string name, SymTab *tab);
 
     //
@@ -90,6 +92,8 @@ public:
     Expresion igual(Expresion e1, Expresion e2);
     Expresion distinto(Expresion e1, Expresion e2);
     Expresion negacion(string id, Expresion e);
+    Expresion imprimir(Expresion e1);
+    Expresion imprimir(string id);
 
     void parse(const string& file);
     void parse_helper(std::istream &stream);

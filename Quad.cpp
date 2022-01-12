@@ -43,6 +43,11 @@ QuadType Quad::resolveQuad(){
     if(op == "(double)") return QCASTDOUBLE;
     if(op=="(float)") return QCASTFLOAT;
     if(op=="(int)") return QCASTINT;
+
+    if(op=="printInt") return QPINT;
+    if(op=="printFloat") return QPFLOAT;
+    if(op=="printDouble") return QPDOUBLE;
+    if(op=="printChar") return QPCHAR; 
     return QSIN;
 }
 
@@ -82,6 +87,11 @@ void Quad::print()
         case QCASTINT:
             cout<<res<<"="<<op<<arg1<<endl;
             break;
+        case QPINT:
+        case QPFLOAT:
+        case QPDOUBLE:
+        case QPCHAR:
+            cout<<"print"<<" "<<res<<endl;
         default:
             break;
     }
