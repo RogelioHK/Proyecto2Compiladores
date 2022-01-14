@@ -25,6 +25,7 @@ void Generator::translate(SymTab *ts)
 {
     
     file<<".data"<<endl;
+    file<<"\tinput: .asciiz \"-> \""<<endl;
     map<string,Sym> syms = ts->getSyms();
     for(map<string,Sym>::iterator sym=syms.begin();sym!=syms.end(); sym++ )
     {
@@ -86,6 +87,24 @@ void Generator::translate(Quad q, int type){
 //    #printing out a char
             file<<"\tli $v0, 4\n\tla $a0, "<<q.getRes()<<"\n\tsyscall"<<endl;
             break;
+//Scan//
+        case QSINT:
+//    # Scanning a integer
+            file<<"\tli $v0, 4\n\tla $a0, input"<<"\n\tsyscall\n\tli $v0, 5"<<"\n\tsyscall\n\tmove $t0, $v0\n\tsw $t0, "<<q.getRes()<<endl;
+            break;
+        case QSFLOAT:
+//    # Scanning a float
+            file<<"\tli $v0, 4\n\tla $a0, input"<<"\n\tsyscall\n\tli $v0, 6"<<"\n\tsyscall\n\tsw $v0, "<<q.getRes()<<endl;
+            break;
+        case QSDOUBLE:
+//    # Scanning a double
+            file<<"\tli $v0, 4\n\tla $a0, input"<<"\n\tsyscall\n\tli $v0, 5"<<"\n\tsyscall\n\tmove $t0, $v0\n\tsw $t0, "<<q.getRes()<<endl;
+            break;
+        case QSCHAR:
+//    # Scanning a char
+            file<<"\tli $v0, 4\n\tla $a0, input"<<"\n\tsyscall\n\tli $v0, 5"<<"\n\tsyscall\n\tmove $t0, $v0\n\tsw $t0, "<<q.getRes()<<endl;
+            break;
+//Lo demás//
         case QDIYUN:
             if(type ==0){
                 isNumber(q.getArg1())?

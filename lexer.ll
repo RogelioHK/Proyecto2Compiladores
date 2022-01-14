@@ -50,7 +50,8 @@ doble ([0-9]+"."[0-9]*|"."[0-9]+){notacion}?|[0-9]*{notacion}
 "!=" { return token::DIFF; }
 "&&" { return token::AND; }
 "||" { return token::OR; }
-"!" { return token::NOT; } 
+"!"  { return token::NOT; }
+"."  { return token::PUNTO; }
 
 "if"     { return token::IF; }
 "else"   { return token::ELSE; }
@@ -63,7 +64,10 @@ doble ([0-9]+"."[0-9]*|"."[0-9]+){notacion}?|[0-9]*{notacion}
 "char"      { return token::CHAR; }
 "print"     { return token::PRINT; }
 "scan"      { return token::SCAN; }
-
+"void"      { return token::VOID; }
+"return"    { return token::RETURN; }
+"break"     { return token::BREAK; }
+"struct"    { return token::STRUCT; }
 
 {caracter}    { 
             numType = 3;

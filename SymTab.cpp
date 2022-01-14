@@ -1,7 +1,3 @@
-/**
- * @author Adrian Ulises Mercado Martínez
- * @version 1, 3/11/2021
- */
 #include "SymTab.hpp"
 
 SymTab::SymTab()
@@ -18,11 +14,26 @@ SymTab::~SymTab()
 void SymTab::addSym(string id, Sym s)
 {
     syms[id] = s;
+    ids.push_back(id);
+}
+
+Sym SymTab::getSym(string id)
+{
+    return syms[id];
 }
 
 /*******************************************************************************/
 /*    Funciones para acceder a la información en la tabla de símbolos **********/
 /*******************************************************************************/
+int SymTab::size()
+{
+    return ids.size();
+}
+
+string SymTab::getId(int i)
+{
+    return ids.at(i);
+}
 
 int SymTab::getDir(string id)
 {

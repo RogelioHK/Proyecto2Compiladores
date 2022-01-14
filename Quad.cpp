@@ -47,7 +47,14 @@ QuadType Quad::resolveQuad(){
     if(op=="printInt") return QPINT;
     if(op=="printFloat") return QPFLOAT;
     if(op=="printDouble") return QPDOUBLE;
-    if(op=="printChar") return QPCHAR; 
+    if(op=="printChar") return QPCHAR;
+
+    if(op=="scanInt") return QSINT;
+    if(op=="scanFloat") return QSFLOAT;
+    if(op=="scanDouble") return QSDOUBLE;
+    if(op=="scanChar") return QSCHAR;
+
+    if(op == "return") return QRETURN;
     return QSIN;
 }
 
@@ -80,7 +87,7 @@ void Quad::print()
             cout<<res<<op<<arg1<<endl;
             break;
         case QLABEL:
-            cout<<res<<":";
+            cout<<res<<":\n";
             break;
         case QCASTDOUBLE:
         case QCASTFLOAT:
@@ -92,7 +99,18 @@ void Quad::print()
         case QPDOUBLE:
         case QPCHAR:
             cout<<"print"<<" "<<res<<endl;
+            break;
+        case QSINT:
+        case QSFLOAT:
+        case QSDOUBLE:
+        case QSCHAR:
+            cout<<"scan"<<" "<<res<<endl;
+            break;
+        case QRETURN:
+            cout<<"return"<<" "<<res<<endl;
+            break;
         default:
+            cout<<"Algo va mal con: "<<resolveQuad()<<endl;
             break;
     }
 }

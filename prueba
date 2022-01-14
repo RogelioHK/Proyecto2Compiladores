@@ -1,14 +1,18 @@
-int a;
-float c;
-double e;
-char aba;
+struct{
+	int afa;
+	int baba;
+	int x;
+} efe ;
 
-a = 2;
-aba = "a";
-c = 9;
-e = 12.12;
+struct aba{
+	int ywy;
+	int owo;
+	char y;
+};
 
-print(a);
-print(c);
-print(e);
-print(aba);
+void main(){
+	int j;
+	print(j);
+	break;
+	j = efe.afa;
+}

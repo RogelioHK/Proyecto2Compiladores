@@ -425,12 +425,20 @@ namespace yy {
       char dummy1[sizeof (Expresion)];
 
       // tipo
+      // arg
+      // param
       char dummy2[sizeof (int)];
 
       // ID
       // NUMERO
       // CARACTER
       char dummy3[sizeof (std::string)];
+
+      // lista_args
+      // args
+      // lista_params
+      // params
+      char dummy4[sizeof (vector<int>)];
     };
 
     /// The size of the largest semantic type.
@@ -494,27 +502,33 @@ namespace yy {
     FLOAT = 266,                   // FLOAT
     DOUBLE = 267,                  // DOUBLE
     CHAR = 268,                    // CHAR
-    LKEY = 269,                    // LKEY
-    RKEY = 270,                    // RKEY
-    PYC = 271,                     // PYC
-    COMA = 272,                    // COMA
-    PRINT = 273,                   // PRINT
-    ASIG = 274,                    // ASIG
-    NOT = 275,                     // NOT
-    MAYORQUE = 276,                // MAYORQUE
-    MENORQUE = 277,                // MENORQUE
-    MAYORIGUAL = 278,              // MAYORIGUAL
-    MENORIGUAL = 279,              // MENORIGUAL
-    IGUAL = 280,                   // IGUAL
-    DIFF = 281,                    // DIFF
-    AND = 282,                     // AND
-    OR = 283,                      // OR
-    MAS = 284,                     // MAS
-    MENOS = 285,                   // MENOS
-    MUL = 286,                     // MUL
-    DIV = 287,                     // DIV
-    LPAR = 288,                    // LPAR
-    RPAR = 289                     // RPAR
+    VOID = 269,                    // VOID
+    RETURN = 270,                  // RETURN
+    BREAK = 271,                   // BREAK
+    LKEY = 272,                    // LKEY
+    RKEY = 273,                    // RKEY
+    PYC = 274,                     // PYC
+    COMA = 275,                    // COMA
+    PUNTO = 276,                   // PUNTO
+    PRINT = 277,                   // PRINT
+    SCAN = 278,                    // SCAN
+    STRUCT = 279,                  // STRUCT
+    ASIG = 280,                    // ASIG
+    NOT = 281,                     // NOT
+    MAYORQUE = 282,                // MAYORQUE
+    MENORQUE = 283,                // MENORQUE
+    MAYORIGUAL = 284,              // MAYORIGUAL
+    MENORIGUAL = 285,              // MENORIGUAL
+    IGUAL = 286,                   // IGUAL
+    DIFF = 287,                    // DIFF
+    AND = 288,                     // AND
+    OR = 289,                      // OR
+    MAS = 290,                     // MAS
+    MENOS = 291,                   // MENOS
+    MUL = 292,                     // MUL
+    DIV = 293,                     // DIV
+    LPAR = 294,                    // LPAR
+    RPAR = 295                     // RPAR
       };
       /// Backward compatibility alias (Bison 3.6).
       typedef token_kind_type yytokentype;
@@ -531,7 +545,7 @@ namespace yy {
     {
       enum symbol_kind_type
       {
-        YYNTOKENS = 35, ///< Number of tokens.
+        YYNTOKENS = 41, ///< Number of tokens.
         S_YYEMPTY = -2,
         S_YYEOF = 0,                             // "end of file"
         S_YYerror = 1,                           // error
@@ -547,43 +561,70 @@ namespace yy {
         S_FLOAT = 11,                            // FLOAT
         S_DOUBLE = 12,                           // DOUBLE
         S_CHAR = 13,                             // CHAR
-        S_LKEY = 14,                             // LKEY
-        S_RKEY = 15,                             // RKEY
-        S_PYC = 16,                              // PYC
-        S_COMA = 17,                             // COMA
-        S_PRINT = 18,                            // PRINT
-        S_ASIG = 19,                             // ASIG
-        S_NOT = 20,                              // NOT
-        S_MAYORQUE = 21,                         // MAYORQUE
-        S_MENORQUE = 22,                         // MENORQUE
-        S_MAYORIGUAL = 23,                       // MAYORIGUAL
-        S_MENORIGUAL = 24,                       // MENORIGUAL
-        S_IGUAL = 25,                            // IGUAL
-        S_DIFF = 26,                             // DIFF
-        S_AND = 27,                              // AND
-        S_OR = 28,                               // OR
-        S_MAS = 29,                              // MAS
-        S_MENOS = 30,                            // MENOS
-        S_MUL = 31,                              // MUL
-        S_DIV = 32,                              // DIV
-        S_LPAR = 33,                             // LPAR
-        S_RPAR = 34,                             // RPAR
-        S_YYACCEPT = 35,                         // $accept
-        S_programa = 36,                         // programa
-        S_declaraciones = 37,                    // declaraciones
-        S_declaracion = 38,                      // declaracion
-        S_39_1 = 39,                             // $@1
-        S_tipo = 40,                             // tipo
-        S_lista_var = 41,                        // lista_var
-        S_sentencias = 42,                       // sentencias
-        S_sentencia = 43,                        // sentencia
-        S_44_2 = 44,                             // $@2
-        S_45_3 = 45,                             // $@3
-        S_46_4 = 46,                             // $@4
-        S_47_5 = 47,                             // $@5
-        S_48_6 = 48,                             // $@6
-        S_49_7 = 49,                             // $@7
-        S_expresion = 50                         // expresion
+        S_VOID = 14,                             // VOID
+        S_RETURN = 15,                           // RETURN
+        S_BREAK = 16,                            // BREAK
+        S_LKEY = 17,                             // LKEY
+        S_RKEY = 18,                             // RKEY
+        S_PYC = 19,                              // PYC
+        S_COMA = 20,                             // COMA
+        S_PUNTO = 21,                            // PUNTO
+        S_PRINT = 22,                            // PRINT
+        S_SCAN = 23,                             // SCAN
+        S_STRUCT = 24,                           // STRUCT
+        S_ASIG = 25,                             // ASIG
+        S_NOT = 26,                              // NOT
+        S_MAYORQUE = 27,                         // MAYORQUE
+        S_MENORQUE = 28,                         // MENORQUE
+        S_MAYORIGUAL = 29,                       // MAYORIGUAL
+        S_MENORIGUAL = 30,                       // MENORIGUAL
+        S_IGUAL = 31,                            // IGUAL
+        S_DIFF = 32,                             // DIFF
+        S_AND = 33,                              // AND
+        S_OR = 34,                               // OR
+        S_MAS = 35,                              // MAS
+        S_MENOS = 36,                            // MENOS
+        S_MUL = 37,                              // MUL
+        S_DIV = 38,                              // DIV
+        S_LPAR = 39,                             // LPAR
+        S_RPAR = 40,                             // RPAR
+        S_YYACCEPT = 41,                         // $accept
+        S_programa = 42,                         // programa
+        S_declaraciones = 43,                    // declaraciones
+        S_declaracion = 44,                      // declaracion
+        S_45_1 = 45,                             // $@1
+        S_46_2 = 46,                             // $@2
+        S_47_3 = 47,                             // $@3
+        S_48_4 = 48,                             // $@4
+        S_decl2 = 49,                            // decl2
+        S_50_5 = 50,                             // $@5
+        S_51_6 = 51,                             // $@6
+        S_52_7 = 52,                             // $@7
+        S_53_8 = 53,                             // $@8
+        S_body_struct = 54,                      // body_struct
+        S_decl1 = 55,                            // decl1
+        S_56_9 = 56,                             // $@9
+        S_tipo = 57,                             // tipo
+        S_lista_var = 58,                        // lista_var
+        S_lista_args = 59,                       // lista_args
+        S_args = 60,                             // args
+        S_arg = 61,                              // arg
+        S_bloque_sentencias = 62,                // bloque_sentencias
+        S_decl_locales = 63,                     // decl_locales
+        S_decl_local = 64,                       // decl_local
+        S_65_10 = 65,                            // $@10
+        S_sentencias = 66,                       // sentencias
+        S_sentencia = 67,                        // sentencia
+        S_68_11 = 68,                            // $@11
+        S_69_12 = 69,                            // $@12
+        S_70_13 = 70,                            // $@13
+        S_71_14 = 71,                            // $@14
+        S_72_15 = 72,                            // $@15
+        S_73_16 = 73,                            // $@16
+        S_expresion = 74,                        // expresion
+        S_lista_params = 75,                     // lista_params
+        S_params = 76,                           // params
+        S_param = 77                             // param
       };
     };
 
@@ -625,6 +666,8 @@ namespace yy {
         break;
 
       case symbol_kind::S_tipo: // tipo
+      case symbol_kind::S_arg: // arg
+      case symbol_kind::S_param: // param
         value.move< int > (std::move (that.value));
         break;
 
@@ -632,6 +675,13 @@ namespace yy {
       case symbol_kind::S_NUMERO: // NUMERO
       case symbol_kind::S_CARACTER: // CARACTER
         value.move< std::string > (std::move (that.value));
+        break;
+
+      case symbol_kind::S_lista_args: // lista_args
+      case symbol_kind::S_args: // args
+      case symbol_kind::S_lista_params: // lista_params
+      case symbol_kind::S_params: // params
+        value.move< vector<int> > (std::move (that.value));
         break;
 
       default:
@@ -699,6 +749,20 @@ namespace yy {
       {}
 #endif
 
+#if 201103L <= YY_CPLUSPLUS
+      basic_symbol (typename Base::kind_type t, vector<int>&& v, location_type&& l)
+        : Base (t)
+        , value (std::move (v))
+        , location (std::move (l))
+      {}
+#else
+      basic_symbol (typename Base::kind_type t, const vector<int>& v, const location_type& l)
+        : Base (t)
+        , value (v)
+        , location (l)
+      {}
+#endif
+
       /// Destroy the symbol.
       ~basic_symbol ()
       {
@@ -728,6 +792,8 @@ switch (yykind)
         break;
 
       case symbol_kind::S_tipo: // tipo
+      case symbol_kind::S_arg: // arg
+      case symbol_kind::S_param: // param
         value.template destroy< int > ();
         break;
 
@@ -735,6 +801,13 @@ switch (yykind)
       case symbol_kind::S_NUMERO: // NUMERO
       case symbol_kind::S_CARACTER: // CARACTER
         value.template destroy< std::string > ();
+        break;
+
+      case symbol_kind::S_lista_args: // lista_args
+      case symbol_kind::S_args: // args
+      case symbol_kind::S_lista_params: // lista_params
+      case symbol_kind::S_params: // params
+        value.template destroy< vector<int> > ();
         break;
 
       default:
@@ -1118,6 +1191,51 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
+      make_VOID (location_type l)
+      {
+        return symbol_type (token::VOID, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_VOID (const location_type& l)
+      {
+        return symbol_type (token::VOID, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_RETURN (location_type l)
+      {
+        return symbol_type (token::RETURN, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_RETURN (const location_type& l)
+      {
+        return symbol_type (token::RETURN, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_BREAK (location_type l)
+      {
+        return symbol_type (token::BREAK, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_BREAK (const location_type& l)
+      {
+        return symbol_type (token::BREAK, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
       make_LKEY (location_type l)
       {
         return symbol_type (token::LKEY, std::move (l));
@@ -1178,6 +1296,21 @@ switch (yykind)
 #if 201103L <= YY_CPLUSPLUS
       static
       symbol_type
+      make_PUNTO (location_type l)
+      {
+        return symbol_type (token::PUNTO, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_PUNTO (const location_type& l)
+      {
+        return symbol_type (token::PUNTO, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
       make_PRINT (location_type l)
       {
         return symbol_type (token::PRINT, std::move (l));
@@ -1188,6 +1321,36 @@ switch (yykind)
       make_PRINT (const location_type& l)
       {
         return symbol_type (token::PRINT, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_SCAN (location_type l)
+      {
+        return symbol_type (token::SCAN, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_SCAN (const location_type& l)
+      {
+        return symbol_type (token::SCAN, l);
+      }
+#endif
+#if 201103L <= YY_CPLUSPLUS
+      static
+      symbol_type
+      make_STRUCT (location_type l)
+      {
+        return symbol_type (token::STRUCT, std::move (l));
+      }
+#else
+      static
+      symbol_type
+      make_STRUCT (const location_type& l)
+      {
+        return symbol_type (token::STRUCT, l);
       }
 #endif
 #if 201103L <= YY_CPLUSPLUS
@@ -1442,7 +1605,7 @@ switch (yykind)
 
 
     /// Stored state numbers (used for stacks).
-    typedef signed char state_type;
+    typedef unsigned char state_type;
 
     /// Compute post-reduction state.
     /// \param yystate   the current state
@@ -1482,17 +1645,17 @@ switch (yykind)
     static const signed char yydefact_[];
 
     // YYPGOTO[NTERM-NUM].
-    static const signed char yypgoto_[];
+    static const short yypgoto_[];
 
     // YYDEFGOTO[NTERM-NUM].
-    static const signed char yydefgoto_[];
+    static const unsigned char yydefgoto_[];
 
     // YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
     // positive, shift that token.  If negative, reduce the rule whose
     // number is the opposite.  If YYTABLE_NINF, syntax error.
-    static const signed char yytable_[];
+    static const short yytable_[];
 
-    static const signed char yycheck_[];
+    static const short yycheck_[];
 
     // YYSTOS[STATE-NUM] -- The symbol kind of the accessing symbol of
     // state STATE-NUM.
@@ -1507,7 +1670,7 @@ switch (yykind)
 
 #if YYDEBUG
     // YYRLINE[YYN] -- Source line where rule number YYN was defined.
-    static const unsigned char yyrline_[];
+    static const short yyrline_[];
     /// Report on the debug stream that the rule \a r is going to be reduced.
     virtual void yy_reduce_print_ (int r) const;
     /// Print the state stack on the debug stream.
@@ -1734,9 +1897,9 @@ switch (yykind)
     /// Constants.
     enum
     {
-      yylast_ = 183,     ///< Last index in yytable_.
-      yynnts_ = 16,  ///< Number of nonterminal symbols.
-      yyfinal_ = 9 ///< Termination state number.
+      yylast_ = 242,     ///< Last index in yytable_.
+      yynnts_ = 37,  ///< Number of nonterminal symbols.
+      yyfinal_ = 15 ///< Termination state number.
     };
 
 
@@ -1748,7 +1911,7 @@ switch (yykind)
 
 
 } // yy
-#line 1752 "parser.tab.hh"
+#line 1915 "parser.tab.hh"
 
 
 

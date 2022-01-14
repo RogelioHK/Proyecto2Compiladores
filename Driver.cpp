@@ -10,6 +10,7 @@ Driver::Driver()
     numTemp = 0;
     dir= 0;
     cteF = 0;
+    symTabStack.push(ts);
 }
 
 
@@ -196,12 +197,12 @@ void Driver::addSym(string id, int type, string cat)
  * que el id no se encuentra en la tabla en caso de que sí 
  * marca un error
  */
-void Driver::addSym(string id, int dir, int type, string cat)
-{
-    if(!ts.is_in(id))
-        ts.addSym(id, Sym(dir,type, cat));
+void Driver::addSym(string id, int dir, int type, string cat){
+    if(!symTabStack.top().is_in(id))
+        symTabStack.top().addSym(id, Sym(dir,type, cat));
     else
         error("La variable "+id+" ya fue declarada");
+    cout<<"Variable: "<<id<<endl;
 }
 
 /*
@@ -209,10 +210,9 @@ void Driver::addSym(string id, int dir, int type, string cat)
  * validando que el id no se encuentra en la tabla en caso de que sí 
  * marca un error (No se usa para este lenguaje)
  */
-void Driver::addSym(string id, int type, string cat, vector<int> args)
-{
-    if(!ts.is_in(id)){
-        ts.addSym(id, Sym(dir, gType, cat, args));
+void Driver::addSym(string id, int type, string cat, vector<int> args){
+    if(!symTabStack.top().is_in(id)){
+        symTabStack.top().addSym(id, Sym(dir, gType, cat, args));
         dir += tt.getTam(type);
     }
     else
@@ -453,8 +453,8 @@ Expresion Driver::asig(string id, Expresion e){
     Expresion e1;
     string alfa;
     //Validar que el id fue declarado
-    if(!ts.is_in(id)) error("La variable "+id+" no fue declarada");
-    int typeId = ts.getType(id);
+    if(!symTabStack.top().is_in(id)) error("La variable "+id+" no fue declarada");
+    int typeId = symTabStack.top().getType(id);
     e1.type = typeId; //La expresión de salida siempre tendrá el tipo del id
     if(typeId == e.type){
         alfa = e.dir;
@@ -481,8 +481,8 @@ Expresion Driver::negacion(string id, Expresion e){
     Expresion e1;
     string alfa;
     //Validar que el id fue declarado
-    if(!ts.is_in(id)) error("La variable "+id+" no fue declarada");
-    int typeId = ts.getType(id);
+    if(!symTabStack.top().is_in(id)) error("La variable "+id+" no fue declarada");
+    int typeId = symTabStack.top().getType(id);
     e1.type = typeId; //La expresión de salida siempre tendrá el tipo del id
     if(typeId == e.type){
         alfa = e.dir;
@@ -513,13 +513,13 @@ Expresion Driver::negacion(string id, Expresion e){
 Expresion Driver::ident(string id)
 {
     Expresion e;
-    if(ts.is_in(id)){ //Se válida que exista el id
+    if(symTabStack.top().is_in(id)){ //Se válida que exista el id
         e.dir = id;
-        e.type = ts.getType(id); // Se obtiene el tipo del id
+        e.type = symTabStack.top().getType(id); // Se obtiene el tipo del id
     }else{
         error("El identificador "+ id + " no fue declarado");
     }
-    return e;    
+    return e;
 }
 
 /*
@@ -547,6 +547,62 @@ Expresion Driver::numero(string val, int type){
         e.dir =val;
     }
     e.type = type;
+    return e;
+}
+
+Expresion Driver::retorno(string id, vector<int> params){
+    Expresion e;
+    vector<int> args;
+    if(symTabStack.top().is_in(id)){
+        args = symTabStack.top().getSym(id).getArgs();
+        if(args.size() == params.size()){
+            for(int i = 0; i < args.size(); i++){
+                if(params.at(i) != args.at(i))
+                    error("Los parámetros de " + id + " no coinciden.");
+            }
+            for(map<string, Expresion>::iterator c = lreturn.begin(); c != lreturn.end(); c++){
+                if (c -> first == id){
+                    e = c->second;
+                    break;
+                }
+            }
+        }
+        else
+            error("El número de parámetros de " + id + " no coincide.");    
+    }
+    else
+        error("Función " + id + " no encontrada.");
+    return e;
+}
+
+void Driver::estructura(string id){
+    if(symTabStack.top().is_in(id))
+        error("La estructura " + id + " ya fue declarada");
+    else{
+        tt.addType(ts.size(), "struct", &symTabStack.top());
+        labelStruct[id] = ts.size();
+    }
+}
+
+Expresion Driver::retStruct(string ids, string ida){
+    Expresion e;
+    int id;
+
+    if(symTabStack.top().is_in(ids)){
+        for(map<string, int>::iterator c = labelStruct.begin(); c != labelStruct.end(); c++){
+                if (c -> first == ids){
+                    id = c->second;
+                    break;
+                }
+        }
+        if(symTabStack.top().is_in(ida)){
+            e = ident(ida);
+        }
+        else
+            error("La variable " + ida + " dentro de la estructura " + ids + " no fue declarada.");
+    }
+    else
+        error("La estructura " + ids + " no fue declarada.");
     return e;
 }
 
@@ -578,8 +634,18 @@ Expresion Driver::imprimir(Expresion e){
     return e;
 }
 
-Expresion Driver::imprimir(string id){
-    return id;
+Expresion Driver::ler(string id){
+    Expresion e;
+    e = ident(id);
+    if(e.type == 0)
+        genCode(e.dir, "", "scanInt", "");
+    else if(e.type == 1)
+        genCode(e.dir, "", "scanFloat", "");
+    else if(e.type == 2)
+        genCode(e.dir, "", "scanDouble", "");
+    else if(e.type == 3)
+        genCode(e.dir, "", "scanChar", "");
+    return e;
 }
 
 /*
@@ -606,6 +672,26 @@ void Driver::translate()
     gen.translate(icode, &ts);   // Traduce las instrucciones a código MIPS
 }
 
+void Driver::pushSymT(SymTab ts){
+    string id;
+    this -> ts = symTabStack.top();
+    symTabStack.push(ts);
+    
+    for(int i = 0; i < this->ts.size(); i++){
+        id = this->ts.getId(i);
+        symTabStack.top().addSym(id,this->ts.getSym(id));
+    }
+}
+
+SymTab Driver::popSymT(){
+    return symTabStack.pop();
+
+}
+
+SymTab Driver::symtab(){
+    SymTab ts;
+    return ts;
+}
 
 void Driver::pushLabel(int label)
 {
@@ -626,11 +712,19 @@ int Driver::newLab()
     return ++numLabel;
 }
 
-int Driver::element(int i)
-{    
+int Driver::element(int i){    
     return labelStack[i];
 }
 
+Expresion Driver::_return(string id, Expresion e){
+    Expresion efun;
+    if(e.type != gType)
+        error("No coincide el valor de retorno con la expresión");
+    else
+        genCode(e.dir,"", "return", "");
+        lreturn[id] = e;
+    return e;
+}
 
 void Driver::parse(const string& filename)
 {

@@ -1,7 +1,3 @@
-/**
- * @author Adrian Ulises Mercado Martínez
- * @version 1, 3/11/2021
- */
 #ifndef __DRIVER_HPP__
 #define __DRIVER_HPP__
 
@@ -17,25 +13,28 @@ using namespace std;
 #include "Pila.hpp"
 #include "Lexer.hpp"
 #include "parser.tab.hh"
-class Driver
-{
+
+class Driver{
 private:
     int dir;
     int numTemp;
-    int numLabel;    
+    int numLabel;
     int numType;
     int gType;
     int cteF;
-    SymTab ts;
-    TypeTab tt;
-    vector<Quad> icode;
+    SymTab ts;  //Tabla de símbolos globales
+    TypeTab tt; //Tabla de tipos
+    vector<Quad> icode; //Código intermedio
     map<string, string> constantes;
+    map<string, int> labelStruct;
+    map<string, Expresion> lreturn;
     Generator gen;
+    Pila<SymTab> symTabStack;   //Pila de tablas de símbolos
     Pila<int> labelStack;
     Lexer *lexer = nullptr;
     yy::Parser *parser = nullptr;
+
 public:
-    vector<int> lp;
     Driver(/* args */);
     Driver(string file);
     ~Driver();
@@ -82,6 +81,13 @@ public:
     void error(string msg);
     void print();
     void translate();
+    SymTab symtab();
+    void pushSymT(SymTab ts);
+    SymTab popSymT();
+    Expresion _return(string id, Expresion e);
+    Expresion retorno(string id, vector<int> params);
+    void estructura(string id);
+    Expresion retStruct(string ids, string ida);
 
     Expresion mayor_que(Expresion e1, Expresion e2);
     Expresion menor_que(Expresion e1, Expresion e2);
@@ -92,8 +98,9 @@ public:
     Expresion igual(Expresion e1, Expresion e2);
     Expresion distinto(Expresion e1, Expresion e2);
     Expresion negacion(string id, Expresion e);
-    Expresion imprimir(Expresion e1);
-    Expresion imprimir(string id);
+    Expresion imprimir(Expresion e);
+    Expresion ler(string id);
+    int expType(Expresion e);
 
     void parse(const string& file);
     void parse_helper(std::istream &stream);

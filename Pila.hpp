@@ -1,7 +1,3 @@
-/**
- * @author Adrian Ulises Mercado Martínez
- * @version 1, 3/11/2021
- */
 #ifndef __PILA_HPP__
 #define __PILA_HPP__
 #include <vector>
@@ -17,10 +13,17 @@ public:
     };
     ~Pila() {};
     void push(T dat);
-    T top();
+    T &top();
     T &operator[](int i);
     T pop();
+    int size();
+
 };
+template<class T>
+int Pila<T>::size()
+{
+    return data.size();
+}
 
 template<class T>
 void Pila<T>::push(T dat)
@@ -29,7 +32,7 @@ void Pila<T>::push(T dat)
 }
 
 template<class T>
-T Pila<T>::top()
+T &Pila<T>::top()
 {
     int size = data.size()-1;
     return data[size];

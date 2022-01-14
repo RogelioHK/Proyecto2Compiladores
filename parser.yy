@@ -46,9 +46,9 @@ using namespace std;
 %token <std::string>     ID
 %token <std::string>     NUMERO CARACTER
 %token              IF ELSE WHILE DO
-%token              INT FLOAT DOUBLE CHAR
-%token              LKEY RKEY PYC COMA
-%token              PRINT SCAN
+%token              INT FLOAT DOUBLE CHAR VOID RETURN BREAK
+%token              LKEY RKEY PYC COMA PUNTO
+%token              PRINT SCAN STRUCT
 
 %left               ASIG NOT
 %left               MAYORQUE MENORQUE MAYORIGUAL MENORIGUAL IGUAL DIFF AND OR
@@ -56,8 +56,9 @@ using namespace std;
 %left               MUL DIV
 %nonassoc           LPAR RPAR
 
-%type<int>  tipo
+%type<int>  tipo arg param
 %type <Expresion> expresion
+%type <vector<int>> lista_args args lista_params params
 
 %locations
 
@@ -65,7 +66,7 @@ using namespace std;
 
 %%
 programa :
-    declaraciones sentencias
+    declaraciones
     {
         driver.print();
         driver.translate();
@@ -78,33 +79,82 @@ declaraciones:
     ;
 
 declaracion:
-    tipo {driver.setType($1);} lista_var PYC
-    ;
-    
-/*  |
-    VOID ID LPAR
+    STRUCT decl2; 
+    |
+    VOID
     {
-        driver._label($2);
-    }
-    lista_arg
-    {
-
+        driver.pushSymT(driver.symtab()); 
     } 
-    RPAR LKEY declaraciones sentencias RKEY{
-        driver.addSym($2, 4, "fun", driver.lp);
+    ID LPAR 
+    {
+        driver.pushLabel(driver.newLab());// final
+        driver._label($3);
     }
+    lista_args RPAR LKEY decl_locales bloque_sentencias 
+    {
+        driver.popSymT();
+    }
+    RKEY
+    {
+        driver.addSym($3, 4, "fun", $6);
+        driver._label(driver.newLabel(driver.element(0)));
+        driver.popLabel(); 
+    }
+    |
+    tipo {driver.setType($1);} decl1
+    ;
 
-    P.push(nuevaTs())
-    genLabel(id)
+decl2:
+    LKEY
+    {
+        driver.pushSymT(driver.symtab());
+    } 
+    body_struct RKEY ID
+    {
+        driver.estructura($5);
+    }
+    PYC
+    {
+        driver.addSym($5, 5, "struct");   
+    }
+    |
+    ID 
+    {
+        driver.pushSymT(driver.symtab());
+    }
+    LKEY body_struct RKEY 
+    {
+        driver.estructura($1);
+    }
+    PYC
+    {
+        driver.addSym($1, 5, "struct");
+    }
+    ;
 
-    Ps.pop();
-    Si !Ps.top().find(id) Entonces
-        Ps.top().add.(id, dir, void, “fun”, lista-args.listas))
-        dir = dir + Tt.getSize()
-    Sino
-       error(“La función ya existente”)
-    Fin si
-*/
+body_struct:
+    decl_locales
+    ;
+
+decl1:
+    lista_var PYC
+    |
+    ID 
+    {
+        driver.pushLabel(driver.newLab());// final
+        driver.pushSymT(driver.symtab());
+        driver._label($1);
+    }
+    LPAR lista_args RPAR LKEY decl_locales bloque_sentencias RETURN expresion PYC RKEY
+    {
+        
+        driver._return($1, $10);
+        driver.popSymT();
+        driver.addSym($1, 4, "fun", $4);
+        driver._label(driver.newLabel(driver.element(0)));
+        driver.popLabel();
+    }
+    ;
 
 tipo:
     INT { $$ = 0; }
@@ -126,15 +176,53 @@ lista_var:
     }
     ;
 
-/*lista_arg:
-    lista_arg COMA ID{
-        driver.addSym($3, driver.getType(), "parametro");
+lista_args:
+    args
+    {
+        $$ = $1;
     }
     |
-    ID{
-        driver.addSym($1, driver.getType(), "parametro");
+    {
+        $$ = vector<int>();
     }
-    ;*/
+    ;
+
+args:
+    args COMA arg
+    {
+        $$ = vector<int>();
+        $$ = $1;
+        $$.push_back($3);
+    }
+    |
+    arg
+    {
+        $$ = vector<int>();
+        $$.push_back($1);
+    }
+    ;
+
+arg:
+    tipo ID
+    {
+        driver.addSym($2, $1, "param");
+        $$ = $1;
+    }
+    ;
+
+bloque_sentencias:
+    sentencias
+    |
+    ;
+
+decl_locales:
+    decl_locales decl_local
+    | decl_local
+    ;
+
+decl_local:
+    tipo {driver.setType($1);} lista_var PYC
+    ;
 
 sentencias:
     sentencias sentencia
@@ -148,17 +236,17 @@ sentencia:
         driver.pushLabel(driver.newLab());// label true
         driver.pushLabel(driver.newLab());// label false
         driver._if($3.dir, driver.newLabel(driver.element(1)));        
-        driver._goto(driver.newLabel(driver.element(0)));
+        driver._goto(driver.newLabel(driver.element(2)));
         driver._label(driver.newLabel(driver.element(1)));
     } 
     RPAR LKEY sentencias
     {
-        driver._goto(driver.newLabel(driver.element(2)));
-        driver._label(driver.newLabel(driver.element(0)));
+        driver._goto(driver.newLabel(driver.element(0)));
+        driver._label(driver.newLabel(driver.element(2)));
     }
     RKEY ELSE LKEY sentencias RKEY
     {
-        driver._label(driver.newLabel(driver.element(2)));
+        driver._label(driver.newLabel(driver.element(0)));
         driver.popLabel();
         driver.popLabel();
         driver.popLabel();
@@ -219,9 +307,19 @@ sentencia:
         driver.imprimir($3);
     }
     |
-    SCAN LPAR expresion RPAR PYC
+    SCAN LPAR ID RPAR PYC 
     {
-        driver.ler();
+        driver.ler($3);
+    }
+    /*|
+    RETURN expresion PYC
+    {
+        driver._return($2);
+    }*/
+    |
+    BREAK PYC{
+        
+        driver._goto(driver.newLabel(driver.element(0)));
     }
     ;
 
@@ -257,12 +355,46 @@ expresion:
     CARACTER{$$=driver.caracter($1, lexer.getType());}
     |
     ID{$$=driver.ident($1);}
+    |
+    ID LPAR lista_params RPAR {$$=driver.retorno($1, $3);}
+    |
+    ID PUNTO ID {$$ = driver.retStruct($1,$3);}
     ;
 
+lista_params:
+    params
+    {
+        $$ = $1;
+    }
+    |
+    {
+        $$ = vector<int>();
+    }
+    ;
 
+params:
+    params COMA param
+    {
+        $$ = vector<int>();
+        $$ = $1;
+        $$.push_back($3);
+    }
+    |
+    param
+    {
+        $$ = vector<int>();
+        $$.push_back($1);
+    }
+    ;
+
+param:
+    expresion
+    {
+        $$ = $1.type;
+    }
+    ;
 
 %%
-
 
 void yy::Parser::error( const location_type &l, const std::string &err_message )
 {
