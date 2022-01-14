@@ -1,0 +1,43 @@
+.data
+	input: .asciiz "-> "
+	breik: .word 0
+	main: .float 0.0
+	cteDouble0: .double 200.1
+.text
+breik:	lw $t0,cteDouble0
+	mtc1 $t0,$f0
+	cvt.s.w $f0,$f0
+	s.s $f0, t0
+	la $t0,t0
+	l.s $f0, ($t0)
+	s.s $f0,  b
+	lw $t0,a
+	mtc1 $t0,$f0
+	cvt.s.w $f0,$f0
+	s.s $f0, t2
+	lw $t0,t2
+	lw $t0,b
+	sgt $t2, $t0, $t1
+	sw $t2, t1
+	lw $t0,t1
+	bne $t0, $zero, L3
+	b L2
+L3:	b L4
+	b L4
+L2:	li $t0,201
+	sw $t0,  a
+L4:L1:main:	lw $t0,a
+	sw $t0,  louden
+	b L5
+L6:	lw $t0,louden
+	li $t0,2
+	seq $t2, $t0, $t1
+	sw $t2, t3
+	lw $t0,t3
+	bne $t0, $zero, L7
+	b L8
+L7:	li $t0,500
+	sw $t0,  louden
+	b L6
+L8:L5:	li $v0, 10
+	syscall

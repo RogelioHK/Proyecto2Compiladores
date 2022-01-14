@@ -1,0 +1,25 @@
+.data
+	input: .asciiz "-> "
+	_final: .float 0.0
+	a: .ascii ""
+	abajo: .double 0.0
+	b: .ascii ""
+	compiladores: .double 0.0
+	e1: .word 0
+	main: .double 0.0
+	no: .double 0.0
+	pasar: .double 0.0
+	profe: .ascii ""
+	quiero: .word 0
+	reprobar: .float 0.0
+.text
+main:	lw $t0,quiero
+	sw $t0,  z
+	la $t0,pasar
+	l.s $f0, ($t0)
+	s.s $f0,  efe
+	la $t0,profe
+	l.s $f0, ($t0)
+	s.s $f0,  f
+L1:	li $v0, 10
+	syscall

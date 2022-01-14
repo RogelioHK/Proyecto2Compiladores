@@ -1,8 +1,5 @@
 #ifndef __LEXER_HPP__
-/**
- * @author Adrian Ulises Mercado Martínez
- * @version 1, 3/11/2021
- */
+
 #define __LEXER_HPP__
 #include "parser.tab.hh"
 #include "location.hh"

@@ -42,7 +42,7 @@
 
 
 // Unqualified %code blocks.
-#line 31 "parser.yy"
+#line 28 "parser.yy"
 
 #include <iostream>
 #include <cstdlib>
@@ -795,7 +795,7 @@ namespace yy {
           switch (yyn)
             {
   case 2: // programa: declaraciones
-#line 70 "parser.yy"
+#line 67 "parser.yy"
     {
         driver.print();
         driver.translate();
@@ -804,7 +804,7 @@ namespace yy {
     break;
 
   case 6: // $@1: %empty
-#line 85 "parser.yy"
+#line 82 "parser.yy"
     {
         driver.pushSymT(driver.symtab()); 
     }
@@ -812,7 +812,7 @@ namespace yy {
     break;
 
   case 7: // $@2: %empty
-#line 89 "parser.yy"
+#line 86 "parser.yy"
     {
         driver.pushLabel(driver.newLab());// final
         driver._label(yystack_[1].value.as < std::string > ());
@@ -821,7 +821,7 @@ namespace yy {
     break;
 
   case 8: // $@3: %empty
-#line 94 "parser.yy"
+#line 91 "parser.yy"
     {
         driver.popSymT();
     }
@@ -829,7 +829,7 @@ namespace yy {
     break;
 
   case 9: // declaracion: VOID $@1 ID LPAR $@2 lista_args RPAR LKEY decl_locales bloque_sentencias $@3 RKEY
-#line 98 "parser.yy"
+#line 95 "parser.yy"
     {
         driver.addSym(yystack_[9].value.as < std::string > (), 4, "fun", yystack_[6].value.as < vector<int> > ());
         driver._label(driver.newLabel(driver.element(0)));
@@ -839,13 +839,13 @@ namespace yy {
     break;
 
   case 10: // $@4: %empty
-#line 104 "parser.yy"
+#line 101 "parser.yy"
          {driver.setType(yystack_[0].value.as < int > ());}
 #line 845 "parser.tab.cc"
     break;
 
   case 12: // $@5: %empty
-#line 109 "parser.yy"
+#line 106 "parser.yy"
     {
         driver.pushSymT(driver.symtab());
     }
@@ -853,7 +853,7 @@ namespace yy {
     break;
 
   case 13: // $@6: %empty
-#line 113 "parser.yy"
+#line 110 "parser.yy"
     {
         driver.estructura(yystack_[0].value.as < std::string > ());
     }
@@ -861,7 +861,7 @@ namespace yy {
     break;
 
   case 14: // decl2: LKEY $@5 body_struct RKEY ID $@6 PYC
-#line 117 "parser.yy"
+#line 114 "parser.yy"
     {
         driver.addSym(yystack_[2].value.as < std::string > (), 5, "struct");   
     }
@@ -869,7 +869,7 @@ namespace yy {
     break;
 
   case 15: // $@7: %empty
-#line 122 "parser.yy"
+#line 119 "parser.yy"
     {
         driver.pushSymT(driver.symtab());
     }
@@ -877,7 +877,7 @@ namespace yy {
     break;
 
   case 16: // $@8: %empty
-#line 126 "parser.yy"
+#line 123 "parser.yy"
     {
         driver.estructura(yystack_[4].value.as < std::string > ());
     }
@@ -885,7 +885,7 @@ namespace yy {
     break;
 
   case 17: // decl2: ID $@7 LKEY body_struct RKEY $@8 PYC
-#line 130 "parser.yy"
+#line 127 "parser.yy"
     {
         driver.addSym(yystack_[6].value.as < std::string > (), 5, "struct");
     }
@@ -893,7 +893,7 @@ namespace yy {
     break;
 
   case 20: // $@9: %empty
-#line 143 "parser.yy"
+#line 140 "parser.yy"
     {
         driver.pushLabel(driver.newLab());// final
         driver.pushSymT(driver.symtab());
@@ -903,7 +903,7 @@ namespace yy {
     break;
 
   case 21: // decl1: ID $@9 LPAR lista_args RPAR LKEY decl_locales bloque_sentencias RETURN expresion PYC RKEY
-#line 149 "parser.yy"
+#line 146 "parser.yy"
     {
         
         driver._return(yystack_[11].value.as < std::string > (), yystack_[2].value.as < Expresion > ());
@@ -916,31 +916,31 @@ namespace yy {
     break;
 
   case 22: // tipo: INT
-#line 160 "parser.yy"
+#line 157 "parser.yy"
         { yylhs.value.as < int > () = 0; }
 #line 922 "parser.tab.cc"
     break;
 
   case 23: // tipo: FLOAT
-#line 162 "parser.yy"
+#line 159 "parser.yy"
           { yylhs.value.as < int > () = 1; }
 #line 928 "parser.tab.cc"
     break;
 
   case 24: // tipo: DOUBLE
-#line 164 "parser.yy"
+#line 161 "parser.yy"
            { yylhs.value.as < int > () = 2; }
 #line 934 "parser.tab.cc"
     break;
 
   case 25: // tipo: CHAR
-#line 166 "parser.yy"
+#line 163 "parser.yy"
          { yylhs.value.as < int > () = 3; }
 #line 940 "parser.tab.cc"
     break;
 
   case 26: // lista_var: lista_var COMA ID
-#line 170 "parser.yy"
+#line 167 "parser.yy"
                      {
         driver.addSym(yystack_[0].value.as < std::string > (), driver.getType(), "variable");
     }
@@ -948,7 +948,7 @@ namespace yy {
     break;
 
   case 27: // lista_var: ID
-#line 174 "parser.yy"
+#line 171 "parser.yy"
       {
         driver.addSym(yystack_[0].value.as < std::string > (), driver.getType(), "variable");
     }
@@ -956,7 +956,7 @@ namespace yy {
     break;
 
   case 28: // lista_args: args
-#line 181 "parser.yy"
+#line 178 "parser.yy"
     {
         yylhs.value.as < vector<int> > () = yystack_[0].value.as < vector<int> > ();
     }
@@ -964,7 +964,7 @@ namespace yy {
     break;
 
   case 29: // lista_args: %empty
-#line 185 "parser.yy"
+#line 182 "parser.yy"
     {
         yylhs.value.as < vector<int> > () = vector<int>();
     }
@@ -972,7 +972,7 @@ namespace yy {
     break;
 
   case 30: // args: args COMA arg
-#line 192 "parser.yy"
+#line 189 "parser.yy"
     {
         yylhs.value.as < vector<int> > () = vector<int>();
         yylhs.value.as < vector<int> > () = yystack_[2].value.as < vector<int> > ();
@@ -982,7 +982,7 @@ namespace yy {
     break;
 
   case 31: // args: arg
-#line 199 "parser.yy"
+#line 196 "parser.yy"
     {
         yylhs.value.as < vector<int> > () = vector<int>();
         yylhs.value.as < vector<int> > ().push_back(yystack_[0].value.as < int > ());
@@ -991,7 +991,7 @@ namespace yy {
     break;
 
   case 32: // arg: tipo ID
-#line 207 "parser.yy"
+#line 204 "parser.yy"
     {
         driver.addSym(yystack_[0].value.as < std::string > (), yystack_[1].value.as < int > (), "param");
         yylhs.value.as < int > () = yystack_[1].value.as < int > ();
@@ -1000,13 +1000,13 @@ namespace yy {
     break;
 
   case 37: // $@10: %empty
-#line 224 "parser.yy"
+#line 221 "parser.yy"
          {driver.setType(yystack_[0].value.as < int > ());}
 #line 1006 "parser.tab.cc"
     break;
 
   case 41: // $@11: %empty
-#line 234 "parser.yy"
+#line 231 "parser.yy"
     {
         driver.pushLabel(driver.newLab());// next
         driver.pushLabel(driver.newLab());// label true
@@ -1019,7 +1019,7 @@ namespace yy {
     break;
 
   case 42: // $@12: %empty
-#line 243 "parser.yy"
+#line 240 "parser.yy"
     {
         driver._goto(driver.newLabel(driver.element(0)));
         driver._label(driver.newLabel(driver.element(2)));
@@ -1028,7 +1028,7 @@ namespace yy {
     break;
 
   case 43: // sentencia: IF LPAR expresion $@11 RPAR LKEY sentencias $@12 RKEY ELSE LKEY sentencias RKEY
-#line 248 "parser.yy"
+#line 245 "parser.yy"
     {
         driver._label(driver.newLabel(driver.element(0)));
         driver.popLabel();
@@ -1039,7 +1039,7 @@ namespace yy {
     break;
 
   case 44: // $@13: %empty
-#line 256 "parser.yy"
+#line 253 "parser.yy"
     {
         driver.pushLabel(driver.newLab()); // begin
         driver.pushLabel(driver.newLab()); // true
@@ -1050,7 +1050,7 @@ namespace yy {
     break;
 
   case 45: // $@14: %empty
-#line 263 "parser.yy"
+#line 260 "parser.yy"
     {
         driver._if(yystack_[0].value.as < Expresion > ().dir, driver.newLabel(driver.element(1)));
         driver._goto(driver.newLabel(driver.element(0)));
@@ -1060,7 +1060,7 @@ namespace yy {
     break;
 
   case 46: // sentencia: WHILE $@13 LPAR expresion $@14 RPAR LKEY sentencias RKEY
-#line 269 "parser.yy"
+#line 266 "parser.yy"
     {
         driver._goto(driver.newLabel(driver.element(2)));
         driver._label(driver.newLabel(driver.element(0)));
@@ -1072,7 +1072,7 @@ namespace yy {
     break;
 
   case 47: // $@15: %empty
-#line 278 "parser.yy"
+#line 275 "parser.yy"
     {
         driver.pushLabel(driver.newLab()); // true
         driver.pushLabel(driver.newLab()); // false
@@ -1082,7 +1082,7 @@ namespace yy {
     break;
 
   case 48: // $@16: %empty
-#line 284 "parser.yy"
+#line 281 "parser.yy"
     {
         driver._if(yystack_[0].value.as < Expresion > ().dir, driver.newLabel(driver.element(1)));
         driver._goto(driver.newLabel(driver.element(0)));      
@@ -1091,7 +1091,7 @@ namespace yy {
     break;
 
   case 49: // sentencia: DO $@15 LKEY sentencias RKEY WHILE LPAR expresion $@16 RPAR PYC
-#line 289 "parser.yy"
+#line 286 "parser.yy"
     {
         driver._label(driver.newLabel(driver.element(0)));
         driver.popLabel();
@@ -1101,7 +1101,7 @@ namespace yy {
     break;
 
   case 50: // sentencia: ID ASIG expresion PYC
-#line 296 "parser.yy"
+#line 293 "parser.yy"
     {
         driver.asig(yystack_[3].value.as < std::string > (), yystack_[1].value.as < Expresion > ());
     }
@@ -1109,7 +1109,7 @@ namespace yy {
     break;
 
   case 51: // sentencia: ID NOT expresion PYC
-#line 301 "parser.yy"
+#line 298 "parser.yy"
     {
         driver.negacion(yystack_[3].value.as < std::string > (), yystack_[1].value.as < Expresion > ());
     }
@@ -1117,7 +1117,7 @@ namespace yy {
     break;
 
   case 52: // sentencia: PRINT LPAR expresion RPAR PYC
-#line 306 "parser.yy"
+#line 303 "parser.yy"
     {
         driver.imprimir(yystack_[2].value.as < Expresion > ());
     }
@@ -1125,7 +1125,7 @@ namespace yy {
     break;
 
   case 53: // sentencia: SCAN LPAR ID RPAR PYC
-#line 311 "parser.yy"
+#line 308 "parser.yy"
     {
         driver.ler(yystack_[2].value.as < std::string > ());
     }
@@ -1133,7 +1133,7 @@ namespace yy {
     break;
 
   case 54: // sentencia: BREAK PYC
-#line 320 "parser.yy"
+#line 317 "parser.yy"
              {
         
         driver._goto(driver.newLabel(driver.element(0)));
@@ -1142,115 +1142,115 @@ namespace yy {
     break;
 
   case 55: // expresion: expresion IGUAL expresion
-#line 327 "parser.yy"
+#line 324 "parser.yy"
                               {yylhs.value.as < Expresion > ()=driver.igual(yystack_[2].value.as < Expresion > (), yystack_[0].value.as < Expresion > ());}
 #line 1148 "parser.tab.cc"
     break;
 
   case 56: // expresion: expresion DIFF expresion
-#line 329 "parser.yy"
+#line 326 "parser.yy"
                              {yylhs.value.as < Expresion > ()=driver.distinto(yystack_[2].value.as < Expresion > (), yystack_[0].value.as < Expresion > ());}
 #line 1154 "parser.tab.cc"
     break;
 
   case 57: // expresion: expresion AND expresion
-#line 331 "parser.yy"
+#line 328 "parser.yy"
                             {yylhs.value.as < Expresion > ()=driver.conjuncion(yystack_[2].value.as < Expresion > (), yystack_[0].value.as < Expresion > ());}
 #line 1160 "parser.tab.cc"
     break;
 
   case 58: // expresion: expresion OR expresion
-#line 333 "parser.yy"
+#line 330 "parser.yy"
                            {yylhs.value.as < Expresion > ()=driver.disyuncion(yystack_[2].value.as < Expresion > (), yystack_[0].value.as < Expresion > ());}
 #line 1166 "parser.tab.cc"
     break;
 
   case 59: // expresion: expresion MAYORQUE expresion
-#line 335 "parser.yy"
+#line 332 "parser.yy"
                                  {yylhs.value.as < Expresion > ()=driver.mayor_que(yystack_[2].value.as < Expresion > (), yystack_[0].value.as < Expresion > ());}
 #line 1172 "parser.tab.cc"
     break;
 
   case 60: // expresion: expresion MENORQUE expresion
-#line 337 "parser.yy"
+#line 334 "parser.yy"
                                  {yylhs.value.as < Expresion > ()=driver.menor_que(yystack_[2].value.as < Expresion > (), yystack_[0].value.as < Expresion > ());}
 #line 1178 "parser.tab.cc"
     break;
 
   case 61: // expresion: expresion MAYORIGUAL expresion
-#line 339 "parser.yy"
+#line 336 "parser.yy"
                                    {yylhs.value.as < Expresion > ()=driver.mayor_o_igual(yystack_[2].value.as < Expresion > (), yystack_[0].value.as < Expresion > ());}
 #line 1184 "parser.tab.cc"
     break;
 
   case 62: // expresion: expresion MENORIGUAL expresion
-#line 341 "parser.yy"
+#line 338 "parser.yy"
                                    {yylhs.value.as < Expresion > ()=driver.menor_o_igual(yystack_[2].value.as < Expresion > (), yystack_[0].value.as < Expresion > ());}
 #line 1190 "parser.tab.cc"
     break;
 
   case 63: // expresion: expresion MAS expresion
-#line 343 "parser.yy"
+#line 340 "parser.yy"
                             {yylhs.value.as < Expresion > ()=driver.mas(yystack_[2].value.as < Expresion > (), yystack_[0].value.as < Expresion > ());}
 #line 1196 "parser.tab.cc"
     break;
 
   case 64: // expresion: expresion MENOS expresion
-#line 345 "parser.yy"
+#line 342 "parser.yy"
                              {yylhs.value.as < Expresion > ()=driver.menos(yystack_[2].value.as < Expresion > (), yystack_[0].value.as < Expresion > ());}
 #line 1202 "parser.tab.cc"
     break;
 
   case 65: // expresion: expresion MUL expresion
-#line 347 "parser.yy"
+#line 344 "parser.yy"
                            {yylhs.value.as < Expresion > ()=driver.mul(yystack_[2].value.as < Expresion > (), yystack_[0].value.as < Expresion > ());}
 #line 1208 "parser.tab.cc"
     break;
 
   case 66: // expresion: expresion DIV expresion
-#line 349 "parser.yy"
+#line 346 "parser.yy"
                            {yylhs.value.as < Expresion > ()=driver.div(yystack_[2].value.as < Expresion > (), yystack_[0].value.as < Expresion > ());}
 #line 1214 "parser.tab.cc"
     break;
 
   case 67: // expresion: LPAR expresion RPAR
-#line 351 "parser.yy"
+#line 348 "parser.yy"
                        {yylhs.value.as < Expresion > ()=yystack_[1].value.as < Expresion > ();}
 #line 1220 "parser.tab.cc"
     break;
 
   case 68: // expresion: NUMERO
-#line 353 "parser.yy"
+#line 350 "parser.yy"
           {yylhs.value.as < Expresion > ()=driver.numero(yystack_[0].value.as < std::string > (), lexer.getType());}
 #line 1226 "parser.tab.cc"
     break;
 
   case 69: // expresion: CARACTER
-#line 355 "parser.yy"
+#line 352 "parser.yy"
             {yylhs.value.as < Expresion > ()=driver.caracter(yystack_[0].value.as < std::string > (), lexer.getType());}
 #line 1232 "parser.tab.cc"
     break;
 
   case 70: // expresion: ID
-#line 357 "parser.yy"
+#line 354 "parser.yy"
       {yylhs.value.as < Expresion > ()=driver.ident(yystack_[0].value.as < std::string > ());}
 #line 1238 "parser.tab.cc"
     break;
 
   case 71: // expresion: ID LPAR lista_params RPAR
-#line 359 "parser.yy"
+#line 356 "parser.yy"
                               {yylhs.value.as < Expresion > ()=driver.retorno(yystack_[3].value.as < std::string > (), yystack_[1].value.as < vector<int> > ());}
 #line 1244 "parser.tab.cc"
     break;
 
   case 72: // expresion: ID PUNTO ID
-#line 361 "parser.yy"
+#line 358 "parser.yy"
                 {yylhs.value.as < Expresion > () = driver.retStruct(yystack_[2].value.as < std::string > (),yystack_[0].value.as < std::string > ());}
 #line 1250 "parser.tab.cc"
     break;
 
   case 73: // lista_params: params
-#line 366 "parser.yy"
+#line 363 "parser.yy"
     {
         yylhs.value.as < vector<int> > () = yystack_[0].value.as < vector<int> > ();
     }
@@ -1258,7 +1258,7 @@ namespace yy {
     break;
 
   case 74: // lista_params: %empty
-#line 370 "parser.yy"
+#line 367 "parser.yy"
     {
         yylhs.value.as < vector<int> > () = vector<int>();
     }
@@ -1266,7 +1266,7 @@ namespace yy {
     break;
 
   case 75: // params: params COMA param
-#line 377 "parser.yy"
+#line 374 "parser.yy"
     {
         yylhs.value.as < vector<int> > () = vector<int>();
         yylhs.value.as < vector<int> > () = yystack_[2].value.as < vector<int> > ();
@@ -1276,7 +1276,7 @@ namespace yy {
     break;
 
   case 76: // params: param
-#line 384 "parser.yy"
+#line 381 "parser.yy"
     {
         yylhs.value.as < vector<int> > () = vector<int>();
         yylhs.value.as < vector<int> > ().push_back(yystack_[0].value.as < int > ());
@@ -1285,7 +1285,7 @@ namespace yy {
     break;
 
   case 77: // param: expresion
-#line 392 "parser.yy"
+#line 389 "parser.yy"
     {
         yylhs.value.as < int > () = yystack_[0].value.as < Expresion > ().type;
     }
@@ -1687,14 +1687,14 @@ namespace yy {
   const short
   Parser::yyrline_[] =
   {
-       0,    69,    69,    77,    78,    82,    85,    89,    94,    84,
-     104,   104,   109,   113,   108,   122,   126,   121,   136,   140,
-     143,   142,   160,   162,   164,   166,   170,   174,   180,   185,
-     191,   198,   206,   214,   215,   219,   220,   224,   224,   228,
-     229,   234,   243,   233,   256,   263,   255,   278,   284,   277,
-     295,   300,   305,   310,   320,   327,   329,   331,   333,   335,
-     337,   339,   341,   343,   345,   347,   349,   351,   353,   355,
-     357,   359,   361,   365,   370,   376,   383,   391
+       0,    66,    66,    74,    75,    79,    82,    86,    91,    81,
+     101,   101,   106,   110,   105,   119,   123,   118,   133,   137,
+     140,   139,   157,   159,   161,   163,   167,   171,   177,   182,
+     188,   195,   203,   211,   212,   216,   217,   221,   221,   225,
+     226,   231,   240,   230,   253,   260,   252,   275,   281,   274,
+     292,   297,   302,   307,   317,   324,   326,   328,   330,   332,
+     334,   336,   338,   340,   342,   344,   346,   348,   350,   352,
+     354,   356,   358,   362,   367,   373,   380,   388
   };
 
   void
@@ -1778,7 +1778,7 @@ namespace yy {
 } // yy
 #line 1780 "parser.tab.cc"
 
-#line 397 "parser.yy"
+#line 394 "parser.yy"
 
 
 void yy::Parser::error( const location_type &l, const std::string &err_message )

@@ -1,0 +1,24 @@
+int breik(int a, char c, float b){
+	int z;
+	b = 200.1;
+
+	if(a > b){
+		break;
+	}
+	else{
+		a = 201;
+	}
+	return a;
+}
+
+void main(){
+	int louden;
+	int ajo;
+	char x;
+	float d;
+	louden = breik(ajo,x,d);
+	break;
+	while(louden == 2){
+		louden = 500;
+	}
+}

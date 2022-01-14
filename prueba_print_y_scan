@@ -1,0 +1,5 @@
+void main(){
+	int local;
+	scan(local);
+	print(local);
+}

@@ -1,7 +1,3 @@
-/**
- * @author Adrian Ulises Mercado Martínez
- * @version 1, 3/11/2021
- */
 #ifndef __QUAD_HPP__
 #define __QUAD_HPP__
 

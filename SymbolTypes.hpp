@@ -1,7 +1,3 @@
-/**
- * @author Adrian Ulises Mercado Martínez
- * @version 1, 3/11/2021
- */
 #ifndef __SYMBOLTYPES_HPP__
 #define __SYMBOLTYPES_HPP__
 #include <string>

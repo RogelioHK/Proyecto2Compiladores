@@ -1,0 +1,90 @@
+.data
+	input: .asciiz "-> "
+	main: .word 0
+.text
+main:	li $v0, 4
+	la $a0, input
+	syscall
+	li $v0, 5
+	syscall
+	move $t0, $v0
+	sw $t0, a
+	li $v0, 4
+	la $a0, input
+	syscall
+	li $v0, 5
+	syscall
+	move $t0, $v0
+	sw $t0, b
+	li $v0, 4
+	la $a0, input
+	syscall
+	li $v0, 5
+	syscall
+	move $t0, $v0
+	sw $t0, c
+	lw $t0,a
+	lw $t0,b
+	seq $t2, $t0, $t1
+	sw $t2, t0
+	lw $t0,t0
+	lw $t0,c
+	or $t2, $t0, $t1
+	sw $t2, t1
+	lw $t0,t1
+	lw $t0,b
+	seq $t2, $t0, $t1
+	sw $t2, t2
+	lw $t0,t2
+	bne $t0, $zero, L3
+	b L2
+L3:	li $v0, 1
+	lw $a0, a
+	syscall
+	b L4
+L2:	li $v0, 1
+	lw $a0, b
+	syscall
+L4:L5:	lw $t0,b
+	li $t0,1
+	add $t2, $t0, $t1
+	sw $t2, t3
+	lw $t0,t3
+	sw $t0,  a
+	lw $t0,a
+	lw $t0,b
+	sne $t2, $t0, $t1
+	sw $t2, t4
+	lw $t0,t4
+	bne $t0, $zero, L5
+	b L6
+L6:L7:	lw $t0,c
+	lw $t0,a
+	sgt $t2, $t0, $t1
+	sw $t2, t5
+	lw $t0,t5
+	lw $t0,c
+	and $t2, $t0, $t1
+	sw $t2, t6
+	lw $t0,t6
+	lw $t0,b
+	slt $t2, $t0, $t1
+	sw $t2, t7
+	lw $t0,t7
+	bne $t0, $zero, L8
+	b L9
+L8:	lw $t0,c
+	li $t0,1
+	sub $t2, $t0, $t1
+	sw $t2, t8
+	lw $t0,t8
+	sw $t0,  c
+	lw $t0,b
+	li $t0,1
+	sub $t2, $t0, $t1
+	sw $t2, t9
+	lw $t0,t9
+	sw $t0,  b
+	b L7
+L9:L1:	li $v0, 10
+	syscall

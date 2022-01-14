@@ -45,7 +45,7 @@
 #ifndef YY_YY_PARSER_TAB_HH_INCLUDED
 # define YY_YY_PARSER_TAB_HH_INCLUDED
 // "%code requires" blocks.
-#line 11 "parser.yy"
+#line 8 "parser.yy"
 
 #include "SymbolTypes.hpp"
 

@@ -1,7 +1,4 @@
-/**
- * @author Adrian Ulises Mercado Martínez
- * @version 1, 3/11/2021
- */
+
 %skeleton "lalr1.cc"
 %require  "3.8"
 %debug 

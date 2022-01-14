@@ -1,0 +1,22 @@
+int enteros(int a){
+	int b;
+	b = a*100;
+	return b;
+}
+
+double dobles(double f){
+	double g;
+	g = 10.2;
+	f = 12.1*g;
+	return f;
+}
+
+void main(){
+	int aho;
+	int argi;
+	double t, tt;
+	argi = 2;
+	tt = 2.2;
+	aho = enteros(argi);
+	t = dobles(tt);	
+}

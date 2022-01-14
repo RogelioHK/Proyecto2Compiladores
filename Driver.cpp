@@ -152,7 +152,20 @@ string Driver::reducir(string dir, int t1, int t2)
         icode.push_back(Quad("(int)",dir, "", temp));
         addSym(temp, 0, "temporal");        
         return temp;
-    }else return "";
+    }
+    else if(t1==2 && t2==0){
+        temp = newTemp();
+        icode.push_back(Quad("(int)",dir, "", temp));
+        addSym(temp, 0, "temporal");        
+        return temp;
+    }
+    else if(t1==2 && t2==1){
+        temp = newTemp();
+        icode.push_back(Quad("(float)",dir, "", temp));
+        addSym(temp, 0, "temporal");        
+        return temp;
+    }
+    else return "";
 }
 
 /*
@@ -202,7 +215,6 @@ void Driver::addSym(string id, int dir, int type, string cat){
         symTabStack.top().addSym(id, Sym(dir,type, cat));
     else
         error("La variable "+id+" ya fue declarada");
-    cout<<"Variable: "<<id<<endl;
 }
 
 /*
@@ -667,9 +679,9 @@ void Driver::print()
  */
 void Driver::translate()
 {
-    gen.translate(&ts); // Traduce la tabla de símbolos en variables globales
+    gen.translate(&symTabStack.top()); // Traduce la tabla de símbolos en variables globales
     gen.translate(constantes); // Traduce las constantes como variables globales
-    gen.translate(icode, &ts);   // Traduce las instrucciones a código MIPS
+    gen.translate(icode, &symTabStack.top());   // Traduce las instrucciones a código MIPS
 }
 
 void Driver::pushSymT(SymTab ts){

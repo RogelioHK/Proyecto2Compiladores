@@ -69,6 +69,7 @@ doble ([0-9]+"."[0-9]*|"."[0-9]+){notacion}?|[0-9]*{notacion}
 "break"     { return token::BREAK; }
 "struct"    { return token::STRUCT; }
 
+
 {caracter}    { 
             numType = 3;
             yylval->build<std::string>(yytext);

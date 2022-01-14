@@ -1,0 +1,25 @@
+struct no{
+	int quiero;
+	float reprobar;
+	double compiladores;
+	char profe;
+};
+
+struct{
+	char a;
+	char b;
+	double pasar;
+	int e1;
+	float _final;
+} abajo;
+
+void main(){
+	int z;
+	float ini12;
+	char f;
+	double efe;
+
+	z = no.quiero;
+	efe = abajo.pasar;
+	f = no.profe;
+}

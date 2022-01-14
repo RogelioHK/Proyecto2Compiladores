@@ -1,0 +1,22 @@
+void main(){
+	int a, b, c;
+	scan(a);
+	scan(b);
+	scan(c);
+
+	if(a == b || c == b){
+		print(a);
+	}
+	else{
+		print(b);
+	}
+
+	do{
+		a = b + 1;
+	}while(a != b);
+
+	while(c > a && c < b){
+		c = c-1;
+		b = b - 1;
+	}
+}

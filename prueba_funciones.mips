@@ -1,0 +1,41 @@
+.data
+	input: .asciiz "-> "
+	dobles: .double 0.0
+	enteros: .word 0
+	main: .double 0.0
+	cteDouble0: .double 10.2
+	cteDouble1: .double 12.1
+	cteDouble2: .double 2.2
+.text
+enteros:	la $t0,a
+	l.s $f0, ($t0)
+	la $t1,100
+	l.s $f1, ($t1)
+	mul.s $f2, $f0, $f1
+	s.s $f2, t0
+	lw $t0,t0
+	sw $t0,  b
+L1:dobles:	la $t0,cteDouble0
+	l.s $f0, ($t0)
+	s.s $f0,  g
+	la $t0,cteDouble1
+	l.s $f0, ($t0)
+	la $t1,g
+	l.s $f1, ($t1)
+	mul.s $f2, $f0, $f1
+	s.s $f2, t1
+	lw $t0,t1
+	sw $t0,  f
+L2:main:	li $t0,2
+	sw $t0,  argi
+	la $t0,cteDouble2
+	l.s $f0, ($t0)
+	s.s $f0,  tt
+	la $t0,b
+	l.s $f0, ($t0)
+	s.s $f0,  aho
+	la $t0,f
+	l.s $f0, ($t0)
+	s.s $f0,  t
+L3:	li $v0, 10
+	syscall

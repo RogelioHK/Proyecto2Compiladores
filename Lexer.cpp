@@ -868,7 +868,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 73 "lexer.ll"
+#line 74 "lexer.ll"
 { 
             numType = 3;
             yylval->build<std::string>(yytext);
@@ -877,7 +877,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 78 "lexer.ll"
+#line 79 "lexer.ll"
 { 
             yylval->build<std::string>(yytext);
             return token::ID; 
@@ -885,7 +885,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 83 "lexer.ll"
+#line 84 "lexer.ll"
 { 
             numType = 0;
             yylval->build<std::string>(yytext);
@@ -894,7 +894,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 88 "lexer.ll"
+#line 89 "lexer.ll"
 { 
             numType = 1;
             yylval->build<std::string>(yytext);
@@ -903,7 +903,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 93 "lexer.ll"
+#line 94 "lexer.ll"
 { 
             numType = 2;
             yylval->build<std::string>(yytext);
@@ -912,23 +912,23 @@ YY_RULE_SETUP
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 99 "lexer.ll"
+#line 100 "lexer.ll"
 {}
 	YY_BREAK
 case 42:
 /* rule 42 can match eol */
 YY_RULE_SETUP
-#line 100 "lexer.ll"
+#line 101 "lexer.ll"
 {line++;}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 101 "lexer.ll"
+#line 102 "lexer.ll"
 { cout<<"ERROR LEXICO "<<yytext<<endl;}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 102 "lexer.ll"
+#line 103 "lexer.ll"
 ECHO;
 	YY_BREAK
 #line 935 "Lexer.cpp"
@@ -1894,7 +1894,7 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 102 "lexer.ll"
+#line 103 "lexer.ll"
 
 int yyFlexLexer::yywrap(){
     return 1;

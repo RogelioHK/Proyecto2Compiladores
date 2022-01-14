@@ -1,0 +1,16 @@
+int no;
+float nos;
+double repruebe;
+char porfavor;
+
+void main(){
+	int local;
+	no = 12;
+	nos = 1.1;
+	repruebe = 111.222;
+	porfavor = "t";
+	print(no);
+	print(nos);
+	print(repruebe);
+	print(porfavor);
+}

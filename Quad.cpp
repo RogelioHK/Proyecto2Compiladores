@@ -1,7 +1,3 @@
-/**
- * @author Adrian Ulises Mercado Martínez
- * @version 1, 3/11/2021
- */
 #include "Quad.hpp"
 #include <iostream>
 Quad::Quad(/* args */)
